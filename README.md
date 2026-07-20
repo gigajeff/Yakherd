@@ -15,6 +15,46 @@ the first product prompt arrives.
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%2B-3776AB.svg)](https://www.python.org/)
 
+## Absolute Beginner? Start Here
+
+You do not need to understand "SSOT," Git, Python, or software architecture to
+start. Yakherd is the **project-management and reliability half of vibe
+coding**. It gives a coding agent a disciplined way to plan, build, check, and
+remember a software project without letting important decisions disappear into
+old chats.
+
+You provide the other half: **your idea**, usually written as a master prompt.
+The master prompt describes what you want the software to do. Yakherd does not
+invent that idea for you; it gives the agent a safer, more organized working
+environment in which to build it.
+
+In short:
+
+1. **Yakherd** provides the operating system for the work: roles, plans,
+   decisions, evidence, review, and a durable source of truth.
+2. **Your master prompt** provides the product: the problem, users, desired
+   behavior, constraints, and definition of success.
+3. **An agentic coding environment** such as Codex or Claude Code uses both to
+   build the software.
+
+If all you know how to do is talk to your coding agent, that is enough. Start a
+new task in your agentic coding environment and tell it:
+
+> Install Yakherd from https://github.com/gigajeff/Yakherd into a new project
+> repository for me. Follow Yakherd's README and safety instructions. Do not
+> overwrite an existing project. After installation and the required review,
+> ask me for my idea or master prompt.
+
+The agent can clone this repository, run the installer, and guide you through
+the next step. Once Yakherd is installed and its initial review passes, give
+the agent your master prompt. Together, Yakherd plus a clear master prompt can
+turn an idea into usable software in Codex, Claude Code, or another capable
+agentic coding environment.
+
+Yakherd improves how the work is organized and reviewed; it does not guarantee
+that every generated program is correct or safe. You should still review and
+test consequential software before relying on it.
+
 ## Why Yakherd
 
 Long-running agent projects often drift because decisions live in chat,
