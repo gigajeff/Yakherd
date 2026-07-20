@@ -63,6 +63,9 @@ class BootstrapTests(unittest.TestCase):
     def test_manifest_matches_template_tree(self) -> None:
         manifest = BOOTSTRAP.load_package_manifest()
         self.assertGreater(len(manifest["template_files"]), 30)
+        release = json.loads((PACKAGE_ROOT / "RELEASE.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["package_name"], release["package_name"])
+        self.assertEqual(manifest["package_version"], release["package_version"])
 
     def test_runtime_scripts_use_only_standard_library_imports(self) -> None:
         paths = [
@@ -94,7 +97,9 @@ class BootstrapTests(unittest.TestCase):
             code = self.run_quiet(["--target", str(target), "--project-name", "Example Project", "--date", "2026-07-20"])
             self.assertEqual(0, code)
             self.assertIn("Example Project", (target / "README.md").read_text(encoding="utf-8"))
+            self.assertEqual("@AGENTS.md\n", (target / "CLAUDE.md").read_text(encoding="utf-8"))
             record = json.loads((target / BOOTSTRAP.INSTALL_MANIFEST_NAME).read_text(encoding="utf-8"))
+            self.assertEqual("1.1.0", record["package_version"])
             for item in record["files"]:
                 self.assertEqual(item["rendered_sha256"], sha256(target / item["path"]))
             protocol = subprocess.run(

@@ -5,6 +5,22 @@
 - Python 3.11 or newer.
 - A nonexistent or empty target directory for fresh installation.
 - No third-party Python packages.
+- An agentic coding environment needs project-file, shell, and Git access.
+
+## Agent Compatibility
+
+- Codex loads the installed `AGENTS.md` when the generated repository is opened
+  as the project.
+- Claude Code loads the installed `CLAUDE.md` when the generated repository is
+  opened as the project in a fresh session. On first use, approve its local
+  `@AGENTS.md` import only after verifying that it resolves inside the
+  repository, then use `/context` to confirm both instruction files are active.
+- Other coding agents must be explicitly told to read and follow `AGENTS.md`
+  unless they document native support for it.
+
+`AGENTS.md` remains the single authoritative instruction file. `CLAUDE.md` is
+only an adapter and must not duplicate or override its rules. Do not begin work
+if the applicable instruction file is absent from the agent's active context.
 
 ## Fresh Installation
 
@@ -48,7 +64,7 @@ completion.
 
 ## Low-Level Package Interface
 
-The unchanged audited entry point remains available:
+The stable low-level package entry point remains available:
 
 ```powershell
 python packages\jeff_strict_ssot_v1\bootstrap.py --help

@@ -108,6 +108,12 @@ def main(argv: list[str] | None = None) -> int:
             release_errors.append("bootstrap.py does not match RELEASE.json")
         if release.get("manifest_sha256") != sha256(package / "MANIFEST.json"):
             release_errors.append("MANIFEST.json does not match RELEASE.json")
+        manifest_identity = json.loads(
+            (package / "MANIFEST.json").read_text(encoding="utf-8")
+        )
+        for field in ("package_name", "package_version"):
+            if release.get(field) != manifest_identity.get(field):
+                release_errors.append(f"RELEASE.json/MANIFEST.json {field} mismatch")
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
         release_errors.append(f"RELEASE.json unreadable: {exc}")
     install = output / "installed_repository"

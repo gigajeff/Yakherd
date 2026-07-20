@@ -34,16 +34,64 @@ In short:
    decisions, evidence, review, and a durable source of truth.
 2. **Your master prompt** provides the product: the problem, users, desired
    behavior, constraints, and definition of success.
-3. **An agentic coding environment** such as Codex or Claude Code uses both to
-   build the software.
+3. **An agentic coding environment** uses both to build the software.
 
-If all you know how to do is talk to your coding agent, that is enough. Start a
-new task in your agentic coding environment and tell it:
+The coding environment must be able to read and write project files, run shell
+commands, use Git, and run Python 3.11 or newer. Codex or Claude Code can do
+this when its execution environment also has Git and Python 3.11 or newer. An
+ordinary AI web chat without filesystem and shell tools cannot install Yakherd
+merely from a URL.
+
+### Which Coding Agents Work?
+
+| Environment | Yakherd support |
+| --- | --- |
+| Codex | Native when the generated repository is opened as the project. Codex loads the installed `AGENTS.md`. |
+| Claude Code | Native after the generated repository is opened as the project and the local import is approved. `CLAUDE.md` imports the same `AGENTS.md`; verify both are loaded with `/context`. |
+| Other coding agents | Compatible when the agent can use files, Git, a shell, and Python, and is explicitly told to read `AGENTS.md`. Automatic instruction loading depends on the tool. |
+| Ordinary AI chat | Not sufficient unless the chat has access to the required coding tools and project filesystem. |
+
+The governance files and role prompts are product- and model-neutral.
+`AGENTS.md` is the authority, while `CLAUDE.md` is only an import adapter; they
+do not create two competing copies of the rules. Agent instruction files are
+behavioral context, not a security sandbox, and the client must actually load
+them before work begins.
+
+### Tell Your Agent To Install It
+
+If all you know how to do is talk to your coding agent, that is enough. Use the
+prompt for your environment.
+
+**Codex:**
 
 > Install Yakherd from https://github.com/gigajeff/Yakherd into a new project
-> repository for me. Follow Yakherd's README and safety instructions. Do not
-> overwrite an existing project. After installation and the required review,
+> repository for me. First verify that this environment has Git and Python 3.11
+> or newer. Follow Yakherd's README and safety instructions. Do not overwrite
+> an existing project. After installation, open the generated repository as the
+> Codex project and confirm its AGENTS.md is loaded. After the required review,
 > ask me for my idea or master prompt.
+
+**Claude Code:**
+
+> Install Yakherd from https://github.com/gigajeff/Yakherd into a new project
+> repository for me. First verify that this environment has Git and Python 3.11
+> or newer. Follow Yakherd's README and safety instructions. Do not overwrite an
+> existing project. After installation, open the generated repository as the
+> Claude Code project and start a fresh session there. Confirm that CLAUDE.md
+> contains only the local @AGENTS.md import. If Claude Code asks, approve that
+> import only after verifying it resolves to AGENTS.md inside the generated
+> repository. Use /context to confirm that CLAUDE.md and AGENTS.md are loaded;
+> do not begin product work if they are not. After the required review, ask me
+> for my idea or master prompt.
+
+**Another coding agent:**
+
+> Install Yakherd from https://github.com/gigajeff/Yakherd into a new project
+> repository for me. First verify that this environment has Git and Python 3.11
+> or newer. Read and follow Yakherd's README, AGENTS.md, and safety instructions.
+> Do not overwrite an existing project. In the generated project, always read
+> AGENTS.md before working and confirm it is in the active context. After
+> installation and the required review, ask me for my idea or master prompt.
 
 The agent can clone this repository, run the installer, and guide you through
 the next step. Once Yakherd is installed and its initial review passes, give
@@ -99,7 +147,8 @@ Linux and macOS use the same commands with POSIX paths and line continuations.
 - `SSOT.md`: authority map and conflict order.
 - `DECISIONS.md`: durable decision owner.
 - `STATUS.md`: bounded current-state index.
-- `AGENTS.md`: repository operating rules.
+- `AGENTS.md`: the one authoritative set of repository operating rules.
+- `CLAUDE.md`: a one-line Claude Code adapter that imports `AGENTS.md`.
 - Architecture, Implementation, Red Team, Temporary Branch, and Governor task
   prompts.
 - Governance, review, plan, run-record, and status-history directories.
@@ -117,14 +166,20 @@ line. See [Retrofit Safety](docs/RETROFIT.md).
 
 ## Trust Boundary
 
-Yakherd V1 distributes the exact package that passed the Mosaic-origin V3
-independent review. `RELEASE.json` binds `bootstrap.py` and `MANIFEST.json`;
-the manifest binds every installed template. The Git tag and GitHub release
-authenticate those reviewed bytes externally.
+Yakherd 1.0.0 distributed the exact package that passed the Mosaic-origin V3
+independent review. Those historical audits remain provenance for the first
+release, not a claim that later versions have identical bytes.
 
-The audited engine remains under `packages/jeff_strict_ssot_v1/` in V1 to
-preserve its reviewed byte identity. A future release may rename internal
-identifiers only after a new acceptance and independent review cycle.
+For every version, `RELEASE.json` binds `bootstrap.py` and `MANIFEST.json`; the
+manifest binds every installed template. Package changes require regenerated
+hashes, clean acceptance evidence, and a new independent review before release.
+The Git tag and GitHub release then authenticate those reviewed bytes
+externally.
+
+The engine remains under `packages/jeff_strict_ssot_v1/` because the V1 name
+identifies the protocol generation. Package versions within V1 may add
+backward-compatible adapters only through the full acceptance and independent
+review cycle.
 
 ## Non-Goals
 

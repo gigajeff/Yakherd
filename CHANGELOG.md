@@ -2,6 +2,22 @@
 
 All notable changes to Yakherd are recorded here.
 
+## 1.1.0 - 2026-07-20
+
+- Adds first-class Claude Code support through a generated `CLAUDE.md` adapter
+  that imports the authoritative `AGENTS.md`.
+- Makes the Claude adapter part of the required, hash-pinned protocol and adds
+  negative validation fixtures for missing or divergent adapters.
+- Documents the capabilities required of coding environments and distinguishes
+  native Codex/Claude Code support from explicit compatibility with other
+  agents and ordinary AI chat.
+- Adds platform-specific beginner installation prompts and clarifies that the
+  Mosaic-origin audits authenticate the 1.0.0 bytes only.
+- Documents project-session, first-import approval, and loaded-context checks
+  required before Claude Code begins governed work.
+- Fresh 1.1.0 installations gain `CLAUDE.md`; existing repositories require a
+  separately reviewed retrofit because Yakherd never overwrites them silently.
+
 ## 1.0.0 - 2026-07-20
 
 - First public Yakherd release.

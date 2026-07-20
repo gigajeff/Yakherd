@@ -17,6 +17,7 @@ REQUIRED_PATHS = [
     ".gitignore",
     "AGENTS.md",
     "ARCHITECTURE.md",
+    "CLAUDE.md",
     "DECISIONS.md",
     "GIT_SYNC.md",
     "README.md",
@@ -406,6 +407,10 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
             errors.append(f"unresolved conflict marker lines in {relative}: {markers}")
         if re.search(r"[ \t]+$", text, re.MULTILINE):
             errors.append(f"trailing whitespace: {relative}")
+
+    claude_adapter = readable.get("CLAUDE.md")
+    if claude_adapter is not None and claude_adapter.strip() != "@AGENTS.md":
+        errors.append("CLAUDE.md must contain only the @AGENTS.md import")
 
     status_path = paths.get("STATUS.md")
     if status_path:

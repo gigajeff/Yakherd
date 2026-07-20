@@ -110,6 +110,18 @@ class ProtocolValidatorTests(unittest.TestCase):
             finally:
                 self.remove_link(root / "docs/governance")
 
+    def test_claude_adapter_is_required_and_exact(self) -> None:
+        with tempfile.TemporaryDirectory(dir=ROOT.parent) as temp:
+            root = self.clone(Path(temp))
+            (root / "CLAUDE.md").unlink()
+            errors, _ = VALIDATOR.validate(root, [])
+            self.assertTrue(any("required path invalid: CLAUDE.md" in item for item in errors), errors)
+        with tempfile.TemporaryDirectory(dir=ROOT.parent) as temp:
+            root = self.clone(Path(temp))
+            (root / "CLAUDE.md").write_text("# Duplicated rules\n", encoding="utf-8")
+            errors, _ = VALIDATOR.validate(root, [])
+            self.assertTrue(any("must contain only the @AGENTS.md import" in item for item in errors), errors)
+
     def test_owner_path_must_resolve(self) -> None:
         with tempfile.TemporaryDirectory(dir=ROOT.parent) as temp:
             root = self.clone(Path(temp))

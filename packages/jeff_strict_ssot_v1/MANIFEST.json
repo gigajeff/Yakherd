@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "package_name": "jeff_strict_ssot",
-  "package_version": "1.0.0",
+  "package_version": "1.1.0",
   "bootstrap": "bootstrap.py",
   "install_manifest": "JEFF_STRICT_SSOT_INSTALL.json",
   "template_root": "template",
@@ -9,6 +9,7 @@
     ".gitignore",
     "AGENTS.md",
     "ARCHITECTURE.md",
+    "CLAUDE.md",
     "DECISIONS.md",
     "GIT_SYNC.md",
     "README.md",
@@ -53,9 +54,10 @@
     ".gitignore": "ff6e70ff189dd124eac43115b415ccf41c2b4618e513591a69028422bf92be84",
     "AGENTS.md": "2e9e79e634d328b7f0fac5c8fdb7499add21f94a7686fa9689dc8be4dd67be15",
     "ARCHITECTURE.md": "a586def904c73c44b86494706fc89ead5bbb6474eb12b1e51abf08af8f9878e8",
+    "CLAUDE.md": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
     "DECISIONS.md": "1265a266a2d33f1e6712d84213c910b9c4fcf1f33474879cb4290819e8b47c3c",
     "GIT_SYNC.md": "0432cfdf67507391ae0dac22333b5853e69911600b0db6ac61caafccd0d38f17",
-    "README.md": "996afe15b30529d6aa228e361b6a6fa8124eca49c594fbec4373b956fc4e9f6a",
+    "README.md": "d103d666613562d9be16192a5a23375f1427236f57dc6c803117e03f11a15ec9",
     "SSOT.md": "70d2b0db94e6780c67d5d643b2230360933889cf45660ac7ff2e79f645824e35",
     "STATUS.md": "1e354ddcaa2d997efe47272b79eb18f5e0b073508b216d5bf25a8b01452bef07",
     "TESTING.md": "67fca06f7e779751eefb32322acdc829a729a9be9a0436e53aed84c44088cfb1",
@@ -88,10 +90,10 @@
     "docs/validation_protocol.md": "449fe4ff25334bcba40fcb0896b121c3fc3dc8bd5cce2faae993fb378a7dc907",
     "scripts/ssot/migrate_status_archive.py": "a2b030a46ba39f478ac5834fe43aebe5833392b3fa76c6a0e1c1a0d8741035c2",
     "scripts/ssot/validate_governor_delta_policy.py": "dbbc1cba87e3f98bf3e816d2906e981b018f7fbe1643dbbaaf3bd23da11a66ba",
-    "scripts/ssot/validate_protocol.py": "7818e86029567b6ed46d64937adff800cc2418951df3e2a0144e483c792e961b",
+    "scripts/ssot/validate_protocol.py": "483ca6be25d9df58f0a10c81f1eab98f08ee874427b639036fd5373ccbd71392",
     "tests/ssot/test_governor_delta_policy.py": "6419a81326950b078e0512b5b94352c0d3c610c0d990452ddd0afaf20f0061a7",
     "tests/ssot/test_status_archive_migration.py": "5add6bdcd56e8c266256d5e66e82232f34a7eb364c36936cd0c75c2dd85abdd6",
-    "tests/ssot/test_validate_protocol.py": "d7fcc02b154cd3f31a630b1423473b0f65f9ec763d245d885eb43f7841e76a85"
+    "tests/ssot/test_validate_protocol.py": "a40e87b3ab021a33679b1fac1da96b0ec9325b7d0a5bc714f945bdb19dc971a1"
   },
   "guarantees": {
     "network_access": false,

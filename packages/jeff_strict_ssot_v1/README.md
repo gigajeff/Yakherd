@@ -10,6 +10,8 @@ The installed repository has:
 
 - one authority map in `SSOT.md`;
 - one decision owner in `DECISIONS.md`;
+- one authoritative agent instruction file in `AGENTS.md`;
+- a one-line `CLAUDE.md` adapter that imports `AGENTS.md` for Claude Code;
 - compact current `STATUS.md` maintenance rules;
 - five task prompts: Architecture, Implementation, Red Team, Temporary Branch,
   and Governor;
@@ -17,6 +19,23 @@ The installed repository has:
 - structured run-record templates and validator fixtures; and
 - no product stack, dependency, network, deployment, automation, or release
   choice.
+
+## Coding Agent Compatibility
+
+Codex loads `AGENTS.md` when the installed repository is opened as the project.
+Claude Code loads `CLAUDE.md` in that project; the installed adapter contains
+only `@AGENTS.md`, so both environments can receive the same repository rules
+without duplicated authority. Start a fresh Claude Code session with the
+installed repository as the project. On first use, approve the import only
+after verifying it resolves to the repository's local `AGENTS.md`, then use
+`/context` to confirm both files are active.
+Other coding agents can use the package when they have filesystem, shell, Git,
+and Python access and are explicitly instructed to read `AGENTS.md`.
+
+The adapter is behavioral guidance, not a security sandbox. Its bytes can be
+validated, but client approval and loaded-context state cannot. The installer
+and validators remain responsible for deterministic, fail-closed package
+behavior.
 
 ## Fresh Install
 

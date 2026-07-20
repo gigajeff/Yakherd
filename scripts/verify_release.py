@@ -21,6 +21,13 @@ def main() -> int:
     release = json.loads((PACKAGE / "RELEASE.json").read_text(encoding="utf-8"))
     manifest = json.loads((PACKAGE / "MANIFEST.json").read_text(encoding="utf-8"))
 
+    for field in ("package_name", "package_version"):
+        if release.get(field) != manifest.get(field):
+            errors.append(
+                f"release/manifest {field} mismatch: "
+                f"{release.get(field)!r} != {manifest.get(field)!r}"
+            )
+
     bindings = {
         "bootstrap.py": release["bootstrap_sha256"],
         "MANIFEST.json": release["manifest_sha256"],

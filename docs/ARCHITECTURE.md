@@ -35,6 +35,15 @@ The generated repository separates five task responsibilities:
 is a compact current-state index, not an append-only history. Domain owners and
 run records carry detailed evidence.
 
+`AGENTS.md` is the single authoritative repository-instruction file. Codex
+loads it when the generated repository is its active project. The generated
+`CLAUDE.md` contains only `@AGENTS.md`, using Claude Code's import mechanism to
+load the same rules without maintaining a second copy. Claude Code may require
+first-use approval for that local import, and the active context should be
+verified before work. Other agents remain compatible when explicitly directed
+to read `AGENTS.md`; discovery and client-side approval state are outside the
+installer's trust boundary.
+
 ## Trust Chain
 
 The release tag authenticates `RELEASE.json`. `RELEASE.json` binds the
