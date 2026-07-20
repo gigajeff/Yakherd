@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "evidence_class": "protocol",
+  "timestamp_utc": "2026-07-20T21:29:54Z",
+  "working_directory": "L:\\dev\\YAKHERD\\.tmp\\cold-resume-demo-20260720-3\\repo",
+  "command": ["python", "-B", "scripts/ssot/validate_protocol.py", "--root", ".", "--strict"],
+  "exit_code": 0,
+  "environment": {
+    "machine": "BEASTPC",
+    "os": "Microsoft Windows NT 10.0.19045.0",
+    "runtime": "Python 3.13.9"
+  },
+  "supported_claim": "The installed repository protocol contract passes strict validation without supplied evidence records.",
+  "stdout": {
+    "inline": "protocol_validation status=passed errors=0 warnings=0 evidence=0\r\n",
+    "path": null,
+    "sha256": null
+  },
+  "stderr": {
+    "inline": "",
+    "path": null,
+    "sha256": null
+  },
+  "artifacts": [],
+  "authority_effect": "none",
+  "limitations": ["Protocol validation does not prove product behavior, release readiness, or remote Git visibility."]
+}

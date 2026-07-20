@@ -1,0 +1,9 @@
+include LICENSE
+include README.md
+include pyproject.toml
+include setup.py
+recursive-include src *.py
+recursive-include packages/jeff_strict_ssot_v1 *
+include packages/jeff_strict_ssot_v1/template/.gitignore
+global-exclude __pycache__
+global-exclude *.py[cod]

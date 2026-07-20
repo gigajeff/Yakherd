@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -76,6 +77,59 @@ class ProtocolValidatorTests(unittest.TestCase):
         errors, warnings = VALIDATOR.validate(ROOT, [])
         self.assertEqual([], errors)
         self.assertEqual([], warnings)
+
+    def test_pure_validator_has_no_ambient_clock_dependency(self) -> None:
+        source = VALIDATOR_PATH.read_text(encoding="utf-8")
+        ambient_clock = re.compile(
+            r"\b(?:dt\.)?(?:datetime|date)\.(?:now|today)\s*\("
+        )
+        self.assertIsNone(ambient_clock.search(source))
+
+        with tempfile.TemporaryDirectory(dir=ROOT.parent) as temp:
+            root = self.clone(Path(temp))
+            status = root / "STATUS.md"
+            text = status.read_text(encoding="utf-8").replace(
+                "2026-07-20T00:00:00Z", "2000-01-01T00:00:00Z"
+            )
+            status.write_text(text, encoding="utf-8", newline="\n")
+            errors, warnings = VALIDATOR.validate(root, [])
+            self.assertEqual([], errors)
+            self.assertEqual([], warnings)
+
+            status.write_text(
+                text.replace("2000-01-01T00:00:00Z", "2000-01-01T00:00:00"),
+                encoding="utf-8",
+                newline="\n",
+            )
+            errors, _ = VALIDATOR.validate(root, [])
+            self.assertTrue(
+                any("Last updated UTC is invalid" in item for item in errors),
+                errors,
+            )
+
+    def test_cold_resume_prompt_authorizes_structured_run_records(self) -> None:
+        prompt = (
+            ROOT / "docs" / "prompts" / "bootstrap_cold_resume_review.md"
+        ).read_text(encoding="utf-8")
+        for suffix in (
+            "protocol",
+            "governor",
+            "tests",
+            "manifest",
+            "evidence_check",
+        ):
+            self.assertIn(
+                f"docs/run_records/bootstrap_cold_resume_<RUN_ID>_{suffix}.json",
+                prompt,
+            )
+        self.assertIn("docs/templates/run_record.json", prompt)
+        self.assertIn("--evidence", prompt)
+        self.assertIn("__pycache__", prompt)
+
+        testing = (ROOT / "TESTING.md").read_text(encoding="utf-8")
+        commands = [line for line in testing.splitlines() if line.startswith("python ")]
+        self.assertEqual(3, len(commands))
+        self.assertTrue(all(line.startswith("python -B ") for line in commands))
 
     def test_status_caps_are_hard_failures(self) -> None:
         for suffix, expected in [("\n" + "\n".join("extra" for _ in range(130)), "exceeds 120 lines"), ("x" * 33000, "exceeds 32768")]:

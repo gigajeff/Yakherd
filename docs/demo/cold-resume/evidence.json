@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-07-20T21:29:54Z",
+  "source_run_id": "20260720T212954Z",
+  "provenance": {
+    "yakherd_version": "1.1.0",
+    "demo_input_wheel_sha256": "678eded1d6f50d2348af9452671aab26e81c06bd21989454a61218b0942140b6",
+    "reviewed_package_manifest_sha256": "b997d8285da2a462716913822e883354b3a9044f49a016c274a9ff9fa1e7c1a9",
+    "installation_receipt_sha256": "0d2811f38be3413b8919b95b2af1e18498bfafdb7e0bfd6789b1f561dd2548d5",
+    "source_review_sha256": "5fef9d993259dbdc033fcacbc64cad5b74114a5d09e465ffe5bcd20a3b73020d",
+    "fresh_repository_baseline_commit": "4088e7e8721cc6c488c2409d5635a15bdce826a8"
+  },
+  "files": {
+    "README.md": {
+      "bytes": 2634,
+      "sha256": "0b29987aa518c235f4cad0d917e3a802aaa89cea2bbc283e119035703d1de0e8"
+    },
+    "agent-prompt.txt": {
+      "bytes": 750,
+      "sha256": "33c5a673309737961ef94202dd369cb1d1d8bc774a15fb885c1e71bcc2328649"
+    },
+    "agent-result.txt": {
+      "bytes": 1580,
+      "sha256": "4c0701cad38c4dcd5bbbd0c9ff8f9233d363fe017cab7dfc1c92fe54124d8f17"
+    },
+    "cold-resume.gif": {
+      "bytes": 592385,
+      "sha256": "c4809567cad19d46d5ca5b4c8023efb1541062cf6efa993d822758c7a6a0a964"
+    },
+    "failed/01_wall_clock_and_evidence_contract.md": {
+      "bytes": 4736,
+      "sha256": "4601a995137b8b63b3ff49dbb6d2ca0c4a56eba722d4aa517d0de19627e8cd0a"
+    },
+    "failed/02_bytecode_write_boundary.md": {
+      "bytes": 4510,
+      "sha256": "9d9bd754e0db8793770a6be2a56ba3ff19b80cbcedce4ab28d27bac331c93186"
+    },
+    "review.md": {
+      "bytes": 4542,
+      "sha256": "ff2486cea61517a4cfc53d7bbb04337a5d537a8de45879b95def5f8ebb37a5ec"
+    },
+    "run_records/bootstrap_cold_resume_20260720T212954Z_evidence_check.json": {
+      "bytes": 1322,
+      "sha256": "b890d0f8b31ed24e65a0dbfc363cc0f68d37a4fe31af58a23ad69c62b6f3a301"
+    },
+    "run_records/bootstrap_cold_resume_20260720T212954Z_governor.json": {
+      "bytes": 910,
+      "sha256": "9198abd45259ce9e768634d5ddb7ebb52d95ff45fd11598761d3b70b57b5d932"
+    },
+    "run_records/bootstrap_cold_resume_20260720T212954Z_manifest.json": {
+      "bytes": 2063,
+      "sha256": "7dfd5d9b8c99c6a035a133bccf6dc28ecdfdade8b135cc76e96cfa97df875b0f"
+    },
+    "run_records/bootstrap_cold_resume_20260720T212954Z_protocol.json": {
+      "bytes": 938,
+      "sha256": "af54860012d4c4bd3bc14f274b1ab8663e5204d4dfdd1a32a0c61c48aa678bb5"
+    },
+    "run_records/bootstrap_cold_resume_20260720T212954Z_tests.json": {
+      "bytes": 6033,
+      "sha256": "237389dccff68565a130361c7f54a87373d450b7163ced0b11ea30382db235ad"
+    },
+    "session.json": {
+      "bytes": 2659,
+      "sha256": "bdbbf158e2730e818b0177def1fb7c7d102b6f17c0034ff277c7b25fd70a555a"
+    }
+  }
+}

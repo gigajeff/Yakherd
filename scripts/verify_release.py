@@ -3,8 +3,10 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
+import tomllib
 from pathlib import Path
 
 
@@ -16,10 +18,16 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--tag")
+    args = parser.parse_args(argv)
     errors: list[str] = []
     release = json.loads((PACKAGE / "RELEASE.json").read_text(encoding="utf-8"))
     manifest = json.loads((PACKAGE / "MANIFEST.json").read_text(encoding="utf-8"))
+    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))[
+        "project"
+    ]
 
     for field in ("package_name", "package_version"):
         if release.get(field) != manifest.get(field):
@@ -27,6 +35,17 @@ def main() -> int:
                 f"release/manifest {field} mismatch: "
                 f"{release.get(field)!r} != {manifest.get(field)!r}"
             )
+
+    if project.get("name") != "yakherd":
+        errors.append(f"PyPI project name mismatch: {project.get('name')!r}")
+    if project.get("version") != release.get("package_version"):
+        errors.append(
+            "PyPI/release version mismatch: "
+            f"{project.get('version')!r} != {release.get('package_version')!r}"
+        )
+    expected_tag = f"v{project.get('version')}"
+    if args.tag is not None and args.tag != expected_tag:
+        errors.append(f"release tag mismatch: {args.tag!r} != {expected_tag!r}")
 
     bindings = {
         "bootstrap.py": release["bootstrap_sha256"],

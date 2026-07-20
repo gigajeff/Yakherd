@@ -3,8 +3,10 @@
 ## Distribution Layer
 
 The repository provides branding, public documentation, CI, release tooling,
-and the `yakherd.py` convenience launcher. This layer does not alter target
-repositories directly; it delegates to the audited package.
+and the `yakherd` Python command. The PyPI wheel bundles the reviewed package
+bytes and the source checkout exposes the same command through `yakherd.py`.
+This layer does not alter target repositories directly; it delegates to the
+audited package.
 
 ## Audited Package Layer
 

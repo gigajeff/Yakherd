@@ -431,13 +431,16 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
         for field in STATUS_FIELDS:
             if not re.search(rf"^- {re.escape(field)}:", status, re.MULTILINE):
                 errors.append(f"STATUS.md missing field: {field}")
-        timestamp_match = re.search(r"^- Last updated UTC: `([^`]+)`", status, re.MULTILINE)
+        timestamp_match = re.search(
+            r"^- Last updated UTC: `([^`]+)`", status, re.MULTILINE
+        )
         if timestamp_match:
             try:
-                updated = dt.datetime.fromisoformat(timestamp_match.group(1).replace("Z", "+00:00"))
-                age = dt.datetime.now(dt.timezone.utc) - updated.astimezone(dt.timezone.utc)
-                if age.days > 14:
-                    warnings.append(f"STATUS.md is stale by {age.days} days")
+                updated = dt.datetime.fromisoformat(
+                    timestamp_match.group(1).replace("Z", "+00:00")
+                )
+                if updated.tzinfo != dt.timezone.utc:
+                    raise ValueError("timestamp is not UTC")
             except ValueError:
                 errors.append("STATUS.md Last updated UTC is invalid")
 

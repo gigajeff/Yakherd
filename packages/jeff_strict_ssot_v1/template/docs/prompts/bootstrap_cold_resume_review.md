@@ -18,8 +18,28 @@ Verify that a fresh reader can recover:
 - Git/remote visibility boundary; and
 - the block on product implementation before reviewed intake.
 
-Run protocol/governor validators and tests. Review install-manifest hashes.
-Do not edit or repair the target. Write one independent review under
-`docs/reviews/`, lead with findings, and state whether product intake may begin.
+Run the protocol/governor validators and tests exactly as listed in
+`TESTING.md`, including Python's `-B` flag. Use `python -B` for every other
+Python check in this review. Review install-manifest hashes, and fail if the
+review creates any `__pycache__`, `.pyc`, or `.pyo` path.
+Use one UTC run ID in `YYYYMMDDTHHMMSSZ` form for the whole review. The task may
+write exactly these evidence paths, replacing `<RUN_ID>` with that ID:
+
+- `docs/run_records/bootstrap_cold_resume_<RUN_ID>_protocol.json`;
+- `docs/run_records/bootstrap_cold_resume_<RUN_ID>_governor.json`;
+- `docs/run_records/bootstrap_cold_resume_<RUN_ID>_tests.json`;
+- `docs/run_records/bootstrap_cold_resume_<RUN_ID>_manifest.json`; and
+- `docs/run_records/bootstrap_cold_resume_<RUN_ID>_evidence_check.json`.
+
+Each file must conform to `docs/templates/run_record.json`, name one bounded
+claim, and contain the exact command and bounded output. After writing the
+first four records, rerun the protocol validator with each record supplied by
+a separate `--evidence` argument, then record that check in the fifth file and
+inspect it against the same schema.
+
+Do not edit or repair any other target file. Write one independent review at
+`docs/reviews/bootstrap_cold_resume_<RUN_ID>.md`, lead with findings, link the
+five run records, and state whether the cold-resume review passes. Product
+intake remains a separately promoted next step even after a pass.
 
 End with one required repository marker.

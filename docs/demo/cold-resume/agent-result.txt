@@ -1,0 +1,27 @@
+PASS.
+
+- State: `governance_shell_ready_product_prompt_not_received`
+- Blocker: product intent has not been received or accepted.
+- Next action: separately authorize product-prompt intake, provenance/hash capture, Architecture extraction, and independent Red Team review. Product implementation remains forbidden.
+- Findings: P0/P1/P2/P3 = 0/0/0/0.
+- Protocol: 0 errors, 0 warnings.
+- Governor: 0 errors.
+- Tests: 30 passed; 0 failed, errors, or skipped.
+- Receipt: 43/43 byte counts and 43/43 rendered hashes matched; 0 errors.
+- Evidence validation: 4 records, 0 errors, 0 warnings.
+- Fifth-record inspection: 1 record, 0 errors, 0 warnings.
+- Cache paths: 0 before and 0 after.
+- Writes: exactly five JSON records and one review; no target repairs or network access.
+
+Records:
+
+- `docs/run_records/bootstrap_cold_resume_20260720T212954Z_protocol.json`
+- `docs/run_records/bootstrap_cold_resume_20260720T212954Z_governor.json`
+- `docs/run_records/bootstrap_cold_resume_20260720T212954Z_tests.json`
+- `docs/run_records/bootstrap_cold_resume_20260720T212954Z_manifest.json`
+- `docs/run_records/bootstrap_cold_resume_20260720T212954Z_evidence_check.json`
+- `docs/reviews/bootstrap_cold_resume_20260720T212954Z.md`
+
+Git visibility: `main` at `4088e7e8721cc6c488c2409d5635a15bdce826a8`; no upstream, no remotes, ahead/behind unavailable; dirty with exactly six untracked authorized outputs; not remotely visible.
+
+human action required: provide and authorize intake of an actual product master prompt for provenance capture, Architecture extraction, and independent Red Team review.

@@ -9,8 +9,13 @@
 5. Run `python scripts/verify_release.py`.
 6. Run CI on Windows and Linux.
 7. Obtain independent Red Team review of the exact candidate bytes.
-8. Review staged paths and create an intentional release commit.
-9. Tag `vMAJOR.MINOR.PATCH` and publish release notes.
+8. Build the wheel and source distribution, then smoke-install both in clean
+   environments.
+9. Review staged paths and create an intentional release commit.
+10. Tag the exact reviewed commit as `vMAJOR.MINOR.PATCH`. The tag-triggered
+    workflow must bind that tag to the project version and executing commit,
+    inspect and smoke-install the exact wheel and source distribution, and only
+    then publish through the dedicated `pypi` Trusted Publisher environment.
 
 ## Compatibility
 

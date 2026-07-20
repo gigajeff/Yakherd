@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "evidence_class": "protocol",
+  "timestamp_utc": "2026-07-20T21:29:54Z",
+  "working_directory": "L:\\dev\\YAKHERD\\.tmp\\cold-resume-demo-20260720-3\\repo",
+  "command": ["python", "-B", "-c", "import hashlib\nimport json\nimport pathlib\nimport sys\nroot = pathlib.Path('.').resolve()\nreceipt = root / 'JEFF_STRICT_SSOT_INSTALL.json'\ndata = json.loads(receipt.read_text(encoding='utf-8'))\nerrors = []\nseen = set()\nfor item in data.get('files', []):\n    relative = item.get('path')\n    if not isinstance(relative, str) or relative in seen:\n        errors.append(f'invalid-or-duplicate-path:{relative!r}')\n        continue\n    seen.add(relative)\n    path = root / relative\n    try:\n        resolved = path.resolve(strict=True)\n        resolved.relative_to(root)\n    except (OSError, ValueError):\n        errors.append(f'missing-or-outside:{relative}')\n        continue\n    raw = resolved.read_bytes()\n    if len(raw) != item.get('bytes'):\n        errors.append(f'byte-mismatch:{relative}')\n    if hashlib.sha256(raw).hexdigest() != item.get('rendered_sha256'):\n        errors.append(f'hash-mismatch:{relative}')\nstatus = 'passed' if not errors else 'failed'\nprint(f'install_manifest status={status} files={len(seen)} errors={len(errors)}')\nfor error in errors:\n    print(f'error: {error}')\nsys.exit(1 if errors else 0)"],
+  "exit_code": 0,
+  "environment": {
+    "machine": "BEASTPC",
+    "os": "Microsoft Windows NT 10.0.19045.0",
+    "runtime": "Python 3.13.9"
+  },
+  "supported_claim": "All 43 unique files listed in the installation receipt match their recorded byte counts and rendered SHA-256 hashes.",
+  "stdout": {
+    "inline": "install_manifest status=passed files=43 errors=0\r\n",
+    "path": null,
+    "sha256": null
+  },
+  "stderr": {
+    "inline": "",
+    "path": null,
+    "sha256": null
+  },
+  "artifacts": [],
+  "authority_effect": "none",
+  "limitations": ["The receipt check validates installed rendered files, not unavailable package-source templates or the package manifest preimage."]
+}

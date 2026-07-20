@@ -26,10 +26,19 @@ if the applicable instruction file is absent from the agent's active context.
 
 Always inspect a dry-run first:
 
+```bash
+yakherd init \
+  --target ~/dev/my-project \
+  --project-name my-project \
+  --dry-run
+```
+
+On Windows PowerShell:
+
 ```powershell
-python yakherd.py init `
-  --target L:\dev\MY_PROJECT `
-  --project-name MY_PROJECT `
+yakherd init `
+  --target C:\dev\my-project `
+  --project-name my-project `
   --dry-run
 ```
 
@@ -65,6 +74,12 @@ completion.
 ## Low-Level Package Interface
 
 The stable low-level package entry point remains available:
+
+```bash
+python3 packages/jeff_strict_ssot_v1/bootstrap.py --help
+```
+
+On Windows PowerShell:
 
 ```powershell
 python packages\jeff_strict_ssot_v1\bootstrap.py --help

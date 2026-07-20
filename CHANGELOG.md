@@ -17,6 +17,19 @@ All notable changes to Yakherd are recorded here.
   required before Claude Code begins governed work.
 - Fresh 1.1.0 installations gain `CLAUDE.md`; existing repositories require a
   separately reviewed retrofit because Yakherd never overwrites them silently.
+- Removes the pure protocol validator's ambient wall-clock dependency so the
+  same repository bytes and arguments always produce the same result.
+- Gives the bootstrap cold-resume review an explicit, bounded JSON run-record
+  write set so a fresh Red Team can satisfy the repository evidence contract.
+- Makes every installed protocol-check command bytecode-free and requires the
+  cold review to fail if its own checks create Python cache paths.
+- Adds the dependency-free `yakherd` Python package and console command, with
+  tag-bound GitHub Trusted Publishing for wheel and source distributions.
+- Leads installation documentation with bash/macOS/Linux examples, followed
+  by equivalent Windows PowerShell commands.
+- Adds an inspectable cold-resume recording with its exact prompt and result,
+  passing review, structured run records, preserved failed attempts, and a
+  SHA-256 evidence index.
 
 ## 1.0.0 - 2026-07-20
 

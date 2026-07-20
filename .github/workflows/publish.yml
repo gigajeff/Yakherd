@@ -1,0 +1,64 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Build and publish reviewed distribution
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.13"
+      - name: Bind tag, version, and checked-out commit
+        run: |
+          test "$GITHUB_REF_TYPE" = "tag"
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse "$GITHUB_REF_NAME^{commit}")" = "$GITHUB_SHA"
+          python scripts/verify_release.py --tag "$GITHUB_REF_NAME"
+      - name: Verify reviewed release bindings
+        run: python scripts/verify_release.py
+      - name: Run distribution and package tests
+        run: >-
+          python -B -m unittest discover -s tests -v &&
+          python -B -m unittest discover -s packages/jeff_strict_ssot_v1/tests -v
+      - name: Run clean acceptance
+        run: >-
+          python packages/jeff_strict_ssot_v1/tests/run_acceptance.py
+          --package-root packages/jeff_strict_ssot_v1
+          --output-root .tmp/acceptance
+          --date 2026-07-20
+      - name: Install build frontend
+        run: >-
+          python -m pip install
+          build==1.4.0
+          packaging==25.0
+          pyproject_hooks==1.2.0
+      - name: Build distributions
+        run: python -m build
+      - name: Inspect exact distribution contents
+        run: python scripts/verify_distribution.py dist
+      - name: Smoke-install exact wheel
+        run: |
+          python -m venv .tmp/wheel-venv
+          .tmp/wheel-venv/bin/python -m pip install --no-index --no-deps dist/yakherd-*.whl
+          .tmp/wheel-venv/bin/yakherd init --target .tmp/wheel-project --project-name WheelSmoke --date 2026-07-20
+          .tmp/wheel-venv/bin/python -B .tmp/wheel-project/scripts/ssot/validate_protocol.py --root .tmp/wheel-project --strict
+      - name: Smoke-install exact source distribution
+        run: |
+          python -m venv .tmp/sdist-venv
+          .tmp/sdist-venv/bin/python -m pip install --no-cache-dir --no-deps dist/yakherd-*.tar.gz
+          .tmp/sdist-venv/bin/yakherd init --target .tmp/sdist-project --project-name SdistSmoke --date 2026-07-20
+          .tmp/sdist-venv/bin/python -B .tmp/sdist-project/scripts/ssot/validate_protocol.py --root .tmp/sdist-project --strict
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@6733eb7d741f0b11ec6a39b58540dab7590f9b7d # v1.14.0

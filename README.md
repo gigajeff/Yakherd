@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="yakherd2.png" alt="Yakherd: stop shaving, start coding" width="100%">
+  <img src="https://raw.githubusercontent.com/gigajeff/Yakherd/main/yakherd2.png" alt="Yakherd: stop shaving, start coding" width="100%">
 </p>
 
 # Yakherd
@@ -12,7 +12,8 @@ Red Team, Temporary Branch, and Governor tasks durable ownership rules before
 the first product prompt arrives.
 
 [![CI](https://github.com/gigajeff/Yakherd/actions/workflows/ci.yml/badge.svg)](https://github.com/gigajeff/Yakherd/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/yakherd.svg)](https://pypi.org/project/yakherd/)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/gigajeff/Yakherd/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11%2B-3776AB.svg)](https://www.python.org/)
 
 ## Absolute Beginner? Start Here
@@ -116,23 +117,22 @@ framework, cloud provider, database, architecture, or deployment system.
 
 ## Quick Start
 
-Clone Yakherd and preview a fresh installation without writing anything:
+Install Yakherd and preview a fresh installation without writing anything:
 
-```powershell
-git clone https://github.com/gigajeff/Yakherd.git
-cd Yakherd
-python yakherd.py init `
-  --target L:\dev\MY_PROJECT `
-  --project-name MY_PROJECT `
+```bash
+python3 -m pip install yakherd
+yakherd init \
+  --target ~/dev/my-project \
+  --project-name my-project \
   --dry-run
 ```
 
 Install into a nonexistent or empty folder:
 
-```powershell
-python yakherd.py init `
-  --target L:\dev\MY_PROJECT `
-  --project-name MY_PROJECT
+```bash
+yakherd init \
+  --target ~/dev/my-project \
+  --project-name my-project
 ```
 
 Then open the generated
@@ -140,7 +140,36 @@ Then open the generated
 after that review passes should the repository receive its product master
 prompt.
 
-Linux and macOS use the same commands with POSIX paths and line continuations.
+On Windows PowerShell, the equivalent commands are:
+
+```powershell
+py -m pip install yakherd
+yakherd init `
+  --target C:\dev\my-project `
+  --project-name my-project `
+  --dry-run
+
+yakherd init `
+  --target C:\dev\my-project `
+  --project-name my-project
+```
+
+To run directly from source instead, clone this repository and replace
+`yakherd` in the examples with `python yakherd.py`.
+
+## See a Cold Resume
+
+The strongest Yakherd claim is recoverability: a new agent should be able to
+open the generated repository with no implementation chat, reconstruct the
+project's state from its files, run the required checks, and issue an
+independent review.
+
+![A fresh coding agent cold-resumes a Yakherd repository and passes its review](https://raw.githubusercontent.com/gigajeff/Yakherd/main/docs/demo/cold-resume/cold-resume.gif)
+
+This recording is rendered from a real isolated fresh-agent run. The
+[session source, exact prompt and result, review, and hashes](https://github.com/gigajeff/Yakherd/tree/main/docs/demo/cold-resume)
+are committed beside it so the result is inspectable rather than a staged
+terminal animation.
 
 ## What Gets Installed
 
@@ -155,14 +184,15 @@ Linux and macOS use the same commands with POSIX paths and line continuations.
 - Standard-library validators and focused tests.
 - A hash-bound installation receipt.
 
-See [Usage](docs/USAGE.md) and [Architecture](docs/ARCHITECTURE.md).
+See [Usage](https://github.com/gigajeff/Yakherd/blob/main/docs/USAGE.md) and
+[Architecture](https://github.com/gigajeff/Yakherd/blob/main/docs/ARCHITECTURE.md).
 
 ## Existing Repositories
 
 Retrofit mode is intentionally fail-closed. It requires a separately reviewed
 JSON plan with an exact allowlist and expected hashes. Do not point fresh mode
 at an established repository, and do not improvise a retrofit from the command
-line. See [Retrofit Safety](docs/RETROFIT.md).
+line. See [Retrofit Safety](https://github.com/gigajeff/Yakherd/blob/main/docs/RETROFIT.md).
 
 ## Trust Boundary
 
@@ -195,6 +225,18 @@ Yakherd does not:
 
 ## Development
 
+```bash
+python3 -B -m unittest discover \
+  -s packages/jeff_strict_ssot_v1/tests -v
+
+python3 packages/jeff_strict_ssot_v1/tests/run_acceptance.py \
+  --package-root packages/jeff_strict_ssot_v1 \
+  --output-root .tmp/acceptance \
+  --date 2026-07-20
+```
+
+Windows PowerShell:
+
 ```powershell
 python -B -m unittest discover `
   -s packages\jeff_strict_ssot_v1\tests -v
@@ -205,8 +247,9 @@ python packages\jeff_strict_ssot_v1\tests\run_acceptance.py `
   --date 2026-07-20
 ```
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing the audited package.
+Read [CONTRIBUTING.md](https://github.com/gigajeff/Yakherd/blob/main/CONTRIBUTING.md)
+before changing the audited package.
 
 ## License
 
-Apache License 2.0. See [LICENSE](LICENSE).
+Apache License 2.0. See [LICENSE](https://github.com/gigajeff/Yakherd/blob/main/LICENSE).

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "evidence_class": "protocol",
+  "timestamp_utc": "2026-07-20T21:29:54Z",
+  "working_directory": "L:\\dev\\YAKHERD\\.tmp\\cold-resume-demo-20260720-3\\repo",
+  "command": ["python", "-B", "scripts/ssot/validate_protocol.py", "--root", ".", "--strict", "--evidence", "docs/run_records/bootstrap_cold_resume_20260720T212954Z_protocol.json", "--evidence", "docs/run_records/bootstrap_cold_resume_20260720T212954Z_governor.json", "--evidence", "docs/run_records/bootstrap_cold_resume_20260720T212954Z_tests.json", "--evidence", "docs/run_records/bootstrap_cold_resume_20260720T212954Z_manifest.json"],
+  "exit_code": 0,
+  "environment": {
+    "machine": "BEASTPC",
+    "os": "Microsoft Windows NT 10.0.19045.0",
+    "runtime": "Python 3.13.9"
+  },
+  "supported_claim": "The four primary cold-resume run records conform to the evidence schema while the repository protocol remains strictly valid.",
+  "stdout": {
+    "inline": "protocol_validation status=passed errors=0 warnings=0 evidence=4\r\n",
+    "path": null,
+    "sha256": null
+  },
+  "stderr": {
+    "inline": "",
+    "path": null,
+    "sha256": null
+  },
+  "artifacts": [],
+  "authority_effect": "none",
+  "limitations": ["Evidence-schema validation establishes record structure and referenced-byte consistency, not product correctness."]
+}

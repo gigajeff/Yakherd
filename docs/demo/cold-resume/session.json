@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "source_run_id": "20260720T212954Z",
+  "scenes": [
+    {
+      "title": "A genuinely fresh agent",
+      "seconds": 2.2,
+      "lines": [
+        "$ open the generated repository",
+        "No implementation chat. No product context.",
+        "Recover state and the next action from files only."
+      ]
+    },
+    {
+      "title": "State recovered from repository files",
+      "seconds": 2.2,
+      "lines": [
+        "State: governance_shell_ready_product_prompt_not_received",
+        "Blocker: product intent has not been received or accepted",
+        "Next: validate protocol and perform cold-resume review",
+        "Product implementation remains forbidden"
+      ]
+    },
+    {
+      "title": "The repository tells it what to run",
+      "seconds": 2.5,
+      "lines": [
+        "$ python -B scripts/ssot/validate_protocol.py --root . --strict",
+        "protocol_validation status=passed errors=0 warnings=0 evidence=0",
+        "$ python -B scripts/ssot/validate_governor_delta_policy.py --root . --strict",
+        "governor_policy status=passed errors=0"
+      ]
+    },
+    {
+      "title": "Adversarial protocol suite",
+      "seconds": 2.2,
+      "lines": [
+        "$ python -B -m unittest discover -s tests/ssot -v",
+        "Ran 30 tests in 11.203s",
+        "OK - 30 passed, 0 failed, 0 skipped"
+      ]
+    },
+    {
+      "title": "Installation receipt reconciled",
+      "seconds": 2.2,
+      "lines": [
+        "43/43 byte counts matched",
+        "43/43 rendered SHA-256 hashes matched",
+        "0 unlisted source files",
+        "0 __pycache__, .pyc, or .pyo paths"
+      ]
+    },
+    {
+      "title": "Evidence checks its own evidence",
+      "seconds": 2.2,
+      "lines": [
+        "4 primary JSON records: valid",
+        "1 evidence-check JSON record: valid",
+        "Exact write set: five records + one review",
+        "No repair, network, product work, or Git publication"
+      ]
+    },
+    {
+      "title": "Independent cold-resume verdict",
+      "seconds": 3.0,
+      "status": "PASS",
+      "lines": [
+        "P0 / P1 / P2 / P3 findings: 0 / 0 / 0 / 0",
+        "The agent recovered the project without chat history.",
+        "Next: separately reviewed intake of the user's master prompt."
+      ]
+    },
+    {
+      "title": "Why this proof is not theatre",
+      "seconds": 2.8,
+      "lines": [
+        "Two earlier fresh reviews failed and blocked release.",
+        "They found a clock dependency, an evidence-contract conflict,",
+        "and bytecode created by the review itself.",
+        "All findings and the final pass are committed beside this recording."
+      ]
+    }
+  ]
+}

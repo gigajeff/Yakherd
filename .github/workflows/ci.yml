@@ -25,6 +25,13 @@ jobs:
         run: python scripts/verify_release.py
       - name: Test root launcher
         run: python yakherd.py --help
+      - name: Test public distribution
+        run: >-
+          python -B -m unittest discover -s tests -v
+      - name: Install public distribution
+        run: python -m pip install .
+      - name: Test installed command
+        run: yakherd --help
       - name: Run package tests
         run: python -B -m unittest discover -s packages/jeff_strict_ssot_v1/tests -v
       - name: Run clean acceptance

@@ -32,4 +32,9 @@ deterministic, and read-only. It does not import product modules, launch
 subprocesses, access the network, invoke Git, install dependencies, inspect
 bulky artifact trees, infer domain correctness, or write files.
 
+Deterministic means its result depends only on repository bytes and explicit
+arguments. It validates recorded timestamps structurally but never reads the
+ambient wall clock. Time-based status policy belongs in separately authorized
+governance or review work with an explicit reference time.
+
 Git/environment evidence is collected externally and recorded structurally.
