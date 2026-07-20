@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="yakherd.png" alt="Yakherd banner" width="100%">
+  <img src="yakherd2.png" alt="Yakherd: stop shaving, start coding" width="100%">
 </p>
 
 # Yakherd
