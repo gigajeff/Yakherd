@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "governor_status": "inactive_pending_separate_human_activation",
+  "last_material_audit": null,
+  "last_quiet_check": null,
+  "history_continuity": "bootstrap_no_prior_audit_history",
+  "open_finding_count": 0,
+  "authority_effect": "none",
+  "automation_created": false
+}

@@ -1,0 +1,26 @@
+# Release Process
+
+## Candidate Gate
+
+1. Confirm the package source contains no bytecode/cache files.
+2. Regenerate `MANIFEST.json` after any governed template change.
+3. Regenerate `RELEASE.json` after installer or manifest changes.
+4. Run package tests and clean acceptance.
+5. Run `python scripts/verify_release.py`.
+6. Run CI on Windows and Linux.
+7. Obtain independent Red Team review of the exact candidate bytes.
+8. Review staged paths and create an intentional release commit.
+9. Tag `vMAJOR.MINOR.PATCH` and publish release notes.
+
+## Compatibility
+
+Behavioral or schema changes require a changelog entry and explicit migration
+analysis. Security-sensitive changes to containment, overwrite, retrofit,
+validation, decision history, status migration, or evidence handling require
+new adversarial tests.
+
+## V1 Provenance
+
+The first release imports the exact package that passed Mosaic-origin
+acceptance V6 and independent V3 review. Historical review records are retained
+under `docs/audits/mosaic-origin/`.

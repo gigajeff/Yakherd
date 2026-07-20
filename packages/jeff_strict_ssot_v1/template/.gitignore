@@ -1,0 +1,12 @@
+# Local and generated state
+.pytest_cache/
+__pycache__/
+*.pyc
+.venv/
+tmp/
+test_output/
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example

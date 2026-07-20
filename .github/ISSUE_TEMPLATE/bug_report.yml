@@ -1,0 +1,29 @@
+name: Bug report
+description: Report incorrect or unsafe Yakherd behavior.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, and what should have happened?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Yakherd version or commit
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs and evidence
+      description: Remove secrets and proprietary repository content.

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "evidence_class": "protocol",
+  "timestamp_utc": "YYYY-MM-DDTHH:MM:SSZ",
+  "working_directory": "<absolute or repository-relative path>",
+  "command": ["<executable>", "<arg>"],
+  "exit_code": null,
+  "environment": {
+    "machine": "<machine identity>",
+    "os": "<operating system>",
+    "runtime": "<runtime identity>"
+  },
+  "supported_claim": "<one bounded claim>",
+  "stdout": {
+    "inline": null,
+    "path": null,
+    "sha256": null
+  },
+  "stderr": {
+    "inline": null,
+    "path": null,
+    "sha256": null
+  },
+  "artifacts": [],
+  "authority_effect": "none",
+  "limitations": []
+}

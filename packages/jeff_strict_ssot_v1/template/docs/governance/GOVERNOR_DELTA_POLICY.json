@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "inactive_pending_separate_human_activation",
+  "authority_effect": "none",
+  "modes": {
+    "quiet": {
+      "max_lines": 2,
+      "max_utf8_bytes": 512,
+      "writes_allowed": false
+    },
+    "delta": {
+      "max_lines": 120,
+      "max_utf8_bytes": 16384,
+      "writes_allowed": true
+    },
+    "rebaseline": {
+      "max_lines": 240,
+      "max_utf8_bytes": 32768,
+      "requires": [
+        "broken_history_continuity",
+        "explicit_human_authorization"
+      ],
+      "writes_allowed": true
+    }
+  },
+  "automation_created": false,
+  "cadence": null,
+  "utility_review_required_before_expansion": true
+}

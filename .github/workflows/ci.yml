@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.11", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Verify release bindings
+        run: python scripts/verify_release.py
+      - name: Test root launcher
+        run: python yakherd.py --help
+      - name: Run package tests
+        run: python -B -m unittest discover -s packages/jeff_strict_ssot_v1/tests -v
+      - name: Run clean acceptance
+        run: >-
+          python packages/jeff_strict_ssot_v1/tests/run_acceptance.py
+          --package-root packages/jeff_strict_ssot_v1
+          --output-root .tmp/acceptance
+          --date 2026-07-20

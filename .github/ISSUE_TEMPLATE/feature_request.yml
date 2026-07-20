@@ -1,0 +1,24 @@
+name: Feature request
+description: Propose a product-neutral Yakherd improvement.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: invariants
+    attributes:
+      label: Safety and authority implications
+      description: Explain affected invariants, evidence, and migration risks.
+    validations:
+      required: true

@@ -1,0 +1,76 @@
+# Jeff Strict SSOT V1
+
+This package installs a product-neutral, repository-centered governance shell
+for a new project. It carries the reusable SSOT mechanics validated in Mosaic
+without copying Mosaic product rules, experiments, paths, or authorizations.
+
+## What It Creates
+
+The installed repository has:
+
+- one authority map in `SSOT.md`;
+- one decision owner in `DECISIONS.md`;
+- compact current `STATUS.md` maintenance rules;
+- five task prompts: Architecture, Implementation, Red Team, Temporary Branch,
+  and Governor;
+- standard-library, read-only protocol validators;
+- structured run-record templates and validator fixtures; and
+- no product stack, dependency, network, deployment, automation, or release
+  choice.
+
+## Fresh Install
+
+Preview without writing:
+
+```powershell
+python packages\jeff_strict_ssot_v1\bootstrap.py `
+  --target L:\dev\NEW_PROJECT --project-name NEW_PROJECT --dry-run
+```
+
+Install into a nonexistent or empty folder:
+
+```powershell
+python packages\jeff_strict_ssot_v1\bootstrap.py `
+  --target L:\dev\NEW_PROJECT --project-name NEW_PROJECT
+```
+
+The installer refuses to overwrite any path. It writes
+`JEFF_STRICT_SSOT_INSTALL.json` with package, source-template, rendered-output,
+and destination hashes.
+
+`MANIFEST.json` pins every source-template SHA-256 and the installer verifies
+that baseline before dry-run or installation. `RELEASE.json` pins the
+bootstrap and package-manifest hashes for release review. This is a layered
+boundary: a reviewed Git commit or release must authenticate `RELEASE.json`
+itself; no self-contained file can authenticate a malicious replacement of
+itself and every verifier beside it.
+
+## Retrofit Mode
+
+Retrofit mode is deliberately fail-closed. It requires a separately reviewed
+JSON plan with `reviewed: true`, an exact allowlist, and an expected SHA-256 or
+`absent` state for every path it may change. Use it only from a dedicated,
+reviewed retrofit task:
+
+```powershell
+python packages\jeff_strict_ssot_v1\bootstrap.py `
+  --mode retrofit --retrofit-plan reviewed_retrofit_plan.json `
+  --target L:\dev\EXISTING_PROJECT --project-name EXISTING_PROJECT
+```
+
+Retrofit writes use an exclusive cooperative lock, exact-state rechecks,
+verified backups, atomic replacements, post-write hashes, and a transaction
+journal. An interrupted or failed transaction leaves a journal and blocks a
+new retrofit until a human reviews recovery. These controls detect package and
+cooperating-writer races; Windows path APIs cannot eliminate every possible
+non-cooperating process race, so retrofit remains a reviewed maintenance
+operation rather than a general concurrent installer.
+
+## Package Tests
+
+```powershell
+python -B -m unittest discover -s packages\jeff_strict_ssot_v1\tests -v
+```
+
+The package does not install software, access the network, invoke Git, ingest a
+product prompt, create automation, or run product code.
