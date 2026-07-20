@@ -99,7 +99,10 @@ class BootstrapTests(unittest.TestCase):
             self.assertIn("Example Project", (target / "README.md").read_text(encoding="utf-8"))
             self.assertEqual("@AGENTS.md\n", (target / "CLAUDE.md").read_text(encoding="utf-8"))
             record = json.loads((target / BOOTSTRAP.INSTALL_MANIFEST_NAME).read_text(encoding="utf-8"))
-            self.assertEqual("1.1.0", record["package_version"])
+            self.assertEqual(
+                BOOTSTRAP.load_package_manifest()["package_version"],
+                record["package_version"],
+            )
             for item in record["files"]:
                 self.assertEqual(item["rendered_sha256"], sha256(target / item["path"]))
             protocol = subprocess.run(

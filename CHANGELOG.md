@@ -2,6 +2,20 @@
 
 All notable changes to Yakherd are recorded here.
 
+## 1.1.1 - 2026-07-20
+
+- Pins the PyPI publishing action to the immutable `v1.14.0` source SHA that
+  also names its published container image. The failed `v1.1.0` workflow had
+  already passed every source, test, acceptance, archive, and smoke-install
+  gate before stopping at the unavailable commit-SHA container image; it did
+  not upload a distribution.
+- Separates the unprivileged build, test, acceptance, archive inspection, and
+  smoke-install work from the minimal Trusted Publisher job. Only that final
+  job can mint the PyPI OIDC token, and it can only retrieve and publish the
+  verified distribution artifact.
+- Keeps the reviewed governance payload unchanged apart from the regenerated
+  package-version and release-hash bindings.
+
 ## 1.1.0 - 2026-07-20
 
 - Adds first-class Claude Code support through a generated `CLAUDE.md` adapter

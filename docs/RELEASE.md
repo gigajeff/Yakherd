@@ -14,8 +14,11 @@
 9. Review staged paths and create an intentional release commit.
 10. Tag the exact reviewed commit as `vMAJOR.MINOR.PATCH`. The tag-triggered
     workflow must bind that tag to the project version and executing commit,
-    inspect and smoke-install the exact wheel and source distribution, and only
-    then publish through the dedicated `pypi` Trusted Publisher environment.
+    inspect and smoke-install the exact wheel and source distribution, and hand
+    those files to a separate publishing job through immutable-pinned artifact
+    actions. The build job must not have `id-token: write`; only the minimal job
+    that retrieves the verified files and publishes them may have that
+    permission, through the dedicated `pypi` Trusted Publisher environment.
 
 ## Compatibility
 

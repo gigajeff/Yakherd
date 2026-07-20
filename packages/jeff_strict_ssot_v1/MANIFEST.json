@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "package_name": "jeff_strict_ssot",
-  "package_version": "1.1.0",
+  "package_version": "1.1.1",
   "bootstrap": "bootstrap.py",
   "install_manifest": "JEFF_STRICT_SSOT_INSTALL.json",
   "template_root": "template",
