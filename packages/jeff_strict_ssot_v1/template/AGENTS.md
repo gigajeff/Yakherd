@@ -40,6 +40,20 @@ Before material work, read:
   authorization.
 - Preserve uncertainty. If evidence conflicts, stop and record the conflict.
 
+## Codex Team Startup
+
+- Launch the five Codex role agents only when the user explicitly invokes
+  `START_HERE.md` or `docs/prompts/codex_team_launcher.md`.
+- That invocation authorizes exactly five direct role agents: Architecture,
+  Implementation, Red Team, Temporary Branch, and Governor. It does not
+  authorize product work, Git mutation, network access, or nested delegation.
+- The invoking task is a coordinator, not a sixth role or authority source.
+- Creation of all five roles is a startup invariant. Report incomplete startup
+  if any role cannot be created; never simulate a missing role in the
+  coordinator.
+- A created role may be parked or inactive. Never keep an unauthorized writer
+  busy merely to make the team appear active.
+
 ## Status And Evidence
 
 - `STATUS.md` is compact current state, updated in place, with one dated entry.
@@ -57,6 +71,8 @@ Before material work, read:
   without explicit human authorization.
 - Final reports state branch, HEAD, upstream, dirty state, ahead/behind, and
   remote visibility.
+- First-time GitHub setup follows `docs/GITHUB_SETUP.md` and its explicit human
+  checkpoint. The installer receipt is not publication authorization.
 
 ## Completion Gate
 

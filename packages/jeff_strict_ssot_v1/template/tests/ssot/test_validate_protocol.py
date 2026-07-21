@@ -125,11 +125,51 @@ class ProtocolValidatorTests(unittest.TestCase):
         self.assertIn("docs/templates/run_record.json", prompt)
         self.assertIn("--evidence", prompt)
         self.assertIn("__pycache__", prompt)
+        self.assertIn("START_HERE.md", prompt)
+        self.assertIn("docs/GITHUB_SETUP.md", prompt)
+        self.assertIn("Codex launcher", prompt)
+        self.assertIn("product-intake prompt", prompt)
+        self.assertIn("all five Codex role agents", prompt)
 
         testing = (ROOT / "TESTING.md").read_text(encoding="utf-8")
         commands = [line for line in testing.splitlines() if line.startswith("python ")]
         self.assertEqual(3, len(commands))
         self.assertTrue(all(line.startswith("python -B ") for line in commands))
+
+    def test_codex_launcher_github_and_prompt_intake_boundaries_are_required(self) -> None:
+        errors, _ = VALIDATOR.validate(ROOT, [])
+        self.assertEqual([], errors)
+
+        mutations = [
+            (
+                "docs/prompts/codex_team_launcher.md",
+                "exactly five direct role agents",
+                "Codex team launcher missing invariant",
+            ),
+            (
+                "docs/GITHUB_SETUP.md",
+                "Required Human Checkpoint",
+                "GitHub setup missing safety boundary",
+            ),
+            (
+                "docs/prompts/product_intake.md",
+                "capture_limitations",
+                "product intake missing provenance boundary",
+            ),
+        ]
+        for relative, required, expected in mutations:
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory(
+                dir=ROOT.parent
+            ) as temp:
+                root = self.clone(Path(temp))
+                path = root / relative
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(required, "removed", 1),
+                    encoding="utf-8",
+                    newline="\n",
+                )
+                errors, _ = VALIDATOR.validate(root, [])
+                self.assertTrue(any(expected in item for item in errors), errors)
 
     def test_status_caps_are_hard_failures(self) -> None:
         for suffix, expected in [("\n" + "\n".join("extra" for _ in range(130)), "exceeds 120 lines"), ("x" * 33000, "exceeds 32768")]:

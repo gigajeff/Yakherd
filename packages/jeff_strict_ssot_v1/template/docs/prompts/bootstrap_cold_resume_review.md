@@ -2,8 +2,10 @@
 
 Use a fresh task with no bootstrap implementation chat.
 
-Read all root owner files, `docs/task_protocol.md`, validation/governance
-contracts, five task prompts, package install manifest, and validator tests.
+Read all root owner files, `START_HERE.md`, `docs/GITHUB_SETUP.md`,
+`docs/task_protocol.md`, validation/governance contracts, the five role prompts,
+the Codex launcher, the product-intake prompt, package install manifest, and
+validator tests.
 
 Verify that a fresh reader can recover:
 
@@ -11,11 +13,16 @@ Verify that a fresh reader can recover:
 - current state, blockers, next action, forbidden actions, and archive state;
 - accepted/superseded decision mechanics;
 - all five task boundaries and single-writer rule;
+- explicit creation of all five Codex role agents, their safe initial states,
+  coordinator non-authority, and fail-closed handling of a missing role;
 - evidence classes and done gate;
 - pure-validator prohibitions;
 - Governor inactive/delta behavior;
 - transcript authority neutrality;
 - Git/remote visibility boundary; and
+- the human GitHub account/repository checkpoint and installer no-Git boundary;
+- raw master-prompt delimiters, hash/byte-length provenance, and independent
+  intake review; and
 - the block on product implementation before reviewed intake.
 
 Run the protocol/governor validators and tests exactly as listed in

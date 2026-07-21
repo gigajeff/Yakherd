@@ -48,18 +48,25 @@ Run the same command without `--dry-run` to install.
 ## First Repository Workflow
 
 1. Review the generated files and `JEFF_STRICT_SSOT_INSTALL.json` receipt.
-2. Run the generated validators and tests.
-3. Start a fresh Red Team task with
-   `docs/prompts/bootstrap_cold_resume_review.md`.
-4. Fix and re-review any protocol defects.
-5. Commit the accepted governance shell.
-6. Put the actual product master prompt under `docs/master_prompts/`.
-7. Let Architecture convert that prompt into the first bounded implementation
-   plan.
+2. Open the repository as the Codex project and confirm `AGENTS.md` is loaded.
+3. In a new main task, send: `Follow START_HERE.md now. Launch the five
+   Yakherd role agents and keep this task as their coordinator.`
+4. Confirm Codex created all five named agent threads. Red Team runs
+   `docs/prompts/bootstrap_cold_resume_review.md`; the other roles begin in
+   their defined waiting, parked, or inactive states.
+5. Fix and independently re-review any protocol defects.
+6. If GitHub hosting is wanted, follow `docs/GITHUB_SETUP.md`. Confirm the
+   authenticated account, exact repository, visibility, initial staged paths,
+   commit, remote, and first push before allowing mutation.
+7. Give the coordinator the actual product master prompt between the documented
+   delimiters. Architecture preserves its bytes and provenance under
+   `docs/master_prompts/` and extracts the first bounded plan.
+8. Red Team reviews the intake. Only after PASS may Implementation receive one
+   authorized slice.
 
 ## Five Task Roles
 
-Use one long-lived task for each role:
+In Codex, the explicit launcher creates one agent thread for each role:
 
 - Architecture
 - Implementation
@@ -70,6 +77,26 @@ Use one long-lived task for each role:
 Chat is not authoritative. Each task reads repository state and writes its
 decision, evidence, or finding back to the repository before claiming
 completion.
+
+The main task is their coordinator, not a sixth authority. All five role agents
+are created at startup, but only Red Team acts immediately. Architecture waits
+for the bootstrap gate and master prompt, Implementation and Temporary Branch
+park, and Governor stays inactive. If the client cannot create all five, the
+launcher must report incomplete startup rather than silently collapsing roles.
+
+Other coding environments may create the same five long-lived sessions
+manually from the role prompt files. Automatic role-agent creation is a Codex
+adapter, not an installer side effect.
+
+## GitHub Account And Repository
+
+Yakherd never runs Git or accesses GitHub during installation. After bootstrap
+PASS, the coordinator can set up the project in the user's own GitHub account
+through the generated `docs/GITHUB_SETUP.md` workflow. It uses the existing
+authenticated GitHub CLI or connector session, never asks for a pasted token,
+suggests private visibility, preserves any existing history/remotes, stages an
+explicit reviewed path list, and requests one bounded human approval before
+the initial Git mutation and publication.
 
 ## Low-Level Package Interface
 

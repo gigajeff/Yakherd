@@ -22,9 +22,11 @@ REQUIRED_PATHS = [
     "GIT_SYNC.md",
     "README.md",
     "SSOT.md",
+    "START_HERE.md",
     "STATUS.md",
     "TESTING.md",
     "code_review.md",
+    "docs/GITHUB_SETUP.md",
     "docs/domain_invariants.md",
     "docs/governance/AUDIT_STATE.json",
     "docs/governance/GOVERNOR_DELTA_POLICY.json",
@@ -39,8 +41,10 @@ REQUIRED_PATHS = [
     "docs/plans/README.md",
     "docs/prompts/architecture_task.md",
     "docs/prompts/bootstrap_cold_resume_review.md",
+    "docs/prompts/codex_team_launcher.md",
     "docs/prompts/governor_task.md",
     "docs/prompts/implementation_task.md",
+    "docs/prompts/product_intake.md",
     "docs/prompts/red_team_task.md",
     "docs/prompts/temp_branch_task.md",
     "docs/reviews/README.md",
@@ -411,6 +415,47 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
     claude_adapter = readable.get("CLAUDE.md")
     if claude_adapter is not None and claude_adapter.strip() != "@AGENTS.md":
         errors.append("CLAUDE.md must contain only the @AGENTS.md import")
+
+    launcher = readable.get("docs/prompts/codex_team_launcher.md", "")
+    launcher_requirements = {
+        "exactly five direct role agents",
+        "`architecture`",
+        "`implementation`",
+        "`red_team`",
+        "`temporary_branch`",
+        "`governor`",
+        "startup as incomplete",
+        "docs/prompts/bootstrap_cold_resume_review.md",
+        "docs/prompts/product_intake.md",
+    }
+    for requirement in sorted(launcher_requirements):
+        if requirement not in launcher:
+            errors.append(f"Codex team launcher missing invariant: {requirement}")
+
+    github_setup = readable.get("docs/GITHUB_SETUP.md", "")
+    github_requirements = {
+        "Required Human Checkpoint",
+        "gh auth status --active --hostname github.com",
+        "Never use `git add .`",
+        "--source=. --remote=origin --push",
+        "Stop without mutation",
+    }
+    for requirement in sorted(github_requirements):
+        if requirement not in github_setup:
+            errors.append(f"GitHub setup missing safety boundary: {requirement}")
+
+    product_intake = readable.get("docs/prompts/product_intake.md", "")
+    intake_requirements = {
+        "MASTER PROMPT START",
+        "MASTER PROMPT END",
+        "byte_length",
+        "capture_limitations",
+        "sha256",
+        "independent Red Team PASS",
+    }
+    for requirement in sorted(intake_requirements):
+        if requirement not in product_intake:
+            errors.append(f"product intake missing provenance boundary: {requirement}")
 
     status_path = paths.get("STATUS.md")
     if status_path:

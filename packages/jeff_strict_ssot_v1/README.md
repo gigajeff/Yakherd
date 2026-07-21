@@ -15,6 +15,10 @@ The installed repository has:
 - compact current `STATUS.md` maintenance rules;
 - five task prompts: Architecture, Implementation, Red Team, Temporary Branch,
   and Governor;
+- a `START_HERE.md` beginner handoff and Codex prompt that launches all five
+  role-agent threads under one non-authoritative coordinator;
+- a byte-preserving, hash-recorded product master-prompt intake protocol;
+- a GitHub account/repository setup guide with an explicit human checkpoint;
 - standard-library, read-only protocol validators;
 - structured run-record templates and validator fixtures; and
 - no product stack, dependency, network, deployment, automation, or release
@@ -31,6 +35,13 @@ after verifying it resolves to the repository's local `AGENTS.md`, then use
 `/context` to confirm both files are active.
 Other coding agents can use the package when they have filesystem, shell, Git,
 and Python access and are explicitly instructed to read `AGENTS.md`.
+
+In Codex, the user explicitly invokes `START_HERE.md` after opening the
+generated repository. Codex can then create all five role agents. Creation is
+not activation: Red Team runs the bootstrap gate, Architecture waits,
+Implementation and Temporary Branch park, and Governor remains inactive. If
+the client cannot create all five, startup is incomplete and must be reported
+as such.
 
 The adapter is behavioral guidance, not a security sandbox. Its bytes can be
 validated, but client approval and loaded-context state cannot. The installer
@@ -93,3 +104,7 @@ python -B -m unittest discover -s packages\jeff_strict_ssot_v1\tests -v
 
 The package does not install software, access the network, invoke Git, ingest a
 product prompt, create automation, or run product code.
+
+The installed GitHub and prompt-intake documents govern later coding-agent
+actions after explicit authorization; they do not give the installer those
+capabilities.

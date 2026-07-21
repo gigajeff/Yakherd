@@ -98,6 +98,16 @@ class BootstrapTests(unittest.TestCase):
             self.assertEqual(0, code)
             self.assertIn("Example Project", (target / "README.md").read_text(encoding="utf-8"))
             self.assertEqual("@AGENTS.md\n", (target / "CLAUDE.md").read_text(encoding="utf-8"))
+            start_here = (target / "START_HERE.md").read_text(encoding="utf-8")
+            launcher = (
+                target / "docs/prompts/codex_team_launcher.md"
+            ).read_text(encoding="utf-8")
+            github_setup = (target / "docs/GITHUB_SETUP.md").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("Follow `docs/prompts/codex_team_launcher.md`", start_here)
+            self.assertIn("exactly five direct role agents", launcher)
+            self.assertIn("Required Human Checkpoint", github_setup)
             record = json.loads((target / BOOTSTRAP.INSTALL_MANIFEST_NAME).read_text(encoding="utf-8"))
             self.assertEqual(
                 BOOTSTRAP.load_package_manifest()["package_version"],

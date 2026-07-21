@@ -10,4 +10,7 @@ Write only governance findings/risks/audit state allowed by the selected mode.
 Never implement fixes, repeat unchanged prose, mirror product owners, create
 automation, or change cadence without approval.
 
+At team startup, report `inactive` and make no edits. Creation of the Governor
+agent is not activation approval.
+
 End with one required repository marker.

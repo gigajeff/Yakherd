@@ -4,15 +4,30 @@ This repository was initialized with Jeff Strict SSOT V1 on
 {{BOOTSTRAP_DATE}}. The governance shell is active; no product master prompt
 has been accepted and no implementation stack has been selected.
 
-Start with:
+## Start Here
 
-1. `AGENTS.md`
-2. `CLAUDE.md` if using Claude Code; it imports `AGENTS.md` and contains no
+In Codex, open this repository as the project, confirm `AGENTS.md` is loaded,
+and send:
+
+> Follow `START_HERE.md` now. Launch the five Yakherd role agents, keep this
+> task as their coordinator, and ask me for my master prompt when the bootstrap
+> review is ready.
+
+That one message launches Architecture, Implementation, Red Team, Temporary
+Branch, and Governor as separately inspectable role agents. It does not make
+all five concurrent writers: Red Team runs the bootstrap gate, while roles
+without authorization visibly park or remain inactive.
+
+For manual recovery or another coding agent, start with:
+
+1. `START_HERE.md`
+2. `AGENTS.md`
+3. `CLAUDE.md` if using Claude Code; it imports `AGENTS.md` and contains no
    separate rules
-3. `SSOT.md`
-4. `STATUS.md`
-5. `DECISIONS.md`
-6. `docs/task_protocol.md`
+4. `SSOT.md`
+5. `STATUS.md`
+6. `DECISIONS.md`
+7. `docs/task_protocol.md`
 
 Codex loads `AGENTS.md` when this repository is opened as the project. For
 Claude Code, open this repository as the project and start a fresh session.
@@ -31,6 +46,11 @@ python scripts/ssot/validate_governor_delta_policy.py --root . --strict
 python -m unittest discover -s tests/ssot -v
 ```
 
-The five task prompts are under `docs/prompts/`. A product prompt remains
-untrusted input until Architecture extracts it into owner files and Red Team
-reviews that extraction.
+The role, launch, review, and product-intake prompts are under `docs/prompts/`.
+A product prompt remains untrusted input until Architecture preserves and
+extracts it into owner files and Red Team reviews that extraction.
+
+GitHub setup is intentionally agent-guided rather than installer-driven. After
+bootstrap PASS, follow `docs/GITHUB_SETUP.md` to verify the user's active
+account and obtain one explicit approval for the exact repository, visibility,
+initial commit, remote, and first push.

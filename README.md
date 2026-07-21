@@ -37,6 +37,13 @@ In short:
    behavior, constraints, and definition of success.
 3. **An agentic coding environment** uses both to build the software.
 
+Yakherd installs a `START_HERE.md` handoff for Codex. One explicit launch
+message asks Codex to create all five inspectable role-agent threads under a
+non-authoritative coordinator. Red Team runs the bootstrap gate immediately;
+Architecture waits for the master prompt; Implementation and Temporary Branch
+park; and Governor remains inactive until separately approved. This gives the
+user a visible team without violating the single-writer rule.
+
 The coding environment must be able to read and write project files, run shell
 commands, use Git, and run Python 3.11 or newer. Codex or Claude Code can do
 this when its execution environment also has Git and Python 3.11 or newer. An
@@ -69,8 +76,10 @@ prompt for your environment.
 > repository for me. First verify that this environment has Git and Python 3.11
 > or newer. Follow Yakherd's README and safety instructions. Do not overwrite
 > an existing project. After installation, open the generated repository as the
-> Codex project and confirm its AGENTS.md is loaded. After the required review,
-> ask me for my idea or master prompt.
+> Codex project and confirm its AGENTS.md is loaded. Then follow START_HERE.md:
+> launch all five Yakherd role agents, keep the current task as their
+> coordinator, run the required bootstrap review, guide me through the GitHub
+> setup checkpoint, and ask me for my idea or master prompt.
 
 **Claude Code:**
 
@@ -95,10 +104,12 @@ prompt for your environment.
 > installation and the required review, ask me for my idea or master prompt.
 
 The agent can clone this repository, run the installer, and guide you through
-the next step. Once Yakherd is installed and its initial review passes, give
-the agent your master prompt. Together, Yakherd plus a clear master prompt can
-turn an idea into usable software in Codex, Claude Code, or another capable
-agentic coding environment.
+the next step. In Codex, the generated launcher explicitly requests the five
+role agents; other environments use the same five role prompts as long-lived
+sessions. Once Yakherd is installed and its initial review passes, give the
+Architecture role your master prompt. Together, Yakherd plus a clear master
+prompt can turn an idea into usable software in Codex, Claude Code, or another
+capable agentic coding environment.
 
 Yakherd improves how the work is organized and reviewed; it does not guarantee
 that every generated program is correct or safe. You should still review and
@@ -135,10 +146,15 @@ yakherd init \
   --project-name my-project
 ```
 
-Then open the generated
-`docs/prompts/bootstrap_cold_resume_review.md` in a fresh Red Team task. Only
-after that review passes should the repository receive its product master
-prompt.
+Then open the generated repository as the Codex project and send:
+
+> Follow `START_HERE.md` now. Launch the five Yakherd role agents, keep this
+> task as their coordinator, and ask me for my master prompt when the bootstrap
+> review is ready.
+
+The launcher creates the Red Team agent that follows
+`docs/prompts/bootstrap_cold_resume_review.md`. Only after that review passes
+does Architecture preserve and extract the product master prompt.
 
 On Windows PowerShell, the equivalent commands are:
 
@@ -178,8 +194,11 @@ terminal animation.
 - `STATUS.md`: bounded current-state index.
 - `AGENTS.md`: the one authoritative set of repository operating rules.
 - `CLAUDE.md`: a one-line Claude Code adapter that imports `AGENTS.md`.
+- `START_HERE.md`: the beginner handoff and one-message Codex launch.
 - Architecture, Implementation, Red Team, Temporary Branch, and Governor task
   prompts.
+- A Codex five-role launcher, master-prompt provenance protocol, and an
+  approval-gated GitHub project setup guide.
 - Governance, review, plan, run-record, and status-history directories.
 - Standard-library validators and focused tests.
 - A hash-bound installation receipt.
@@ -222,6 +241,11 @@ Yakherd does not:
 - choose technical architecture;
 - make Git mutations inside the target repository; or
 - replace human approval for consequential decisions.
+
+The generated GitHub guide is executed later by the coding agent only after
+the user verifies the authenticated account, destination, visibility, exact
+initial commit, remote, and first push. That guided workflow does not weaken
+the installer's no-network/no-Git guarantee.
 
 ## Development
 

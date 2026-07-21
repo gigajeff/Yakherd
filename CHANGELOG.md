@@ -2,6 +2,23 @@
 
 All notable changes to Yakherd are recorded here.
 
+## 1.2.0 - Unreleased
+
+- Adds a beginner `START_HERE.md` handoff and an explicit Codex launcher that
+  creates all five governed role agents under one non-authoritative
+  coordinator, with fail-closed reporting when any role cannot be created.
+- Defines visible startup states so the five roles exist without violating the
+  single-writer rule: Red Team reviews, Architecture waits, Implementation and
+  Temporary Branch park, and Governor stays inactive.
+- Adds master-prompt delimiters, raw UTF-8 preservation, SHA-256/byte-length
+  provenance, Architecture extraction, and independent Red Team intake review.
+- Adds approval-gated setup for the user's own GitHub account and project while
+  preserving the installer's no-network/no-Git-mutation boundary.
+- Makes the launcher, GitHub checkpoint, and prompt provenance mechanically
+  required by the generated protocol validator and negative tests.
+- Existing installations require a separately reviewed, hash-pinned retrofit;
+  Yakherd does not overwrite them automatically.
+
 ## 1.1.1 - 2026-07-20
 
 - Pins the PyPI publishing action to the immutable `v1.14.0` source SHA that

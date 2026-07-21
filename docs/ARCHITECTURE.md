@@ -33,6 +33,13 @@ The generated repository separates five task responsibilities:
 - Temporary Branch isolates exploratory work from the main implementation.
 - Governor audits state drift using bounded, delta-only reporting.
 
+For Codex, `START_HERE.md` and
+`docs/prompts/codex_team_launcher.md` are a client adapter that explicitly
+requests five direct role agents under one non-authoritative coordinator. The
+adapter creates role execution contexts; it does not change authority. Roles
+without an activation gate report waiting, parked, or inactive rather than
+becoming concurrent writers.
+
 `SSOT.md` maps authority. `DECISIONS.md` owns durable decisions. `STATUS.md`
 is a compact current-state index, not an append-only history. Domain owners and
 run records carry detailed evidence.
@@ -45,6 +52,12 @@ first-use approval for that local import, and the active context should be
 verified before work. Other agents remain compatible when explicitly directed
 to read `AGENTS.md`; discovery and client-side approval state are outside the
 installer's trust boundary.
+
+GitHub setup and product-prompt intake are also post-install, agent-guided
+workflows. The installer only writes their reviewed instructions. It does not
+authenticate an account, access the network, initialize Git, create a remote,
+push, or ingest prompt content. Those actions remain behind explicit user and
+review gates in the generated repository.
 
 ## Trust Chain
 
