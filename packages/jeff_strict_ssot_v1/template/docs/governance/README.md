@@ -11,5 +11,8 @@ or current project status.
 - `GOVERNOR_DELTA_POLICY.*`: reporting limits.
 - `TRANSCRIPT_REVIEW_POLICY.md`: conditional transcript metadata rules.
 
+Work modes, Red Team scope, and the review circuit breaker are product-work
+boundaries owned by `../task_protocol.md`, not by the Governor.
+
 The Governor begins inactive. No schedule or automation is created by this
 bootstrap.

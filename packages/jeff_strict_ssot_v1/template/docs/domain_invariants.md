@@ -1,7 +1,9 @@
 # Domain Invariants
 
-Status: empty pending reviewed product intake.
+Status: empty pending human-confirmed product intake.
 
 Do not infer domain invariants from the repository name, a chat summary, or an
-unreviewed master prompt. Architecture records proposed invariants here only
-after source provenance is preserved and Red Team reviews the extraction.
+unconfirmed master prompt. Architecture records proposed invariants here only
+after source provenance is preserved and the human confirms the extraction.
+Strict-mode plans and reviews then cite those accepted invariants; Red Team
+does not create them.

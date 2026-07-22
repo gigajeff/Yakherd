@@ -17,7 +17,7 @@ delete evidence merely to satisfy the cap.
 
 ## Update Order
 
-1. Promote the durable result to its real owner and structured evidence.
+1. Promote the durable result to its real owner and mode-appropriate evidence.
 2. Replace the affected `STATUS.md` field/section in place.
 3. Remove stale summary prose only after its owner/evidence path resolves.
 4. Preserve blockers, next authorization, forbidden actions, release state,

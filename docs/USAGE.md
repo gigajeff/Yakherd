@@ -54,15 +54,17 @@ Run the same command without `--dry-run` to install.
 4. Confirm Codex created all five named agent threads. Red Team runs
    `docs/prompts/bootstrap_cold_resume_review.md`; the other roles begin in
    their defined waiting, parked, or inactive states.
-5. Fix and independently re-review any protocol defects.
+5. If the bootstrap review finds a protocol defect, fix it once and use the
+   single permitted recheck. A second failure stops for a human decision.
 6. If GitHub hosting is wanted, follow `docs/GITHUB_SETUP.md`. Confirm the
    authenticated account, exact repository, visibility, initial staged paths,
    commit, remote, and first push before allowing mutation.
 7. Give the coordinator the actual product master prompt between the documented
    delimiters. Architecture preserves its bytes and provenance under
-   `docs/master_prompts/` and extracts the first bounded plan.
-8. Red Team reviews the intake. Only after PASS may Implementation receive one
-   authorized slice.
+   `docs/master_prompts/` and extracts the first bounded brief or strict
+   planning scope for you to confirm.
+8. A confirmed bounded brief goes directly to Implementation. A strict slice
+   uses one Architecture plan and at most two Red Team reviews.
 
 ## Five Task Roles
 

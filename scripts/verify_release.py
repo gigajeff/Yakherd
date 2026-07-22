@@ -29,6 +29,28 @@ def main(argv: list[str] | None = None) -> int:
         "project"
     ]
 
+    root_protocol = ROOT / "docs" / "task_protocol.md"
+    template_protocol = PACKAGE / "template" / "docs" / "task_protocol.md"
+    for label, path in (
+        ("root task protocol", root_protocol),
+        ("installed task protocol", template_protocol),
+    ):
+        if not path.is_file():
+            errors.append(f"{label} missing: {path.relative_to(ROOT)}")
+
+    root_agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    template_agents = (PACKAGE / "template" / "AGENTS.md").read_text(
+        encoding="utf-8"
+    )
+    if "`docs/task_protocol.md` is the canonical SSOT owner" not in root_agents:
+        errors.append("root AGENTS.md does not name docs/task_protocol.md as canonical")
+    if "`docs/task_protocol.md` owns proportional work modes" not in template_agents:
+        errors.append("template AGENTS.md does not name docs/task_protocol.md as owner")
+
+    manifest_in = (ROOT / "MANIFEST.in").read_text(encoding="utf-8").splitlines()
+    if "include docs/task_protocol.md" not in manifest_in:
+        errors.append("source distribution does not include root docs/task_protocol.md")
+
     for field in ("package_name", "package_version"):
         if release.get(field) != manifest.get(field):
             errors.append(
@@ -57,6 +79,10 @@ def main(argv: list[str] | None = None) -> int:
             errors.append(f"release hash mismatch: {relative}: {actual} != {expected}")
 
     template_hashes = manifest.get("template_sha256", {})
+    if "docs/task_protocol.md" not in manifest.get("template_files", []):
+        errors.append("manifest file list omits installed docs/task_protocol.md")
+    if "docs/task_protocol.md" not in template_hashes:
+        errors.append("manifest hashes omit installed docs/task_protocol.md")
     for relative, expected in template_hashes.items():
         source = PACKAGE / "template" / relative
         if not source.is_file():

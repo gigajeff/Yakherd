@@ -1,5 +1,6 @@
 include LICENSE
 include README.md
+include docs/task_protocol.md
 include pyproject.toml
 include setup.py
 recursive-include src *.py

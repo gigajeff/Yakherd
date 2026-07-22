@@ -21,9 +21,14 @@ Verify that a fresh reader can recover:
 - transcript authority neutrality;
 - Git/remote visibility boundary; and
 - the human GitHub account/repository checkpoint and installer no-Git boundary;
-- raw master-prompt delimiters, hash/byte-length provenance, and independent
-  intake review; and
-- the block on product implementation before reviewed intake.
+- raw master-prompt delimiters and hash/byte-length provenance;
+- human confirmation of the extracted bounded brief or strict planning scope;
+- direct Implementation authorization for a confirmed bounded brief; and
+- strict-mode planning/review plus the two-review circuit breaker.
+
+Bounded mode has no product-intake Red Team gate. This bootstrap integrity
+review is itself limited to one initial review and one recheck; a second
+`FAIL` returns the decision to the human instead of creating another candidate.
 
 Run the protocol/governor validators and tests exactly as listed in
 `TESTING.md`, including Python's `-B` flag. Use `python -B` for every other
@@ -47,6 +52,6 @@ inspect it against the same schema.
 Do not edit or repair any other target file. Write one independent review at
 `docs/reviews/bootstrap_cold_resume_<RUN_ID>.md`, lead with findings, link the
 five run records, and state whether the cold-resume review passes. Product
-intake remains a separately promoted next step even after a pass.
+intake remains a separately human-confirmed next step even after a pass.
 
 End with one required repository marker.

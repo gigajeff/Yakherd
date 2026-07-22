@@ -45,8 +45,8 @@ Common rules for every role agent:
   This is the only role that performs the bootstrap gate during launch.
 - `architecture`: read its boundaries, report readiness, and wait. It must not
   capture or extract the product prompt before bootstrap Red Team PASS.
-- `implementation`: report `parked` until a reviewed Architecture plan grants
-  one exact implementation slice.
+- `implementation`: report `parked` until a user-approved bounded brief or a
+  reviewed strict Architecture plan grants one exact implementation slice.
 - `temporary_branch`: report `parked` until the user approves one named
   hypothesis and an isolated branch/worktree boundary.
 - `governor`: report `inactive` until a useful baseline exists and the user
@@ -67,11 +67,13 @@ and name the missing role; never silently fall back to a pretend team.
 2. If the user supplied a delimited master prompt with the invocation, retain
    it without executing it. Otherwise ask the user for it.
 3. Send the prompt to `architecture` with
-   `docs/prompts/product_intake.md`. Architecture preserves and extracts it.
-4. Send the resulting intake records and exact diff to `red_team` for
-   independent review.
-5. Only after intake PASS may Architecture authorize a bounded implementation
-   slice and the coordinator resume `implementation`.
+   `docs/prompts/product_intake.md`. Architecture preserves and extracts it,
+   classifies only the first authorized slice, and asks the human to confirm
+   the brief and mode.
+4. For `bounded` mode, resume `implementation` directly from the confirmed
+   brief. Do not create an Architecture plan or Red Team gate automatically.
+5. For `strict` mode, Architecture writes one active plan and `red_team`
+   reviews it under the two-review circuit breaker before Implementation.
 
 Do not automatically activate Governor, start a temporary experiment, or
 publish subsequent commits merely because bootstrap or product intake passed.

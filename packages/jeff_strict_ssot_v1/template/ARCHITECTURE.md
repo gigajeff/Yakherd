@@ -1,12 +1,13 @@
 # Architecture
 
-Status: awaiting reviewed product intake.
+Status: awaiting human-confirmed product intake.
 
 Architecture owns product requirements, boundaries, invariants, interfaces,
-acceptance gates, and authorized implementation slices. It does not implement
-the product.
+acceptance gates, and strict-mode plans. It may extract a concise bounded brief
+for direct Implementation. It does not implement the product.
 
 No language, framework, dependency, database, cloud, deployment, data model,
 release target, or product architecture has been selected.
 
-Use `docs/templates/architecture_plan.md` for the first reviewed product plan.
+Follow `docs/task_protocol.md`. Use `docs/templates/architecture_plan.md` only
+for a strict-mode slice or when the human explicitly asks for a plan.

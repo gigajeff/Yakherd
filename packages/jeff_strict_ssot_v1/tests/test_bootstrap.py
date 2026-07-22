@@ -63,6 +63,16 @@ class BootstrapTests(unittest.TestCase):
     def test_manifest_matches_template_tree(self) -> None:
         manifest = BOOTSTRAP.load_package_manifest()
         self.assertGreater(len(manifest["template_files"]), 30)
+        template = PACKAGE_ROOT / "template"
+        actual_files = sorted(
+            path.relative_to(template).as_posix()
+            for path in template.rglob("*")
+            if path.is_file()
+            and path.name != "__pycache__"
+            and path.suffix not in {".pyc", ".pyo"}
+        )
+        self.assertEqual(actual_files, manifest["template_files"])
+        self.assertEqual(set(actual_files), set(manifest["template_sha256"]))
         release = json.loads((PACKAGE_ROOT / "RELEASE.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["package_name"], release["package_name"])
         self.assertEqual(manifest["package_version"], release["package_version"])

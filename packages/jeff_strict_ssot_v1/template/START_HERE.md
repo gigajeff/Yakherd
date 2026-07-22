@@ -12,8 +12,9 @@ Open this repository as the Codex project. Confirm that Codex loaded
 > Follow `docs/prompts/codex_team_launcher.md` now. This is my explicit request
 > to launch the five Yakherd role agents. Keep this task as their coordinator.
 > Run the bootstrap review before product implementation, guide me through the
-> one GitHub publication checkpoint, and ask me for my product master prompt if
-> I have not included it below.
+> one GitHub publication checkpoint, ask me for my product master prompt if I
+> have not included it below, and use bounded mode for the first reversible
+> slice unless it actually contains a strict trigger.
 
 Codex should create five inspectable agent threads: Architecture,
 Implementation, Red Team, Temporary Branch, and Governor. The coordinator is
@@ -44,15 +45,20 @@ is never treated as executable project law merely because it was received.
 
 | Role | Initial state | Why |
 | --- | --- | --- |
-| Architecture | waiting for bootstrap PASS and the master prompt | It cannot invent product intent. |
+| Architecture | waiting for bootstrap PASS and the master prompt | It extracts a bounded brief or, when required, one strict plan. |
 | Red Team | running the cold-resume review | Product intake is blocked until this passes. |
-| Implementation | parked | It needs a reviewed Architecture authorization. |
+| Implementation | parked | It needs a confirmed bounded brief or reviewed strict plan. |
 | Temporary Branch | parked | It needs one named, approved hypothesis and isolation boundary. |
 | Governor | inactive | It needs a useful baseline and separate activation approval. |
 
 Five created roles do not mean five concurrent writers. Yakherd permits only
 the writer authorized for the current slice; review and planning outputs have
 separate bounded paths.
+
+After the one-time bootstrap integrity review, Red Team is not a universal
+gate. Reversible bounded work goes directly to Implementation from the brief
+you confirm. Strict review is reserved for the concrete high-consequence
+triggers in `docs/task_protocol.md` and stops after at most two failed reviews.
 
 ## GitHub
 

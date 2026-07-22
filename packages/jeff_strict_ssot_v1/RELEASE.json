@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "package_name": "jeff_strict_ssot",
-  "package_version": "1.2.0",
+  "package_version": "1.3.0",
   "bootstrap_sha256": "c41f4f5d11e5eb3bfed9eabfdef7444e28612d124a26101df8bfb3628837a8bb",
-  "manifest_sha256": "ab77d4af2b30edaeb2f4811cf2d659e4271187fd666c52fa896ac0ed6ec3f609",
+  "manifest_sha256": "c1699bf01e5edb7f6cd7f2e2fb679206cd2bc76860bba8d82914cd29bb1f437d",
   "authentication_boundary": "The reviewed Git commit or release authenticates this file; RELEASE.json binds bootstrap.py and MANIFEST.json, and MANIFEST.json binds every installed source template."
 }

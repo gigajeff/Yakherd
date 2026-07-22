@@ -18,6 +18,8 @@ The installed repository has:
 - a `START_HERE.md` beginner handoff and Codex prompt that launches all five
   role-agent threads under one non-authoritative coordinator;
 - a byte-preserving, hash-recorded product master-prompt intake protocol;
+- proportional bounded/strict work modes, scope-contained Red Team findings,
+  and a two-review human circuit breaker;
 - a GitHub account/repository setup guide with an explicit human checkpoint;
 - standard-library, read-only protocol validators;
 - structured run-record templates and validator fixtures; and
@@ -42,6 +44,11 @@ not activation: Red Team runs the bootstrap gate, Architecture waits,
 Implementation and Temporary Branch park, and Governor remains inactive. If
 the client cannot create all five, startup is incomplete and must be reported
 as such.
+
+After bootstrap, reversible bounded work can move directly from a
+human-confirmed brief to Implementation. Strict planning and Red Team review
+apply only to the concrete high-consequence slice, and autonomous review stops
+after one initial review plus one recheck.
 
 The adapter is behavioral guidance, not a security sandbox. Its bytes can be
 validated, but client approval and loaded-context state cannot. The installer

@@ -25,13 +25,27 @@ post-write verification, and a durable transaction journal.
 
 ## Installed Governance Model
 
+The root `docs/task_protocol.md` governs development of Yakherd itself. The
+separate `packages/jeff_strict_ssot_v1/template/docs/task_protocol.md` is
+retained, hash-bound, and installed into generated repositories as their task-
+protocol owner.
+
 The generated repository separates five task responsibilities:
 
-- Architecture decides and records bounded plans.
-- Implementation executes only approved scope and writes durable evidence.
-- Red Team reviews independently and does not repair while reviewing.
+- Architecture turns intake into a bounded brief or records one strict plan.
+- Implementation executes a human-confirmed bounded brief or reviewed strict
+  scope and writes mode-appropriate evidence.
+- Red Team reviews bootstrap and strict targets independently and does not
+  repair while reviewing or create new requirements.
 - Temporary Branch isolates exploratory work from the main implementation.
 - Governor audits state drift using bounded, delta-only reporting.
+
+`docs/task_protocol.md` is the installed owner for proportional review.
+Reversible local work is bounded and needs no Architecture plan or Red Team
+gate. High-consequence slices are strict. Only P0/P1 findings block, each
+strict work ID receives one initial review and one recheck, and a second
+failure stops autonomous iteration for a human decision. Classification uses
+the actual authorized slice, not hypothetical future deployment or features.
 
 For Codex, `START_HERE.md` and
 `docs/prompts/codex_team_launcher.md` are a client adapter that explicitly
@@ -57,7 +71,7 @@ GitHub setup and product-prompt intake are also post-install, agent-guided
 workflows. The installer only writes their reviewed instructions. It does not
 authenticate an account, access the network, initialize Git, create a remote,
 push, or ingest prompt content. Those actions remain behind explicit user and
-review gates in the generated repository.
+applicable strict-mode gates in the generated repository.
 
 ## Trust Chain
 

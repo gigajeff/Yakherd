@@ -13,6 +13,7 @@ Before changing package behavior, read:
 - `README.md`
 - `docs/ARCHITECTURE.md`
 - `docs/RELEASE.md`
+- `docs/task_protocol.md`
 - `packages/jeff_strict_ssot_v1/README.md`
 - `packages/jeff_strict_ssot_v1/MANIFEST.json`
 - `packages/jeff_strict_ssot_v1/RELEASE.json`
@@ -32,6 +33,30 @@ Before changing package behavior, read:
   machine-local state.
 - Use `python -B` for package verification where practical.
 - Do not claim that repository CI replaces independent review.
+
+## Proportional Review Rule
+
+`docs/task_protocol.md` is the canonical SSOT owner for work-mode
+classification, review scope and severity, the review-cycle budget, and role
+handoffs in this repository. The rules below are a repository-instruction
+summary; resolve any conflict in those fields in favor of the canonical owner.
+
+- Reversible local repository work with a user-approved goal, write boundary,
+  forbidden scope, and Definition of Done is bounded work. It does not require
+  an Architecture plan or Red Team gate merely because stricter future work is
+  imaginable.
+- Release/deployment, credentials, destructive changes, personal or regulated
+  data, spending, safety-critical behavior, installer changes, and governance-
+  core changes are strict work.
+- Red Team verifies accepted requirements and hazards introduced by the exact
+  diff. It cannot add product requirements or make an out-of-scope enhancement
+  a finding. Only P0/P1 findings block; P2/P3 are advisory.
+- A strict target gets one initial review and one recheck. After two
+  consecutive failures, stop for human rescoping, risk acceptance, or
+  cancellation. Do not create V3/V4 candidates or a new work ID for the same
+  goal to evade the limit.
+- Keep one active plan and review path per work ID; revise in place. A review
+  cannot itself create a fresh-review requirement.
 
 ## Required Validation
 

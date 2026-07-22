@@ -171,6 +171,85 @@ class ProtocolValidatorTests(unittest.TestCase):
                 errors, _ = VALIDATOR.validate(root, [])
                 self.assertTrue(any(expected in item for item in errors), errors)
 
+    def test_proportional_modes_and_review_circuit_breaker_are_required(self) -> None:
+        mutations = [
+            (
+                "docs/task_protocol.md",
+                "Classify only the authorized slice, not hypothetical future features.",
+                "task protocol missing review control",
+            ),
+            (
+                "docs/task_protocol.md",
+                "Bounded mode needs no Architecture plan and no Red Team gate.",
+                "task protocol missing review control",
+            ),
+            (
+                "docs/task_protocol.md",
+                "A missing enhancement outside accepted scope is not a finding.",
+                "task protocol missing review control",
+            ),
+            (
+                "docs/task_protocol.md",
+                "After a second consecutive `FAIL`",
+                "task protocol missing review control",
+            ),
+            (
+                "docs/task_protocol.md",
+                "Do not create `_v2`, `_v3`",
+                "task protocol missing review control",
+            ),
+            (
+                "docs/prompts/implementation_task.md",
+                "user-approved bounded brief",
+                "Implementation prompt missing direct bounded authorization",
+            ),
+            (
+                "docs/prompts/red_team_task.md",
+                "outside accepted scope is not a finding",
+                "Red Team prompt missing scope control",
+            ),
+        ]
+        for relative, required, expected in mutations:
+            with self.subTest(relative=relative, required=required), tempfile.TemporaryDirectory(
+                dir=ROOT.parent
+            ) as temp:
+                root = self.clone(Path(temp))
+                path = root / relative
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(required, "removed", 1),
+                    encoding="utf-8",
+                    newline="\n",
+                )
+                errors, _ = VALIDATOR.validate(root, [])
+                self.assertTrue(any(expected in item for item in errors), errors)
+
+    def test_product_intake_is_human_confirmed_not_universally_red_teamed(self) -> None:
+        intake = (ROOT / "docs/prompts/product_intake.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertNotIn("independent Red Team PASS", intake)
+        self.assertIn("human confirmation", intake)
+        self.assertIn("no automatic Architecture plan or Red Team review", intake)
+
+    def test_review_template_has_binary_verdict_and_two_cycle_limit(self) -> None:
+        template = (ROOT / "docs/templates/red_team_review.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertNotIn("pass_with_fixes", template.lower())
+        self.assertIn("- Review cycle: 1 | 2", template)
+        self.assertIn("- Verdict: PASS | FAIL", template)
+        self.assertIn("cannot require cycle 3", template)
+
+    def test_bootstrap_review_does_not_restore_universal_intake_gate(self) -> None:
+        prompt = (
+            ROOT / "docs/prompts/bootstrap_cold_resume_review.md"
+        ).read_text(encoding="utf-8")
+        self.assertNotIn("independent\n  intake review", prompt)
+        self.assertNotIn("before reviewed intake", prompt)
+        self.assertIn("Bounded mode has no product-intake Red Team gate.", prompt)
+        self.assertIn("direct Implementation authorization", prompt)
+        self.assertIn("two-review circuit breaker", prompt)
+
     def test_status_caps_are_hard_failures(self) -> None:
         for suffix, expected in [("\n" + "\n".join("extra" for _ in range(130)), "exceeds 120 lines"), ("x" * 33000, "exceeds 32768")]:
             with self.subTest(expected=expected), tempfile.TemporaryDirectory(dir=ROOT.parent) as temp:

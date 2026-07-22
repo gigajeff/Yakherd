@@ -14,7 +14,7 @@ but must not copy mutable detail.
 | Test strategy | `TESTING.md` | protocol-only |
 | Git workflow | `GIT_SYNC.md` | current |
 | Domain invariants | `docs/domain_invariants.md` | empty pending intake |
-| Task boundaries | `docs/task_protocol.md` | current |
+| Task boundaries, work modes, and review circuit breaker | `docs/task_protocol.md` | current |
 | Evidence contract | `docs/validation_protocol.md` | current |
 | Product master prompt | `docs/master_prompts/000_PRODUCT_PROMPT_NOT_RECEIVED.md` | not received |
 | Governance findings | `docs/governance/OPEN_FINDINGS.md` | current, non-authoritative |

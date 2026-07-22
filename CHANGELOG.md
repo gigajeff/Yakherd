@@ -2,8 +2,23 @@
 
 All notable changes to Yakherd are recorded here.
 
-## 1.2.0 - Unreleased
+## 1.3.0 - Unreleased
 
+- Adds a root `docs/task_protocol.md` as Yakherd's canonical development owner,
+  retains the separately scoped packaged template copy, and validates both
+  files and both `AGENTS.md` ownership pointers in the release verifier.
+- Includes the root task protocol in the source distribution; the installed
+  template task protocol remains hash-bound in the wheel and source archive.
+
+- Adds proportional `bounded` and `strict` work modes so reversible local
+  slices can proceed directly from a human-confirmed brief without universal
+  Architecture and Red Team gates.
+- Constrains Red Team to accepted requirements and hazards introduced by the
+  exact diff, makes P2/P3 advisory, removes `pass_with_fixes`, and caps each
+  strict work ID at one initial review plus one recheck before mandatory human
+  rescoping, risk acceptance, or cancellation.
+- Requires one active plan/review path per work ID and forbids version-suffixed
+  candidate proliferation as a way to evade the review circuit breaker.
 - Adds a beginner `START_HERE.md` handoff and an explicit Codex launcher that
   creates all five governed role agents under one non-authoritative
   coordinator, with fail-closed reporting when any role cannot be created.
@@ -11,7 +26,8 @@ All notable changes to Yakherd are recorded here.
   single-writer rule: Red Team reviews, Architecture waits, Implementation and
   Temporary Branch park, and Governor stays inactive.
 - Adds master-prompt delimiters, raw UTF-8 preservation, SHA-256/byte-length
-  provenance, Architecture extraction, and independent Red Team intake review.
+  provenance, Architecture extraction, and human confirmation of the first
+  bounded brief or strict planning scope.
 - Adds approval-gated setup for the user's own GitHub account and project while
   preserving the installer's no-network/no-Git-mutation boundary.
 - Makes the launcher, GitHub checkpoint, and prompt provenance mechanically

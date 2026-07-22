@@ -451,11 +451,68 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
         "byte_length",
         "capture_limitations",
         "sha256",
-        "independent Red Team PASS",
+        "human confirmation",
+        "no automatic Architecture plan or Red Team review",
     }
     for requirement in sorted(intake_requirements):
         if requirement not in product_intake:
             errors.append(f"product intake missing provenance boundary: {requirement}")
+
+    task_protocol = readable.get("docs/task_protocol.md", "")
+    review_control_requirements = {
+        "`bounded` or `strict`",
+        "Classify only the authorized slice, not hypothetical future features.",
+        "Bounded mode needs no Architecture plan and no Red Team gate.",
+        "A missing enhancement outside accepted scope is not a finding.",
+        "Only P0 and P1 block",
+        "one initial review and at most one recheck",
+        "After a second consecutive `FAIL`",
+        "Do not create `_v2`, `_v3`",
+        "cannot itself create a new requirement or a fresh-review obligation",
+    }
+    for requirement in sorted(review_control_requirements):
+        if requirement not in task_protocol:
+            errors.append(f"task protocol missing review control: {requirement}")
+
+    implementation_prompt = readable.get(
+        "docs/prompts/implementation_task.md", ""
+    )
+    if "user-approved bounded brief" not in implementation_prompt:
+        errors.append("Implementation prompt missing direct bounded authorization")
+
+    red_team_prompt = readable.get("docs/prompts/red_team_task.md", "")
+    red_team_requirements = {
+        "Bounded work has no Red Team gate.",
+        "outside accepted scope is not a finding",
+        "Only P0/P1 block",
+        "After a second `FAIL`",
+        "cannot require a third review",
+    }
+    for requirement in sorted(red_team_requirements):
+        if requirement not in red_team_prompt:
+            errors.append(f"Red Team prompt missing scope control: {requirement}")
+
+    bootstrap_review = readable.get(
+        "docs/prompts/bootstrap_cold_resume_review.md", ""
+    )
+    bootstrap_review_requirements = {
+        "human confirmation of the extracted bounded brief or strict planning scope",
+        "Bounded mode has no product-intake Red Team gate.",
+        "direct Implementation authorization for a confirmed bounded brief",
+        "two-review circuit breaker",
+    }
+    for requirement in sorted(bootstrap_review_requirements):
+        if requirement not in bootstrap_review:
+            errors.append(
+                f"bootstrap review missing proportional workflow: {requirement}"
+            )
+
+    review_template = readable.get("docs/templates/red_team_review.md", "")
+    if "pass_with_fixes" in review_template.lower():
+        errors.append("Red Team review template permits pass_with_fixes")
+    for requirement in ("- Review cycle: 1 | 2", "- Verdict: PASS | FAIL"):
+        if requirement not in review_template:
+            errors.append(f"Red Team review template missing circuit breaker: {requirement}")
 
     status_path = paths.get("STATUS.md")
     if status_path:

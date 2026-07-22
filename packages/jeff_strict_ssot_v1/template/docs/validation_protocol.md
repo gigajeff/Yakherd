@@ -9,9 +9,21 @@
 
 One class does not silently satisfy another.
 
+## Proportional Evidence
+
+Bounded work may report the exact commands/checks run and their results
+concisely in the task result and applicable owner. It does not need a JSON run
+record unless the user requests one or the work promotes a durable
+consequential product claim.
+
+Strict work, release/deployment work, and consequential promoted claims use the
+structured run record below. Evidence requirements cannot be enlarged merely
+because a reviewer can imagine a future use outside the authorized slice.
+
 ## Structured Run Record
 
-Each claimed test or completion has a JSON record containing:
+Each claim for which structured evidence is required has a JSON record
+containing:
 
 - schema version and evidence class;
 - UTC timestamp and working directory;

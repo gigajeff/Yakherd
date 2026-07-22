@@ -44,6 +44,12 @@ Architecture waits for the master prompt; Implementation and Temporary Branch
 park; and Governor remains inactive until separately approved. This gives the
 user a visible team without violating the single-writer rule.
 
+After that one-time integrity check, governance is proportional. Reversible
+bounded work goes directly from a brief you confirm to Implementation. Strict
+Architecture and Red Team gates are reserved for the concrete high-consequence
+slice being attempted—not imagined future features—and stop after at most two
+failed reviews.
+
 The coding environment must be able to read and write project files, run shell
 commands, use Git, and run Python 3.11 or newer. Codex or Claude Code can do
 this when its execution environment also has Git and Python 3.11 or newer. An
@@ -149,12 +155,14 @@ yakherd init \
 Then open the generated repository as the Codex project and send:
 
 > Follow `START_HERE.md` now. Launch the five Yakherd role agents, keep this
-> task as their coordinator, and ask me for my master prompt when the bootstrap
-> review is ready.
+> task as their coordinator, ask me for my master prompt when the bootstrap
+> review is ready, and keep reversible first-slice work in bounded mode.
 
 The launcher creates the Red Team agent that follows
 `docs/prompts/bootstrap_cold_resume_review.md`. Only after that review passes
-does Architecture preserve and extract the product master prompt.
+does Architecture preserve and extract the product master prompt. The human
+then confirms a bounded brief for direct Implementation or a strict planning
+scope; product intake is not automatically sent through Red Team.
 
 On Windows PowerShell, the equivalent commands are:
 
@@ -199,6 +207,9 @@ terminal animation.
   prompts.
 - A Codex five-role launcher, master-prompt provenance protocol, and an
   approval-gated GitHub project setup guide.
+- `docs/task_protocol.md` as the generated repository's canonical owner for
+  work modes and the independent-review circuit breaker.
+- Proportional bounded/strict work modes and a two-review circuit breaker.
 - Governance, review, plan, run-record, and status-history directories.
 - Standard-library validators and focused tests.
 - A hash-bound installation receipt.

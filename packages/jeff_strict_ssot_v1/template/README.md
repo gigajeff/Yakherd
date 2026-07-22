@@ -10,13 +10,15 @@ In Codex, open this repository as the project, confirm `AGENTS.md` is loaded,
 and send:
 
 > Follow `START_HERE.md` now. Launch the five Yakherd role agents, keep this
-> task as their coordinator, and ask me for my master prompt when the bootstrap
-> review is ready.
+> task as their coordinator, ask me for my master prompt when the bootstrap
+> review is ready, and keep reversible first-slice work in bounded mode.
 
 That one message launches Architecture, Implementation, Red Team, Temporary
 Branch, and Governor as separately inspectable role agents. It does not make
-all five concurrent writers: Red Team runs the bootstrap gate, while roles
-without authorization visibly park or remain inactive.
+all five concurrent writers: Red Team runs the one-time bootstrap gate, while
+roles without authorization visibly park or remain inactive. After bootstrap,
+bounded reversible work can go directly from a human-confirmed brief to
+Implementation; strict work uses one plan and at most two Red Team reviews.
 
 For manual recovery or another coding agent, start with:
 
@@ -48,7 +50,9 @@ python -m unittest discover -s tests/ssot -v
 
 The role, launch, review, and product-intake prompts are under `docs/prompts/`.
 A product prompt remains untrusted input until Architecture preserves and
-extracts it into owner files and Red Team reviews that extraction.
+extracts it into owner files and the human confirms the resulting brief or
+strict planning scope. Red Team does not decide whether the user's idea is
+valid.
 
 GitHub setup is intentionally agent-guided rather than installer-driven. After
 bootstrap PASS, follow `docs/GITHUB_SETUP.md` to verify the user's active
