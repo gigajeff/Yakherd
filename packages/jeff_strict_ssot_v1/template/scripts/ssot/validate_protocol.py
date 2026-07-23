@@ -15,6 +15,7 @@ from typing import Any, Iterable
 
 REQUIRED_PATHS = [
     ".gitignore",
+    ".yakherd/policies/Y-PROC-1.md",
     "AGENTS.md",
     "ARCHITECTURE.md",
     "CLAUDE.md",
@@ -415,6 +416,29 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
     claude_adapter = readable.get("CLAUDE.md")
     if claude_adapter is not None and claude_adapter.strip() != "@AGENTS.md":
         errors.append("CLAUDE.md must contain only the @AGENTS.md import")
+
+    agents = readable.get("AGENTS.md", "")
+    if ".yakherd/policies/Y-PROC-1.md" not in agents:
+        errors.append("AGENTS.md must point to the Y-PROC-1 policy owner")
+
+    process_policy = readable.get(".yakherd/policies/Y-PROC-1.md", "")
+    process_policy_requirements = {
+        "every finite local command must run through `yakherd exec`",
+        "BELOW_NORMAL_PRIORITY_CLASS",
+        "executable-name matching",
+        "Approved persistent-process leases are not part of Y-PROC-1.1",
+        "explicit human authorization",
+        "mosaic_colmap",
+        "SPLATOMATIC",
+        "CROCHET",
+        "yakherd.process-task.v1.1",
+        "PID_REUSED_UNRELATED",
+        "OWNERSHIP_RECORD_INCONSISTENT",
+        "yakherd process resume --task TASK_ID",
+    }
+    for requirement in sorted(process_policy_requirements):
+        if requirement not in process_policy:
+            errors.append(f"Y-PROC-1 policy missing safety boundary: {requirement}")
 
     launcher = readable.get("docs/prompts/codex_team_launcher.md", "")
     launcher_requirements = {

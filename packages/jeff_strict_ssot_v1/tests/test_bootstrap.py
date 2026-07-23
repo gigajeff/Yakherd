@@ -109,6 +109,10 @@ class BootstrapTests(unittest.TestCase):
             self.assertIn("Example Project", (target / "README.md").read_text(encoding="utf-8"))
             self.assertEqual("@AGENTS.md\n", (target / "CLAUDE.md").read_text(encoding="utf-8"))
             start_here = (target / "START_HERE.md").read_text(encoding="utf-8")
+            agents = (target / "AGENTS.md").read_text(encoding="utf-8")
+            process_policy = (
+                target / ".yakherd/policies/Y-PROC-1.md"
+            ).read_text(encoding="utf-8")
             launcher = (
                 target / "docs/prompts/codex_team_launcher.md"
             ).read_text(encoding="utf-8")
@@ -116,6 +120,9 @@ class BootstrapTests(unittest.TestCase):
                 encoding="utf-8"
             )
             self.assertIn("Follow `docs/prompts/codex_team_launcher.md`", start_here)
+            self.assertIn(".yakherd/policies/Y-PROC-1.md", agents)
+            self.assertIn("every finite local command must run through `yakherd exec`", process_policy)
+            self.assertIn("mosaic_colmap", process_policy)
             self.assertIn("exactly five direct role agents", launcher)
             self.assertIn("Required Human Checkpoint", github_setup)
             record = json.loads((target / BOOTSTRAP.INSTALL_MANIFEST_NAME).read_text(encoding="utf-8"))

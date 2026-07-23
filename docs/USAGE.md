@@ -100,6 +100,42 @@ suggests private visibility, preserves any existing history/remotes, stages an
 explicit reviewed path list, and requests one bounded human approval before
 the initial Git mutation and publication.
 
+## Windows Y-PROC-1 Execution
+
+Run finite local commands through the broker after installing Yakherd:
+
+```powershell
+yakherd exec --timeout 900 -- cmake --build build
+yakherd exec --light --timeout 60 -- git status --short
+yakherd process status
+yakherd process cleanup --all-owned --dry-run --verify
+yakherd process resume --task TASK_ID
+```
+
+Heavy is the default. Heavy top-level pipelines queue behind one user-scoped
+lock and run below normal priority; the selected build or test command retains
+its normal internal parallelism. `--light` is an explicit classification for a
+finite low-CPU command that is safe to overlap.
+
+Use `yakherd process cleanup --task TASK_ID --verify` for a selected owned
+task. Cleanup checks coherent PID, creation time, executable/image, command
+line, task/execution and Job Object identity; it never kills by process name.
+PID reuse, legacy records, incomplete telemetry, and contradictory records are
+reported as warnings and never terminate the replacement process. Only a live
+Job-verified task process whose cleanup failed and has concrete hazard evidence
+is a blocker. `yakherd process resume --task TASK_ID` explicitly continues
+after a warning once; it cannot override a blocker.
+
+Y-PROC-1.1 does not support persistent leases. Do not bypass the broker for
+REPLs, watchers, detached jobs, daemons, or development servers.
+
+`yakherd process hook` is an optional Codex `Stop`/`SubagentStop` handler. It
+uses the hook payload's `session_id`, `turn_id`, and `cwd`, cancels only tasks
+owned by that Codex session, and warns without touching different-owner work.
+It returns `continue: false` only for a scoped verified concrete blocker. Install the
+example from the generated `.yakherd/policies/Y-PROC-1.md` only after explicit
+human review; the Yakherd installer never creates hook automation.
+
 ## Low-Level Package Interface
 
 The stable low-level package entry point remains available:

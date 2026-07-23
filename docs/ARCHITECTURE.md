@@ -6,7 +6,37 @@ The repository provides branding, public documentation, CI, release tooling,
 and the `yakherd` Python command. The PyPI wheel bundles the reviewed package
 bytes and the source checkout exposes the same command through `yakherd.py`.
 This layer does not alter target repositories directly; it delegates to the
-audited package.
+audited package. On Windows, it also owns the `Y-PROC-1` execution
+broker. The broker is product-neutral and standard-library-only; it does not
+alter the audited installer's behavior or authority.
+
+## Windows Execution-Governance Layer
+
+`yakherd exec` uses `CreateProcessW` with
+`PROC_THREAD_ATTRIBUTE_JOB_LIST`, so a finite command is assigned to its named
+kill-on-close Windows Job Object atomically at creation, before its first
+instruction. There is no uncontained suspended-child interval. Heavy work is
+created at below-normal priority. A user-local lock admits one heavy top-level
+pipeline while leaving the command's internal parallelism unchanged. Per-task
+JSON records bind coherent ownership snapshots to PID, creation time,
+executable/image, command line, parent epoch when available, task/execution,
+and Job Object identity. Status, reconciliation, and cleanup classify each
+observation as verified, exited, reused, unverified, or inconsistent before
+acting. PID reuse and incomplete/contradictory records are warnings, never
+cleanup targets or an unrelated-work embargo. Only failed cleanup of a live
+Job-verified task process with concrete hazard evidence is a blocker; the exact
+unnamed task Job, not ancestry or executable-name matching, is the authority.
+
+The generated repository's compact `AGENTS.md` pointer delegates details to
+`.yakherd/policies/Y-PROC-1.md`. The installer writes policy bytes but does not
+run commands or create Codex hook automation. When Codex exposes its thread ID,
+the broker binds the record owner to that session. An optional `Stop` or
+`SubagentStop` hook uses the hook's session, turn, and working-directory fields
+to request cancellation only for matching-session tasks, verifies their Jobs
+empty, and leaves same-workspace different-owner activity untouched with a
+warning. Hook continuation stops only on a scoped verified concrete blocker. Hook
+configuration is a separately trusted, human-approved defense in depth; the
+broker's Job Object and `finally` cleanup remain authoritative.
 
 ## Audited Package Layer
 

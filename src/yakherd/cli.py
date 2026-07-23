@@ -30,11 +30,17 @@ Usage:
   yakherd init --target PATH --project-name NAME [--dry-run]
   yakherd retrofit --target PATH --project-name NAME \\
       --retrofit-plan PLAN.json [--dry-run]
+  yakherd exec [--heavy|--light] [--timeout SECONDS] -- COMMAND [ARG ...]
+  yakherd process status
+  yakherd process cleanup (--task TASK_ID|--all-owned) [--dry-run] [--verify]
+  yakherd process hook
   yakherd package-help
 
 Commands:
   init          Install into a nonexistent or empty project directory.
   retrofit      Apply a separately reviewed, hash-pinned retrofit plan.
+  exec          Run a finite local command through Windows policy Y-PROC-1.
+  process       Inspect, reconcile, or clean verified Y-PROC-1 process state.
   package-help  Show every low-level package option.
 """
     )
@@ -72,12 +78,21 @@ def main(argv: list[str] | None = None) -> int:
         print_help()
         return 0
 
+    command = args.pop(0)
+    if command == "exec":
+        from .process_hygiene import run_exec_cli
+
+        return run_exec_cli(args)
+    if command == "process":
+        from .process_hygiene import run_process_cli
+
+        return run_process_cli(args)
+
     bootstrap = bootstrap_path()
     if not bootstrap.is_file():
         print(f"error: reviewed bootstrap not found: {bootstrap}", file=sys.stderr)
         return 2
 
-    command = args.pop(0)
     if command == "init":
         forwarded = ["--mode", "fresh", *args]
     elif command == "retrofit":

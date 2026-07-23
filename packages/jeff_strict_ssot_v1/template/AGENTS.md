@@ -23,6 +23,9 @@ Before material work, read:
 
 ## Hard Rules
 
+- On Windows, for all local execution obey Yakherd policy `Y-PROC-1` in
+  `.yakherd/policies/Y-PROC-1.md`. Do not bypass its execution broker or
+  process-lifecycle enforcement.
 - One durable fact has one owner. Summaries link; they do not mirror mutable
   detail.
 - `docs/task_protocol.md` owns proportional work modes, Red Team scope, and the

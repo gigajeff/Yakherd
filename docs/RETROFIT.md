@@ -22,3 +22,24 @@ destination state, concurrent change, lock conflict, hash mismatch, incomplete
 rollback, or stale transaction state.
 
 Never widen a failed plan in place. Re-inventory and review a new plan.
+
+## Y-PROC-1 Preserve-First Migration
+
+`mosaic_colmap`, `SPLATOMATIC`, and `CROCHET` already contain temporary
+process-hygiene instructions and are partially mitigated. Do not refresh their
+SSOT or remove that text merely because Y-PROC-1 exists in Yakherd 1.3.
+
+A later migration must use an exact, reviewed, hash-pinned retrofit that:
+
+1. proves the installed `yakherd exec` broker and owned-cleanup commands are
+   active and equivalent or stronger;
+2. allowlists only the compact policy owner/reference and the exact duplicate
+   temporary text being replaced;
+3. preserves every unrelated SSOT owner and product file; and
+4. records each repository, removed text, replacement reference, and native
+   control that now enforces it.
+
+The intended replacement is:
+
+> For all local execution, obey Yakherd policy Y-PROC-1. Do not bypass its
+> execution broker or process-lifecycle enforcement.

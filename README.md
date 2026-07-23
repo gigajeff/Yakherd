@@ -213,6 +213,10 @@ terminal animation.
 - Governance, review, plan, run-record, and status-history directories.
 - Standard-library validators and focused tests.
 - A hash-bound installation receipt.
+- Windows policy `Y-PROC-1`: a compact installed instruction backed by
+  `yakherd exec`, per-task Job Objects, one-heavy-pipeline governance,
+  below-normal heavy-job priority, identity-bound cleanup, status, and dry-run
+  cleanup.
 
 See [Usage](https://github.com/gigajeff/Yakherd/blob/main/docs/USAGE.md) and
 [Architecture](https://github.com/gigajeff/Yakherd/blob/main/docs/ARCHITECTURE.md).
@@ -223,6 +227,31 @@ Retrofit mode is intentionally fail-closed. It requires a separately reviewed
 JSON plan with an exact allowlist and expected hashes. Do not point fresh mode
 at an established repository, and do not improvise a retrofit from the command
 line. See [Retrofit Safety](https://github.com/gigajeff/Yakherd/blob/main/docs/RETROFIT.md).
+
+## Windows Local Execution Hygiene
+
+On Windows, run finite local work through the Y-PROC-1 broker. Heavy is the
+safe default; it preserves the build tool's normal internal worker count while
+serializing independent top-level heavy pipelines for the current user:
+
+```powershell
+yakherd exec --timeout 900 -- cmake --build build
+yakherd process status
+yakherd process cleanup --all-owned --dry-run --verify
+yakherd process resume --task TASK_ID
+```
+
+Use `--light` only for finite low-CPU work that is safe to overlap. The broker
+rejects known interactive, detached, watcher, daemon, and development-server
+forms. Y-PROC-1.1 classifies PID reuse, missing legacy evidence, and conflicting
+identity evidence as visible warnings, never as unrelated-work embargoes. Only
+a verified live Job member that failed cleanup with concrete hazard evidence is
+a blocker. Approved persistent-process leases remain deliberately deferred.
+
+Existing `mosaic_colmap`, `SPLATOMATIC`, and `CROCHET` installations are
+partially mitigated. Preserve their temporary process-hygiene instructions;
+adopt Y-PROC-1 later through the smallest reviewed, hash-pinned retrofit rather
+than refreshing unrelated SSOT content.
 
 ## Trust Boundary
 
@@ -243,9 +272,10 @@ review cycle.
 
 ## Non-Goals
 
-Yakherd does not:
+The Yakherd installer does not:
 
-- run product code or experiments;
+- run product code or experiments (the separate, explicitly invoked
+  `yakherd exec` broker runs only the command the operator supplies);
 - install product dependencies;
 - access project secrets;
 - create automations;

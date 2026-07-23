@@ -20,6 +20,17 @@ Before changing package behavior, read:
 
 ## Hard Rules
 
+- LOCAL PROCESS HYGIENE (`Y-PROC-1`): use one finite top-level local execution
+  pipeline at a time and preserve normal internal parallelism. Run heavy work
+  below normal priority; never start unapproved REPLs, watchers, detached or
+  persistent processes; and verify zero task-owned descendants without killing
+  pre-existing or unrelated processes. Process ownership requires a matching
+  PID, creation time, executable path, internally consistent command-line
+  identity, and a reliable task marker such as Job Object membership; never
+  infer it from PID or parent PID alone. An incomplete or inconsistent record
+  is `ownership_record_inconsistent_unverified`: a warning, not a work embargo,
+  unless fresh verified evidence shows a concrete interference or safety risk.
+  Explicit human authorization may override a non-hazardous warning.
 - Keep the installer product-neutral and standard-library-only.
 - Do not add network, dependency-install, product-execution, automation, or
   target-repository Git behavior to the installer.

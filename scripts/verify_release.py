@@ -46,6 +46,8 @@ def main(argv: list[str] | None = None) -> int:
         errors.append("root AGENTS.md does not name docs/task_protocol.md as canonical")
     if "`docs/task_protocol.md` owns proportional work modes" not in template_agents:
         errors.append("template AGENTS.md does not name docs/task_protocol.md as owner")
+    if ".yakherd/policies/Y-PROC-1.md" not in template_agents:
+        errors.append("template AGENTS.md does not name the Y-PROC-1 policy owner")
 
     manifest_in = (ROOT / "MANIFEST.in").read_text(encoding="utf-8").splitlines()
     if "include docs/task_protocol.md" not in manifest_in:
@@ -83,6 +85,11 @@ def main(argv: list[str] | None = None) -> int:
         errors.append("manifest file list omits installed docs/task_protocol.md")
     if "docs/task_protocol.md" not in template_hashes:
         errors.append("manifest hashes omit installed docs/task_protocol.md")
+    process_policy = ".yakherd/policies/Y-PROC-1.md"
+    if process_policy not in manifest.get("template_files", []):
+        errors.append(f"manifest file list omits installed {process_policy}")
+    if process_policy not in template_hashes:
+        errors.append(f"manifest hashes omit installed {process_policy}")
     for relative, expected in template_hashes.items():
         source = PACKAGE / "template" / relative
         if not source.is_file():

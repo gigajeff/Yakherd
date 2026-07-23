@@ -22,7 +22,9 @@ The installed repository has:
   and a two-review human circuit breaker;
 - a GitHub account/repository setup guide with an explicit human checkpoint;
 - standard-library, read-only protocol validators;
-- structured run-record templates and validator fixtures; and
+- structured run-record templates and validator fixtures;
+- a compact `Y-PROC-1` pointer and detailed local-execution policy that use the
+  public Yakherd broker without adding execution behavior to the installer; and
 - no product stack, dependency, network, deployment, automation, or release
   choice.
 
@@ -109,8 +111,10 @@ operation rather than a general concurrent installer.
 python -B -m unittest discover -s packages\jeff_strict_ssot_v1\tests -v
 ```
 
-The package does not install software, access the network, invoke Git, ingest a
-product prompt, create automation, or run product code.
+The installer package does not install software, access the network, invoke
+Git, ingest a product prompt, create automation, or run product code. The
+separate public `yakherd exec` command is an explicitly invoked Windows process
+broker and is not called by installation or retrofit.
 
 The installed GitHub and prompt-intake documents govern later coding-agent
 actions after explicit authorization; they do not give the installer those

@@ -2,8 +2,34 @@
 
 All notable changes to Yakherd are recorded here.
 
+## 1.3.1 - Unreleased
+
+- Corrects `Y-PROC-1` as `Y-PROC-1.1`: coherent PID/time/path/command-line,
+  parent-epoch, task/execution and Job-membership snapshots are now classified
+  before any cleanup. PID reuse, legacy records, and contradictory evidence are
+  warnings and are never cleanup targets.
+- Separates cleanup warnings from blockers. Only a still-live, Job-verified,
+  task-owned process whose cleanup failed with concrete hazard evidence blocks
+  unrelated work. `yakherd process resume --task TASK_ID` records one explicit
+  warning acknowledgement and cannot waive a blocker.
+
 ## 1.3.0 - Unreleased
 
+- Adds Windows policy `Y-PROC-1` and a standard-library `yakherd exec` broker
+  that atomically creates commands inside kill-on-close Job Objects before
+  their first instruction, serializes heavy top-level pipelines, preserves
+  internal parallelism, and runs heavy work below normal priority.
+- Adds PID-plus-creation-time process records, identity-verified startup
+  reconciliation, status, dry-run and scoped owned cleanup, timeout/cancel
+  cleanup, and a session-scoped Stop/SubagentStop-compatible hook command
+  without silently installing hook automation.
+- Rejects known REPL, detached, watcher, daemon, and development-server forms;
+  persistent-process leases and adaptive worker budgeting remain explicitly
+  deferred and fail closed.
+- Installs a compact `AGENTS.md` invariant and detailed
+  `.yakherd/policies/Y-PROC-1.md` owner. Existing `mosaic_colmap`, `SPLATOMATIC`,
+  and `CROCHET` repositories retain their partial mitigations until a later
+  narrow, reviewed retrofit proves native enforcement before removing text.
 - Adds a root `docs/task_protocol.md` as Yakherd's canonical development owner,
   retains the separately scoped packaged template copy, and validates both
   files and both `AGENTS.md` ownership pointers in the release verifier.

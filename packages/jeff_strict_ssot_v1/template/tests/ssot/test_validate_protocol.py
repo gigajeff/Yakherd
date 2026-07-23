@@ -88,9 +88,14 @@ class ProtocolValidatorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=ROOT.parent) as temp:
             root = self.clone(Path(temp))
             status = root / "STATUS.md"
-            text = status.read_text(encoding="utf-8").replace(
-                "2026-07-20T00:00:00Z", "2000-01-01T00:00:00Z"
+            original = status.read_text(encoding="utf-8")
+            text = re.sub(
+                r"(?<=- Last updated UTC: `)\d{4}-\d{2}-\d{2}T00:00:00Z(?=`)",
+                "2000-01-01T00:00:00Z",
+                original,
+                count=1,
             )
+            self.assertNotEqual(original, text)
             status.write_text(text, encoding="utf-8", newline="\n")
             errors, warnings = VALIDATOR.validate(root, [])
             self.assertEqual([], errors)
@@ -159,6 +164,41 @@ class ProtocolValidatorTests(unittest.TestCase):
         ]
         for relative, required, expected in mutations:
             with self.subTest(relative=relative), tempfile.TemporaryDirectory(
+                dir=ROOT.parent
+            ) as temp:
+                root = self.clone(Path(temp))
+                path = root / relative
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(required, "removed", 1),
+                    encoding="utf-8",
+                    newline="\n",
+                )
+                errors, _ = VALIDATOR.validate(root, [])
+                self.assertTrue(any(expected in item for item in errors), errors)
+
+    def test_y_proc_1_policy_and_compact_agents_pointer_are_required(self) -> None:
+        errors, _ = VALIDATOR.validate(ROOT, [])
+        self.assertEqual([], errors)
+
+        mutations = [
+            (
+                "AGENTS.md",
+                ".yakherd/policies/Y-PROC-1.md",
+                "AGENTS.md must point to the Y-PROC-1 policy owner",
+            ),
+            (
+                ".yakherd/policies/Y-PROC-1.md",
+                "executable-name matching",
+                "Y-PROC-1 policy missing safety boundary",
+            ),
+            (
+                ".yakherd/policies/Y-PROC-1.md",
+                "explicit human authorization",
+                "Y-PROC-1 policy missing safety boundary",
+            ),
+        ]
+        for relative, required, expected in mutations:
+            with self.subTest(relative=relative, required=required), tempfile.TemporaryDirectory(
                 dir=ROOT.parent
             ) as temp:
                 root = self.clone(Path(temp))
