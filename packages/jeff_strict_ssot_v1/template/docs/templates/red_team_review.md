@@ -6,6 +6,7 @@
 - Evidence scope: <files, diff, records>
 - Verdict: PASS | FAIL
 - Authority effect: <none or exact bounded authorization>
+- Canonical-equivalence disposition: N/A | ELIGIBLE | NOT ELIGIBLE
 - Governance budget: <=120 lines and <=16384 UTF-8 bytes unless human-approved
 
 ## Blocking Findings
@@ -25,5 +26,8 @@ On cycle 2, identify each prior blocker as fixed or still open. Any new blocker
 must be a fix regression or a previously missed P0/P1 with an accepted
 requirement citation and explanation. A second `FAIL` stops autonomous review
 and returns the decision to the human; this review cannot require cycle 3.
+If the sole blocker is an eligible representation mismatch, name the exact
+transform and proof boundary for human disposition without calling it residual
+risk or granting authority.
 
 human action required: <exact decision, or replace with another required marker>.

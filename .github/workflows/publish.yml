@@ -51,13 +51,15 @@ jobs:
         run: |
           python -m venv .tmp/wheel-venv
           .tmp/wheel-venv/bin/python -m pip install --no-index --no-deps dist/yakherd-*.whl
-          .tmp/wheel-venv/bin/yakherd init --target .tmp/wheel-project --project-name WheelSmoke --date 2026-07-20
+          .tmp/wheel-venv/bin/yakherd setup .tmp/wheel-project --project-name WheelSmoke --date 2026-07-20
+          .tmp/wheel-venv/bin/yakherd doctor .tmp/wheel-project
           .tmp/wheel-venv/bin/python -B .tmp/wheel-project/scripts/ssot/validate_protocol.py --root .tmp/wheel-project --strict
       - name: Smoke-install exact source distribution
         run: |
           python -m venv .tmp/sdist-venv
           .tmp/sdist-venv/bin/python -m pip install --no-cache-dir --no-deps dist/yakherd-*.tar.gz
-          .tmp/sdist-venv/bin/yakherd init --target .tmp/sdist-project --project-name SdistSmoke --date 2026-07-20
+          .tmp/sdist-venv/bin/yakherd setup .tmp/sdist-project --project-name SdistSmoke --date 2026-07-20
+          .tmp/sdist-venv/bin/yakherd doctor .tmp/sdist-project
           .tmp/sdist-venv/bin/python -B .tmp/sdist-project/scripts/ssot/validate_protocol.py --root .tmp/sdist-project --strict
       - name: Hand off exact distributions to the publishing job
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

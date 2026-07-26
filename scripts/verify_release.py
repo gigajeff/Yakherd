@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import tomllib
 from pathlib import Path
 
@@ -37,6 +38,13 @@ def main(argv: list[str] | None = None) -> int:
     ):
         if not path.is_file():
             errors.append(f"{label} missing: {path.relative_to(ROOT)}")
+        elif (
+            "A canonical-equivalence correction is not residual-risk acceptance."
+            not in path.read_text(encoding="utf-8")
+        ):
+            errors.append(
+                f"{label} omits the canonical-equivalence circuit-breaker rule"
+            )
 
     root_agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
     template_agents = (PACKAGE / "template" / "AGENTS.md").read_text(
@@ -66,6 +74,16 @@ def main(argv: list[str] | None = None) -> int:
         errors.append(
             "PyPI/release version mismatch: "
             f"{project.get('version')!r} != {release.get('package_version')!r}"
+        )
+    init_text = (ROOT / "src" / "yakherd" / "__init__.py").read_text(
+        encoding="utf-8"
+    )
+    version_match = re.search(r'^__version__ = "([^"]+)"$', init_text, re.MULTILINE)
+    adapter_version = version_match.group(1) if version_match else None
+    if adapter_version != project.get("version"):
+        errors.append(
+            "Python adapter/release version mismatch: "
+            f"{adapter_version!r} != {project.get('version')!r}"
         )
     expected_tag = f"v{project.get('version')}"
     if args.tag is not None and args.tag != expected_tag:

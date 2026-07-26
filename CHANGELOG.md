@@ -2,7 +2,25 @@
 
 All notable changes to Yakherd are recorded here.
 
-## 1.3.1 - Unreleased
+## 1.4.0 - 2026-07-26
+
+- Adds `yakherd setup` as the normal beginner command. It derives the project
+  name, safely installs into empty or nonempty targets with zero Yakherd-path
+  collisions, preserves unrelated files, validates automatically, and is
+  idempotent for an existing installation.
+- Adds read-only `yakherd doctor`, concise state-aware no-argument guidance,
+  clear collision failures, and the plain Codex handoff `Start Yakherd`.
+- Keeps low-level `init` and reviewed `retrofit` compatibility while removing
+  the incorrect inference that every existing directory requires retrofit.
+- Adds a human-authorized canonical-equivalence disposition after an exhausted
+  two-review circuit breaker. Exact frozen representation corrections can now
+  proceed with bijection, identity, containment, and regression proofs without
+  being mislabeled as risk acceptance or creating review cycle 3.
+- Teaches Architecture, Implementation, Red Team, the installed validator, and
+  the review template the same narrow rule; real hazards and every other P0/P1
+  remain blocking.
+
+## 1.3.1 - 2026-07-23
 
 - Corrects `Y-PROC-1` as `Y-PROC-1.1`: coherent PID/time/path/command-line,
   parent-epoch, task/execution and Job-membership snapshots are now classified

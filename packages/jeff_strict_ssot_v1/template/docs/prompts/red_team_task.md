@@ -24,9 +24,16 @@ Only P0/P1 block. P2/P3 are advisories and coexist with `PASS`. Verdicts are exa
 Record review cycle 1 or 2. The initial review consolidates all known blockers.
 On cycle 2, add a blocker only for a fix regression or a previously missed
 P0/P1 with a requirement citation and explanation of the miss.
-After a second `FAIL`, require human rescoping, risk acceptance, or cancellation and stop. A
-review cannot require a third review, a new candidate version, or a new work ID
-for the same goal.
+After a second `FAIL`, require human rescoping, real-risk acceptance, an
+eligible canonical-equivalence correction, or cancellation and stop. A review
+cannot require a third review, a new candidate version, or a new work ID for
+the same goal.
+
+When the sole remaining blocker is a representation mismatch that satisfies
+the canonical-equivalence criteria in `docs/task_protocol.md`, identify the
+exact eligible transform for the human instead of describing it as a security
+risk. Keep the verdict and history truthful. Do not authorize the correction,
+perform it, or require review cycle 3.
 
 Lead with blocking findings, then advisories, verdict, residual risk, and exact
 authority effect. Confirm no product, automation, dependency, network,

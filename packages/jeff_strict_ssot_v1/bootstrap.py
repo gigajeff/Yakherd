@@ -81,8 +81,12 @@ def safe_destination(target: Path, relative: str) -> Path:
         raise BootstrapError(f"destination escapes target: {relative}") from exc
     validate_existing_chain(target_absolute)
     validate_existing_chain(destination.parent)
+    # Validate the final component even when its exact spelling is absent.
+    # On a case-sensitive filesystem, an existing ``readme.md`` must block a
+    # payload destination named ``README.md`` before either can coexist and
+    # become ambiguous on a case-insensitive filesystem.
+    validate_existing_chain(destination)
     if lexists(destination):
-        validate_existing_chain(destination)
         if is_reparse(destination):
             raise BootstrapError(f"destination is a reparse/symlink: {relative}")
     existing_parent = destination.parent
@@ -90,6 +94,8 @@ def safe_destination(target: Path, relative: str) -> Path:
         if existing_parent == target_absolute:
             break
         existing_parent = existing_parent.parent
+    if lexists(existing_parent) and not existing_parent.is_dir():
+        raise BootstrapError(f"destination parent is not a directory: {relative}")
     resolved_target = target_absolute.resolve(strict=True)
     resolved_parent = existing_parent.resolve(strict=True)
     try:
@@ -243,12 +249,20 @@ def preflight_fresh(target: Path, relative_paths: list[str]) -> None:
     validate_existing_chain(target.absolute())
     if target.exists() and not target.is_dir():
         raise BootstrapError("fresh target exists and is not a directory")
-    if target.exists() and any(target.iterdir()):
-        raise BootstrapError("fresh target must be nonexistent or empty")
+    collisions: list[str] = []
     for relative in relative_paths + [INSTALL_MANIFEST_NAME]:
-        destination = safe_destination(target, relative) if target.exists() else target / relative
+        destination = (
+            safe_destination(target, relative)
+            if target.exists()
+            else target / Path(normalize_relative(relative))
+        )
         if lexists(destination):
-            raise BootstrapError(f"refusing to overwrite: {relative}")
+            collisions.append(relative)
+    if collisions:
+        joined = ", ".join(sorted(collisions))
+        raise BootstrapError(
+            f"fresh install would overwrite existing Yakherd path(s): {joined}"
+        )
 
 
 def preflight_retrofit(

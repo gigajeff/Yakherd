@@ -20,6 +20,11 @@ only cited P0/P1 blockers. After a second `FAIL`, stop for the human choices in
 the circuit breaker. Do not create version-suffixed candidate files or broaden
 requirements to satisfy review.
 
+If the human selects the canonical-equivalence disposition defined in
+`docs/task_protocol.md`, record only the exact authorization and proof contract
+as an in-place addendum to the active plan. Do not call it risk acceptance,
+create a new candidate, request review cycle 3, or change any other requirement.
+
 Do not implement product code, install dependencies, access the network,
 create automation, or silently change authority.
 

@@ -420,6 +420,17 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
     agents = readable.get("AGENTS.md", "")
     if ".yakherd/policies/Y-PROC-1.md" not in agents:
         errors.append("AGENTS.md must point to the Y-PROC-1 policy owner")
+    if "A human request to `Start Yakherd`" not in agents:
+        errors.append("AGENTS.md must bind the short Start Yakherd invocation")
+
+    start_here = readable.get("START_HERE.md", "")
+    for requirement in (
+        "> Start Yakherd",
+        "That short request is the normal path.",
+        "docs/prompts/codex_team_launcher.md",
+    ):
+        if requirement not in start_here:
+            errors.append(f"START_HERE.md missing beginner handoff: {requirement}")
 
     process_policy = readable.get(".yakherd/policies/Y-PROC-1.md", "")
     process_policy_requirements = {
@@ -491,6 +502,8 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
         "Only P0 and P1 block",
         "one initial review and at most one recheck",
         "After a second consecutive `FAIL`",
+        "A canonical-equivalence correction is not residual-risk acceptance.",
+        "authorize review cycle 3",
         "Do not create `_v2`, `_v3`",
         "cannot itself create a new requirement or a fresh-review obligation",
     }
@@ -503,6 +516,24 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
     )
     if "user-approved bounded brief" not in implementation_prompt:
         errors.append("Implementation prompt missing direct bounded authorization")
+    for requirement in (
+        "canonical-equivalence disposition",
+        "no other P0/P1 remains",
+    ):
+        if requirement not in implementation_prompt:
+            errors.append(
+                f"Implementation prompt missing equivalence control: {requirement}"
+            )
+
+    architecture_prompt = readable.get("docs/prompts/architecture_task.md", "")
+    for requirement in (
+        "canonical-equivalence disposition",
+        "request review cycle 3",
+    ):
+        if requirement not in architecture_prompt:
+            errors.append(
+                f"Architecture prompt missing equivalence control: {requirement}"
+            )
 
     red_team_prompt = readable.get("docs/prompts/red_team_task.md", "")
     red_team_requirements = {
@@ -510,6 +541,7 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
         "outside accepted scope is not a finding",
         "Only P0/P1 block",
         "After a second `FAIL`",
+        "canonical-equivalence criteria",
         "cannot require a third review",
     }
     for requirement in sorted(red_team_requirements):

@@ -66,14 +66,16 @@ python packages\jeff_strict_ssot_v1\bootstrap.py `
   --target L:\dev\NEW_PROJECT --project-name NEW_PROJECT --dry-run
 ```
 
-Install into a nonexistent or empty folder:
+Install into a nonexistent, empty, or nonempty folder whose existing paths do
+not collide with the package payload:
 
 ```powershell
 python packages\jeff_strict_ssot_v1\bootstrap.py `
   --target L:\dev\NEW_PROJECT --project-name NEW_PROJECT
 ```
 
-The installer refuses to overwrite any path. It writes
+The installer refuses to overwrite any path and preserves unrelated existing
+files. A payload-path collision stops before mutation. It writes
 `JEFF_STRICT_SSOT_INSTALL.json` with package, source-template, rendered-output,
 and destination hashes.
 

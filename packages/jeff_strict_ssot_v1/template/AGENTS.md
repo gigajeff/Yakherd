@@ -29,7 +29,9 @@ Before material work, read:
 - One durable fact has one owner. Summaries link; they do not mirror mutable
   detail.
 - `docs/task_protocol.md` owns proportional work modes, Red Team scope, and the
-  two-review circuit breaker. Architecture owns strict-mode plans and gates.
+  two-review circuit breaker, including the narrow human-authorized
+  canonical-equivalence disposition. Architecture owns strict-mode plans and
+  gates.
   Implementation is the sole product writer for one authorized slice. Red
   Team reviews independently and does not repair its target. Temporary Branch
   work has no authority until reviewed and merged deliberately. Governor owns
@@ -53,6 +55,9 @@ Before material work, read:
 
 ## Codex Team Startup
 
+- A human request to `Start Yakherd` is an explicit invocation of
+  `START_HERE.md` and `docs/prompts/codex_team_launcher.md`. Follow that
+  launcher; do not answer with CLI help or require the longer prompt.
 - Launch the five Codex role agents only when the user explicitly invokes
   `START_HERE.md` or `docs/prompts/codex_team_launcher.md`.
 - That invocation authorizes exactly five direct role agents: Architecture,

@@ -62,17 +62,55 @@ explain why it was missed initially. Architecture may make one bounded
 revision addressing only blocking findings.
 
 After a second consecutive `FAIL`, all autonomous Architecture/Red Team
-iteration stops. Ask the human to accept the risk, narrow or change the
-requirements, or cancel the work. Do not create a third review, mint a new
-work ID for the same goal, or continue by calling the same candidate V3. A
-human decision that materially resets scope starts a new work ID and review
-budget.
+iteration stops. Ask the human to accept a real residual risk, authorize an
+eligible canonical-equivalence correction, narrow or change the requirements,
+or cancel the work. Do not create a third review, mint a new work ID for the
+same goal, or continue by calling the same candidate V3. A human decision that
+materially resets scope starts a new work ID and review budget.
 
 One work ID has one active plan path and one active review path. Revise those
 files in place; Git history or explicitly authorized archival records preserve
 history. Do not create `_v2`, `_v3`, or parallel candidate files merely to
 continue a review cycle. A review report records findings.
 It cannot itself create a new requirement or a fresh-review obligation.
+
+### Canonical-Equivalence Disposition
+
+A canonical-equivalence correction is not residual-risk acceptance. It is a
+human disposition for a cycle-2 `FAIL` whose only remaining P1 finding is that
+the accepted contract rejects one representation of already accepted, frozen
+input or output even though an exact mechanical transform can prove the same
+meaning. All of these conditions are mandatory:
+
+1. There is no P0, no other P1, and no concrete residual hazard to waive.
+2. The transform is total, deterministic, and bijective over an exact frozen
+   inventory. Record ordered pre-transform and post-transform identities,
+   counts, uniqueness, and SHA-256 values.
+3. The accepted goal, data set, write boundary, commands, dependencies,
+   thresholds, safety controls, external effects, and Definition of Done are
+   unchanged.
+4. The transformed values pass the original safety invariants; the correction
+   does not disable or weaken a containment, privacy, destructive-action,
+   credential, or authorization control.
+
+For repository-relative paths, removing exactly one leading `./` may qualify
+only after proving that every result remains a unique relative path beneath the
+same fixed root. Continue rejecting absolute and drive-qualified paths, UNC
+paths, empty segments, `.` or `..` segments, any additional dot-prefixed
+segment forbidden by the accepted contract, percent-decoding or other hidden
+rewriting, reparse/symlink traversal, and any root escape. Do not change case,
+Unicode normalization, separator semantics beyond an already accepted rule,
+or any other path text.
+
+The human authorization names the work ID, exact cycle-2 review and finding,
+exact transform, frozen inventory identity, and proof checks. Architecture may
+append that disposition to the one active plan path; it is not a new candidate.
+Implementation may execute only the authorized transform and must record the
+proof before continuing with unchanged acceptance checks. The original `FAIL`
+remains true history. This disposition does not convert it to `PASS`, reset the
+work ID, authorize review cycle 3, waive another finding, or permit autonomous
+repair. Failure of any eligibility fact or proof check returns control to the
+human.
 
 ## Architecture
 

@@ -16,4 +16,11 @@ mode has no automatic Architecture or Red Team handback. Stop on conflicting
 evidence or a gate failure. Do not expand scope, create automation, publish,
 release, or mutate Git without approval.
 
+After a cycle-2 strict `FAIL`, proceed only if the human issued an exact
+canonical-equivalence disposition permitted by `docs/task_protocol.md` and
+no other P0/P1 remains. Apply only its mechanical transform, record the frozen
+pre/post inventory proof first, and stop if any eligibility or equivalence
+check fails. That disposition is not general risk acceptance or authority to
+repair anything else.
+
 End with one required repository marker.

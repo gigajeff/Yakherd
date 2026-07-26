@@ -157,6 +157,100 @@ class BootstrapTests(unittest.TestCase):
             self.assertNotEqual(0, self.run_quiet(args))
             self.assertEqual(original, sha256(target / "STATUS.md"))
 
+    def test_fresh_install_adds_to_nonempty_target_without_touching_product_files(self) -> None:
+        with tempfile.TemporaryDirectory(dir=PACKAGE_ROOT.parent) as temp:
+            target = Path(temp) / "project"
+            target.mkdir()
+            product = target / "product.txt"
+            product.write_bytes(b"existing product bytes\n")
+            original = sha256(product)
+
+            code = self.run_quiet(
+                [
+                    "--target",
+                    str(target),
+                    "--project-name",
+                    "Existing Product",
+                    "--date",
+                    "2026-07-20",
+                ]
+            )
+
+            self.assertEqual(code, 0)
+            self.assertEqual(sha256(product), original)
+            self.assertTrue((target / BOOTSTRAP.INSTALL_MANIFEST_NAME).is_file())
+            self.assertTrue((target / "START_HERE.md").is_file())
+
+    def test_fresh_install_collision_fails_before_any_write(self) -> None:
+        with tempfile.TemporaryDirectory(dir=PACKAGE_ROOT.parent) as temp:
+            target = Path(temp) / "project"
+            target.mkdir()
+            readme = target / "README.md"
+            readme.write_bytes(b"existing readme\n")
+            original = sha256(readme)
+
+            code = self.run_quiet(
+                [
+                    "--target",
+                    str(target),
+                    "--project-name",
+                    "Collision",
+                    "--date",
+                    "2026-07-20",
+                ]
+            )
+
+            self.assertEqual(code, 2)
+            self.assertEqual(sha256(readme), original)
+            self.assertEqual([readme], list(target.iterdir()))
+            self.assertFalse((target / BOOTSTRAP.INSTALL_MANIFEST_NAME).exists())
+
+    def test_fresh_install_casefold_collision_fails_before_any_write(self) -> None:
+        with tempfile.TemporaryDirectory(dir=PACKAGE_ROOT.parent) as temp:
+            target = Path(temp) / "project"
+            target.mkdir()
+            readme_alias = target / "readme.md"
+            readme_alias.write_bytes(b"existing lowercase readme\n")
+            original = sha256(readme_alias)
+
+            code = self.run_quiet(
+                [
+                    "--target",
+                    str(target),
+                    "--project-name",
+                    "Casefold Collision",
+                    "--date",
+                    "2026-07-20",
+                ]
+            )
+
+            self.assertEqual(code, 2)
+            self.assertEqual(sha256(readme_alias), original)
+            self.assertEqual([readme_alias], list(target.iterdir()))
+            self.assertFalse((target / BOOTSTRAP.INSTALL_MANIFEST_NAME).exists())
+
+    def test_fresh_install_rejects_existing_file_as_payload_parent(self) -> None:
+        with tempfile.TemporaryDirectory(dir=PACKAGE_ROOT.parent) as temp:
+            target = Path(temp) / "project"
+            target.mkdir()
+            docs = target / "docs"
+            docs.write_bytes(b"not a directory\n")
+
+            code = self.run_quiet(
+                [
+                    "--target",
+                    str(target),
+                    "--project-name",
+                    "Blocked Parent",
+                    "--date",
+                    "2026-07-20",
+                ]
+            )
+
+            self.assertEqual(code, 2)
+            self.assertEqual(b"not a directory\n", docs.read_bytes())
+            self.assertEqual([docs], list(target.iterdir()))
+
     def test_rendered_files_are_deterministic(self) -> None:
         with tempfile.TemporaryDirectory(dir=PACKAGE_ROOT.parent) as temp:
             first = Path(temp) / "first"
@@ -445,6 +539,28 @@ class BootstrapTests(unittest.TestCase):
             finally:
                 BOOTSTRAP.sha256_file = original
             self.assertFalse(target.exists(), list(target.rglob("*")) if target.exists() else [])
+
+    def test_additive_fresh_failure_preserves_preexisting_target_bytes(self) -> None:
+        with tempfile.TemporaryDirectory(dir=PACKAGE_ROOT.parent) as temp:
+            target = Path(temp) / "project"
+            target.mkdir()
+            product = target / "product.txt"
+            product.write_bytes(b"preexisting\n")
+
+            def fail(phase: str) -> None:
+                if phase == "after_create:A.txt":
+                    raise OSError("injected additive failure")
+
+            with self.assertRaises(OSError):
+                BOOTSTRAP.write_fresh(
+                    target,
+                    {"A.txt": b"payload"},
+                    b"{}\n",
+                    fault_injector=fail,
+                )
+
+            self.assertEqual(b"preexisting\n", product.read_bytes())
+            self.assertEqual([product], list(target.iterdir()))
 
     def test_cli_rejects_fresh_target_through_junction(self) -> None:
         with tempfile.TemporaryDirectory(dir=PACKAGE_ROOT.parent) as temp:

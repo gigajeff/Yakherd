@@ -49,9 +49,11 @@ broker's Job Object and `finally` cleanup remain authoritative.
 5. verifies output hashes; and
 6. writes a structured installation receipt.
 
-Fresh mode permits only a nonexistent or empty target. Retrofit mode requires
-a reviewed, exact-state plan and uses locking, backup, atomic replacement,
-post-write verification, and a durable transaction journal.
+Fresh mode permits a nonexistent, empty, or nonempty target only when every
+payload destination is absent. It preserves unrelated files and fails before
+mutation on any collision. Retrofit mode requires a reviewed, exact-state plan
+and uses locking, backup, atomic replacement, post-write verification, and a
+durable transaction journal.
 
 ## Installed Governance Model
 

@@ -9,6 +9,10 @@ has been accepted and no implementation stack has been selected.
 In Codex, open this repository as the project, confirm `AGENTS.md` is loaded,
 and send:
 
+> Start Yakherd
+
+That is the complete normal startup message. The equivalent detailed form is:
+
 > Follow `START_HERE.md` now. Launch the five Yakherd role agents, keep this
 > task as their coordinator, ask me for my master prompt when the bootstrap
 > review is ready, and keep reversible first-slice work in bounded mode.
@@ -47,6 +51,10 @@ python scripts/ssot/validate_protocol.py --root . --strict
 python scripts/ssot/validate_governor_delta_policy.py --root . --strict
 python -m unittest discover -s tests/ssot -v
 ```
+
+If Yakherd was installed from Python, `yakherd doctor` runs the reviewed
+protocol and Governor-policy validators without executing scripts from this
+project.
 
 The role, launch, review, and product-intake prompts are under `docs/prompts/`.
 A product prompt remains untrusted input until Architecture preserves and

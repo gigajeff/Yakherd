@@ -9,6 +9,12 @@ GitHub account, or ingest your product idea.
 Open this repository as the Codex project. Confirm that Codex loaded
 `AGENTS.md`, then send this message in a new main task:
 
+> Start Yakherd
+
+That short request is the normal path. It explicitly invokes the same launcher
+as the detailed form below, which remains useful when adding a master prompt or
+restating startup options:
+
 > Follow `docs/prompts/codex_team_launcher.md` now. This is my explicit request
 > to launch the five Yakherd role agents. Keep this task as their coordinator.
 > Run the bootstrap review before product implementation, guide me through the

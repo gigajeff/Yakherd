@@ -63,9 +63,11 @@ summary; resolve any conflict in those fields in favor of the canonical owner.
   diff. It cannot add product requirements or make an out-of-scope enhancement
   a finding. Only P0/P1 findings block; P2/P3 are advisory.
 - A strict target gets one initial review and one recheck. After two
-  consecutive failures, stop for human rescoping, risk acceptance, or
-  cancellation. Do not create V3/V4 candidates or a new work ID for the same
-  goal to evade the limit.
+  consecutive failures, stop for human rescoping, real-risk acceptance, an
+  eligible proof-backed canonical-equivalence correction, or cancellation.
+  The correction rules in `docs/task_protocol.md` cannot waive a hazard or
+  create review cycle 3. Do not create V3/V4 candidates or a new work ID for
+  the same goal to evade the limit.
 - Keep one active plan and review path per work ID; revise in place. A review
   cannot itself create a fresh-review requirement.
 

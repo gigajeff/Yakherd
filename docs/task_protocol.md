@@ -52,12 +52,45 @@ deployment, website, credential, or product scope into a bounded task.
 - Only P0 and P1 findings block. P2 and P3 findings are advisory.
 - A strict work ID receives one initial review and one corrective recheck.
 - After two consecutive failures for the same work ID, stop. The human must
-  accept the residual risk, narrow or materially change the scope, or cancel.
+  accept a real residual risk, authorize an eligible canonical-equivalence
+  correction, narrow or materially change the scope, or cancel.
 - Do not create V3/V4 candidates, rename the work ID, fork an equivalent
   objective, or continue reviewing to evade the two-cycle limit.
 - Keep one active plan and one active review path per work ID; revise in place.
 - A review may record findings but cannot create a new requirement, reset the
   review budget, or require another review.
+
+### Canonical-equivalence correction
+
+A canonical-equivalence correction is not residual-risk acceptance. It is a
+human disposition for a cycle-2 `FAIL` whose only remaining P1 finding is that
+the accepted contract rejects one representation of already accepted, frozen
+input or output even though an exact mechanical transform can prove the same
+meaning. It is eligible only when all of these facts are true:
+
+- there is no P0, no other P1, and no concrete residual hazard to waive;
+- the transform is total, deterministic, and bijective over an exact frozen
+  inventory, with pre-transform and post-transform counts, order, identities,
+  and SHA-256 values recorded;
+- the accepted goal, data set, write boundary, commands, dependencies,
+  thresholds, safety controls, external effects, and Definition of Done do not
+  change; and
+- all original containment and rejection controls remain effective.
+
+For repository-relative paths, removing exactly one leading `./` may qualify
+only after proving that every result remains a unique relative path beneath the
+same fixed root. Absolute, drive-qualified, UNC, empty, `.`, `..`, additional
+dot-prefixed, percent-decoded, reparse/symlink, and root-escaping paths remain
+rejected. No other case, Unicode, separator, or textual rewriting is implied.
+
+The human authorization must name the work ID, cycle-2 review and finding, the
+exact transform, the frozen inventory identity, and the required proof checks.
+Architecture may record that authorization as an in-place disposition addendum
+and Implementation may execute only that correction. The `FAIL` remains part
+of history; the disposition does not turn it into `PASS`, reset the work ID,
+authorize review cycle 3, waive another finding, or permit autonomous repair.
+Completion requires the recorded equivalence proof and every unchanged
+acceptance check to pass.
 
 ## Completion and release boundary
 

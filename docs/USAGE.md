@@ -3,7 +3,8 @@
 ## Requirements
 
 - Python 3.11 or newer.
-- A nonexistent or empty target directory for fresh installation.
+- A target directory whose existing files do not collide with Yakherd's
+  installed paths. Unrelated files are preserved.
 - No third-party Python packages.
 - An agentic coding environment needs project-file, shell, and Git access.
 
@@ -22,35 +23,44 @@
 only an adapter and must not duplicate or override its rules. Do not begin work
 if the applicable instruction file is absent from the agent's active context.
 
-## Fresh Installation
+## Normal Setup
 
-Always inspect a dry-run first:
+Enter the project folder and run:
 
 ```bash
-yakherd init \
-  --target ~/dev/my-project \
-  --project-name my-project \
-  --dry-run
+cd ~/dev/my-project
+yakherd setup
 ```
 
 On Windows PowerShell:
 
 ```powershell
-yakherd init `
-  --target C:\dev\my-project `
-  --project-name my-project `
-  --dry-run
+Set-Location C:\dev\my-project
+yakherd setup
 ```
 
-The dry-run prints the planned files and hashes without writing the target.
-Run the same command without `--dry-run` to install.
+The current directory is the default target and its directory name is the
+default project name. `yakherd setup PATH` selects another target;
+`--project-name NAME` overrides the derived name. Setup handles nonexistent,
+empty, and nonempty targets when no installed path collides. It never
+overwrites an existing file. A collision stops before mutation and names the
+conflicting paths.
+
+Use `yakherd setup --dry-run` for a non-mutating preview. A successful setup
+runs the reviewed validators automatically. `yakherd doctor [PATH]` repeats
+that read-only readiness check without executing scripts from the target
+repository.
+
+`yakherd init` remains the low-level explicit fresh command. `yakherd retrofit`
+is needed only when a separately reviewed, hash-pinned plan must replace or
+merge an existing Yakherd-owned path; directory existence alone is not a
+retrofit trigger.
 
 ## First Repository Workflow
 
 1. Review the generated files and `JEFF_STRICT_SSOT_INSTALL.json` receipt.
 2. Open the repository as the Codex project and confirm `AGENTS.md` is loaded.
-3. In a new main task, send: `Follow START_HERE.md now. Launch the five
-   Yakherd role agents and keep this task as their coordinator.`
+3. In a new main task, send: `Start Yakherd`.
 4. Confirm Codex created all five named agent threads. Red Team runs
    `docs/prompts/bootstrap_cold_resume_review.md`; the other roles begin in
    their defined waiting, parked, or inactive states.

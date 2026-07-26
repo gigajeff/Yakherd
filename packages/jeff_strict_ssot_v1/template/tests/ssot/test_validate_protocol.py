@@ -211,6 +211,33 @@ class ProtocolValidatorTests(unittest.TestCase):
                 errors, _ = VALIDATOR.validate(root, [])
                 self.assertTrue(any(expected in item for item in errors), errors)
 
+    def test_short_start_yakherd_handoff_is_required(self) -> None:
+        mutations = [
+            (
+                "AGENTS.md",
+                "A human request to `Start Yakherd`",
+                "AGENTS.md must bind the short Start Yakherd invocation",
+            ),
+            (
+                "START_HERE.md",
+                "That short request is the normal path.",
+                "START_HERE.md missing beginner handoff",
+            ),
+        ]
+        for relative, required, expected in mutations:
+            with self.subTest(relative=relative), tempfile.TemporaryDirectory(
+                dir=ROOT.parent
+            ) as temp:
+                root = self.clone(Path(temp))
+                path = root / relative
+                path.write_text(
+                    path.read_text(encoding="utf-8").replace(required, "removed", 1),
+                    encoding="utf-8",
+                    newline="\n",
+                )
+                errors, _ = VALIDATOR.validate(root, [])
+                self.assertTrue(any(expected in item for item in errors), errors)
+
     def test_proportional_modes_and_review_circuit_breaker_are_required(self) -> None:
         mutations = [
             (
@@ -235,6 +262,11 @@ class ProtocolValidatorTests(unittest.TestCase):
             ),
             (
                 "docs/task_protocol.md",
+                "A canonical-equivalence correction is not residual-risk acceptance.",
+                "task protocol missing review control",
+            ),
+            (
+                "docs/task_protocol.md",
                 "Do not create `_v2`, `_v3`",
                 "task protocol missing review control",
             ),
@@ -244,8 +276,23 @@ class ProtocolValidatorTests(unittest.TestCase):
                 "Implementation prompt missing direct bounded authorization",
             ),
             (
+                "docs/prompts/implementation_task.md",
+                "no other P0/P1 remains",
+                "Implementation prompt missing equivalence control",
+            ),
+            (
+                "docs/prompts/architecture_task.md",
+                "request review cycle 3",
+                "Architecture prompt missing equivalence control",
+            ),
+            (
                 "docs/prompts/red_team_task.md",
                 "outside accepted scope is not a finding",
+                "Red Team prompt missing scope control",
+            ),
+            (
+                "docs/prompts/red_team_task.md",
+                "canonical-equivalence criteria",
                 "Red Team prompt missing scope control",
             ),
         ]

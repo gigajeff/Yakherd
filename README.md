@@ -78,21 +78,17 @@ prompt for your environment.
 
 **Codex:**
 
-> Install Yakherd from https://github.com/gigajeff/Yakherd into a new project
-> repository for me. First verify that this environment has Git and Python 3.11
-> or newer. Follow Yakherd's README and safety instructions. Do not overwrite
-> an existing project. After installation, open the generated repository as the
-> Codex project and confirm its AGENTS.md is loaded. Then follow START_HERE.md:
-> launch all five Yakherd role agents, keep the current task as their
-> coordinator, run the required bootstrap review, guide me through the GitHub
-> setup checkpoint, and ask me for my idea or master prompt.
+> Install or upgrade Yakherd with pip, inspect the actual project folder, and
+> run `yakherd setup` there. Do not infer retrofit merely because the folder
+> exists. Setup must preserve unrelated files and stop on any Yakherd-path
+> collision. Run `yakherd doctor`, then tell me to open the folder as my Codex
+> project and say `Start Yakherd`.
 
 **Claude Code:**
 
-> Install Yakherd from https://github.com/gigajeff/Yakherd into a new project
-> repository for me. First verify that this environment has Git and Python 3.11
-> or newer. Follow Yakherd's README and safety instructions. Do not overwrite an
-> existing project. After installation, open the generated repository as the
+> Install or upgrade Yakherd with pip, inspect the actual project folder, and
+> run `yakherd setup` there. Preserve unrelated files and stop on any
+> Yakherd-path collision. Run `yakherd doctor`, then open the repository as the
 > Claude Code project and start a fresh session there. Confirm that CLAUDE.md
 > contains only the local @AGENTS.md import. If Claude Code asks, approve that
 > import only after verifying it resolves to AGENTS.md inside the generated
@@ -102,15 +98,15 @@ prompt for your environment.
 
 **Another coding agent:**
 
-> Install Yakherd from https://github.com/gigajeff/Yakherd into a new project
-> repository for me. First verify that this environment has Git and Python 3.11
-> or newer. Read and follow Yakherd's README, AGENTS.md, and safety instructions.
-> Do not overwrite an existing project. In the generated project, always read
-> AGENTS.md before working and confirm it is in the active context. After
-> installation and the required review, ask me for my idea or master prompt.
+> Install or upgrade Yakherd with pip, inspect the actual project folder, and
+> run `yakherd setup` there. Preserve unrelated files and stop on any
+> Yakherd-path collision. Run `yakherd doctor`. In the generated project,
+> always read AGENTS.md before working and confirm it is in the active context.
+> After installation and the required review, ask me for my idea or master
+> prompt.
 
-The agent can clone this repository, run the installer, and guide you through
-the next step. In Codex, the generated launcher explicitly requests the five
+The agent can install Yakherd from PyPI, run `yakherd setup`, and guide you
+through the next step. In Codex, the generated launcher explicitly requests the five
 role agents; other environments use the same five role prompts as long-lived
 sessions. Once Yakherd is installed and its initial review passes, give the
 Architecture role your master prompt. Together, Yakherd plus a clear master
@@ -134,29 +130,25 @@ framework, cloud provider, database, architecture, or deployment system.
 
 ## Quick Start
 
-Install Yakherd and preview a fresh installation without writing anything:
+Install Yakherd, enter the project folder, and set it up:
 
 ```bash
-python3 -m pip install yakherd
-yakherd init \
-  --target ~/dev/my-project \
-  --project-name my-project \
-  --dry-run
+python3 -m pip install --upgrade yakherd
+cd ~/dev/my-project
+yakherd setup
 ```
 
-Install into a nonexistent or empty folder:
+`setup` derives the project name from the folder, refuses to overwrite any
+existing Yakherd path, preserves unrelated files, and runs `doctor`
+automatically. For a different target, pass its path:
 
 ```bash
-yakherd init \
-  --target ~/dev/my-project \
-  --project-name my-project
+yakherd setup ~/dev/my-project
 ```
 
-Then open the generated repository as the Codex project and send:
+Then open the repository as the Codex project and send:
 
-> Follow `START_HERE.md` now. Launch the five Yakherd role agents, keep this
-> task as their coordinator, ask me for my master prompt when the bootstrap
-> review is ready, and keep reversible first-slice work in bounded mode.
+> Start Yakherd
 
 The launcher creates the Red Team agent that follows
 `docs/prompts/bootstrap_cold_resume_review.md`. Only after that review passes
@@ -167,16 +159,14 @@ scope; product intake is not automatically sent through Red Team.
 On Windows PowerShell, the equivalent commands are:
 
 ```powershell
-py -m pip install yakherd
-yakherd init `
-  --target C:\dev\my-project `
-  --project-name my-project `
-  --dry-run
-
-yakherd init `
-  --target C:\dev\my-project `
-  --project-name my-project
+py -m pip install --upgrade yakherd
+Set-Location C:\dev\my-project
+yakherd setup
 ```
+
+Use `yakherd setup --dry-run` for a non-mutating preview and `yakherd doctor`
+at any time for a read-only readiness check. Low-level `init` and reviewed
+`retrofit` commands remain available under `yakherd --help`.
 
 To run directly from source instead, clone this repository and replace
 `yakherd` in the examples with `python yakherd.py`.
