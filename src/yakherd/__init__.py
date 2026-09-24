@@ -1,3 +1,3 @@
 """Yakherd's public Python package."""
 
-__version__ = "1.4.0"
+__version__ = "3.0.0"

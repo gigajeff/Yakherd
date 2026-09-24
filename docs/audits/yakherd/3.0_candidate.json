@@ -1,0 +1,345 @@
+{
+  "work_id": "YAKHERD-3.0",
+  "stage": "C1",
+  "base_commit": "735bd78d2790070470308d3af881a6b565d9efa3",
+  "candidate_sha256": "65bcaf34d7ed11435e46a66a3f1d451723a69ff2e196c291e459afb1b70a6828",
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "dd4d3ff2c1d3eda2ba3df45e8b24cbfc14a410a4dbd663319f3db44d43387d03"
+    },
+    {
+      "path": ".github/workflows/publish.yml",
+      "sha256": "9cf376c1d822500dd972080693b138c60a3f64cd0d6fb48f8edbba5bbee41bde"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "877e094dd9d087e4b3083f68c40af3dd4ff2169bf0e43b9fa46fa4b5a5c29d07"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "24704e3550712b3d986b22a84c790b7e2be4c1989eb713b0be5787762e65e2db"
+    },
+    {
+      "path": "MANIFEST.in",
+      "sha256": "d51d97362c59ad4243aeb4356e5042936b6b66d1728e4dab0d023fe8382baeee"
+    },
+    {
+      "path": "README.md",
+      "sha256": "1bb65cc777004de47fc5e229397e44e61e4e5a097b1fb7f7e2aa389b441b658c"
+    },
+    {
+      "path": "START_HERE.md",
+      "sha256": "e284d9371bf2f3024e8eb8400259a2b4e3cc43121f4b64d67e5b004449ac0d0c"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "dc54f1b143d72651a8ba5d7f5679a00dca7ccdb92cb8bb088d21aba838404788"
+    },
+    {
+      "path": "docs/RELEASE.md",
+      "sha256": "b9cc27ef029f0b4bdc1c5ba2dacfa0af8cff52d0b1c5c58acdd0b2d26153f0f5"
+    },
+    {
+      "path": "docs/SSOT_MIGRATION.md",
+      "sha256": "6bd6388519de816608f9fd0c25c3f5638d73ac5f85d10022aa428e9b0986e235"
+    },
+    {
+      "path": "docs/SSOT_PROCESS.md",
+      "sha256": "020cdcf193eef58c86f65d06c5c36ad0d232016dde6bcf25cfc4c22c4330e71e"
+    },
+    {
+      "path": "docs/USAGE.md",
+      "sha256": "99a3701a82e7af7e3159db32209a7f7c764073c66b011563b54f75275d8bd4c6"
+    },
+    {
+      "path": "docs/task_protocol.md",
+      "sha256": "0915ed990715719920a69762953652e98491914fed50ebd91c5f9956ef0bfd0e"
+    },
+    {
+      "path": "packages/yakherd_v3/MANIFEST.json",
+      "sha256": "c3dd1b885736ce56741f2ab01006a7f938bab21e88c8971483025ba470c2d985"
+    },
+    {
+      "path": "packages/yakherd_v3/README.md",
+      "sha256": "f1cc002da64edb7de6dedc3387de56b00a9caae02963f8a3f8f61091bdbd9d69"
+    },
+    {
+      "path": "packages/yakherd_v3/RELEASE.json",
+      "sha256": "17806217f1112ee287f6c147e1f194ba1bde92ad47334bab9e67ddc5f964d1b1"
+    },
+    {
+      "path": "packages/yakherd_v3/bootstrap.py",
+      "sha256": "fdb1d2deb211fbca12d74bcf1ce9222d9af867a1283774c1f03761d0f3f24a9f"
+    },
+    {
+      "path": "packages/yakherd_v3/template/.gitignore",
+      "sha256": "5d4213b7834c13286c712ce3a2643a418f91186dbc9a249d4412417d70a70d4d"
+    },
+    {
+      "path": "packages/yakherd_v3/template/.yakherd/policies/Y-PROC-1.md",
+      "sha256": "bab92ec77e8097207b5fb7684e8856fbdae6190948a52b998ba824fa11da573d"
+    },
+    {
+      "path": "packages/yakherd_v3/template/.yakherd/profile.json",
+      "sha256": "ef7c6aac17f73bd12d028f8b25100f0bd99bae3931860bec52e5b54d7a8c09d0"
+    },
+    {
+      "path": "packages/yakherd_v3/template/AGENTS.md",
+      "sha256": "459a4298c985313951f2e01b6a719295f6f76cc13d8be66dd2debd6607c2eb1a"
+    },
+    {
+      "path": "packages/yakherd_v3/template/BASELINE.md",
+      "sha256": "e2e9955b03e3da29d9157481ba85dc878496d16480025d43dc60cd216acf6768"
+    },
+    {
+      "path": "packages/yakherd_v3/template/CLAUDE.md",
+      "sha256": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49"
+    },
+    {
+      "path": "packages/yakherd_v3/template/NOW.md",
+      "sha256": "06910768bf53df456cc0858592310af1cef056eb78e915e3ea68da23cdbdb3d4"
+    },
+    {
+      "path": "packages/yakherd_v3/template/README.md",
+      "sha256": "9128247734aed0c17d0e630a6369fc15dfe406d319213be34c2006564a6a4e84"
+    },
+    {
+      "path": "packages/yakherd_v3/template/SSOT.md",
+      "sha256": "fe53971f59dc5cfa25666dee7c67111c4329d5e143d69f333e8ab6a2def7f469"
+    },
+    {
+      "path": "packages/yakherd_v3/template/START_HERE.md",
+      "sha256": "34de760b8036188493b5d0b7ddae39712cde73fe3f2d94931824019e06068eec"
+    },
+    {
+      "path": "packages/yakherd_v3/tests/run_acceptance.py",
+      "sha256": "f978605485b2e6f66960570bed30b1135c3a5c8f452f1fd27219618957987177"
+    },
+    {
+      "path": "packages/yakherd_v3/tests/test_bootstrap.py",
+      "sha256": "3cfc486dec7d95e88ee3ed2788a926418c00cf321a633e156752576a9ce0591f"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "36a0f8c92173f70b77a2b31287c5090fa95ec7449af5d2101f02fec3644ea028"
+    },
+    {
+      "path": "scripts/regenerate_release.py",
+      "sha256": "c0c06808c8f4a8380271fae5698ef5830d4762e441d95c850bd577574c54088a"
+    },
+    {
+      "path": "scripts/smoke_distribution.py",
+      "sha256": "93d8a6f67364a061ab647dfa3285aa587ea60e581d514204c1a39888f7933339"
+    },
+    {
+      "path": "scripts/verify_distribution.py",
+      "sha256": "ebd3db4f79486ea1e1334ac8f70d4df725210f465d8e9943d86f33c0ae536a80"
+    },
+    {
+      "path": "scripts/verify_release.py",
+      "sha256": "b834cad4dc7d6a9236541e7c464a5d13efc5db8bef71eaa3e5a98c6ac9f97c9e"
+    },
+    {
+      "path": "setup.py",
+      "sha256": "8e3ee65276d0ab4a51bff9d8973165abb8f80d73a12d4e807ac7912a522aaaaf"
+    },
+    {
+      "path": "src/yakherd/__init__.py",
+      "sha256": "738a412a2cbd63fe269ade97a9fec61a851864ca0a6186fa40775f0e8b50cf80"
+    },
+    {
+      "path": "src/yakherd/cli.py",
+      "sha256": "ecb8f5f4ee463cdc488dd7ffe20fad41ce89f9254e63a26ee6817107c4f0371c"
+    },
+    {
+      "path": "src/yakherd/diagnostics.py",
+      "sha256": "2e3e8ac2cf8c234c4661a21f84d1386279942ed9a96b363529064c9a642d2156"
+    },
+    {
+      "path": "src/yakherd/migration.py",
+      "sha256": "b440fdc0f99091835db3e1c7b9c83092366ed1dfe8ab2c7f92dbd2c6fbf3c94a"
+    },
+    {
+      "path": "tests/test_distribution.py",
+      "sha256": "d5123075b67d9f075434b1fe44c690757ef800ec9a88821f424a337f104c122d"
+    },
+    {
+      "path": "tests/test_v3_migration.py",
+      "sha256": "4845c67f839562b55d5881b6ccc651bd1f00e9dddb37358ff26bbe06446b0835"
+    }
+  ],
+  "hash_algorithm": "SHA-256 of UTF-8 concatenation of sorted path, NUL, file SHA-256, LF",
+  "history": [
+    {
+      "stage": "R0",
+      "candidate_sha256": "5287650f9a3c26fff0230509e468f7eca18ac2081f81c4d4732ecb6ab3d2e055",
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "sha256": "dd4d3ff2c1d3eda2ba3df45e8b24cbfc14a410a4dbd663319f3db44d43387d03"
+        },
+        {
+          "path": ".github/workflows/publish.yml",
+          "sha256": "9cf376c1d822500dd972080693b138c60a3f64cd0d6fb48f8edbba5bbee41bde"
+        },
+        {
+          "path": "AGENTS.md",
+          "sha256": "877e094dd9d087e4b3083f68c40af3dd4ff2169bf0e43b9fa46fa4b5a5c29d07"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "sha256": "24704e3550712b3d986b22a84c790b7e2be4c1989eb713b0be5787762e65e2db"
+        },
+        {
+          "path": "MANIFEST.in",
+          "sha256": "d51d97362c59ad4243aeb4356e5042936b6b66d1728e4dab0d023fe8382baeee"
+        },
+        {
+          "path": "README.md",
+          "sha256": "1bb65cc777004de47fc5e229397e44e61e4e5a097b1fb7f7e2aa389b441b658c"
+        },
+        {
+          "path": "START_HERE.md",
+          "sha256": "e284d9371bf2f3024e8eb8400259a2b4e3cc43121f4b64d67e5b004449ac0d0c"
+        },
+        {
+          "path": "docs/ARCHITECTURE.md",
+          "sha256": "dc54f1b143d72651a8ba5d7f5679a00dca7ccdb92cb8bb088d21aba838404788"
+        },
+        {
+          "path": "docs/RELEASE.md",
+          "sha256": "b9cc27ef029f0b4bdc1c5ba2dacfa0af8cff52d0b1c5c58acdd0b2d26153f0f5"
+        },
+        {
+          "path": "docs/SSOT_MIGRATION.md",
+          "sha256": "6bd6388519de816608f9fd0c25c3f5638d73ac5f85d10022aa428e9b0986e235"
+        },
+        {
+          "path": "docs/SSOT_PROCESS.md",
+          "sha256": "020cdcf193eef58c86f65d06c5c36ad0d232016dde6bcf25cfc4c22c4330e71e"
+        },
+        {
+          "path": "docs/USAGE.md",
+          "sha256": "99a3701a82e7af7e3159db32209a7f7c764073c66b011563b54f75275d8bd4c6"
+        },
+        {
+          "path": "docs/task_protocol.md",
+          "sha256": "0915ed990715719920a69762953652e98491914fed50ebd91c5f9956ef0bfd0e"
+        },
+        {
+          "path": "packages/yakherd_v3/MANIFEST.json",
+          "sha256": "1fd22b53ade21f5136f4b5331bb78e9d2288056ef86163697ac0f13407f35d7b"
+        },
+        {
+          "path": "packages/yakherd_v3/README.md",
+          "sha256": "f1cc002da64edb7de6dedc3387de56b00a9caae02963f8a3f8f61091bdbd9d69"
+        },
+        {
+          "path": "packages/yakherd_v3/RELEASE.json",
+          "sha256": "4be4752e1499766706cd32e11532afad0eadc3f3bd970feaa1398e3ae8278a5c"
+        },
+        {
+          "path": "packages/yakherd_v3/bootstrap.py",
+          "sha256": "397240e2703ea855e9a1f087c1b1e676730197075f5ae70de164973b9954d635"
+        },
+        {
+          "path": "packages/yakherd_v3/template/.gitignore",
+          "sha256": "5d4213b7834c13286c712ce3a2643a418f91186dbc9a249d4412417d70a70d4d"
+        },
+        {
+          "path": "packages/yakherd_v3/template/.yakherd/policies/Y-PROC-1.md",
+          "sha256": "7f1ec91801fa908020f17f03d65c1fefa03b8fcceec6be3b3aedee741a80610f"
+        },
+        {
+          "path": "packages/yakherd_v3/template/.yakherd/profile.json",
+          "sha256": "ef7c6aac17f73bd12d028f8b25100f0bd99bae3931860bec52e5b54d7a8c09d0"
+        },
+        {
+          "path": "packages/yakherd_v3/template/AGENTS.md",
+          "sha256": "459a4298c985313951f2e01b6a719295f6f76cc13d8be66dd2debd6607c2eb1a"
+        },
+        {
+          "path": "packages/yakherd_v3/template/BASELINE.md",
+          "sha256": "e2e9955b03e3da29d9157481ba85dc878496d16480025d43dc60cd216acf6768"
+        },
+        {
+          "path": "packages/yakherd_v3/template/CLAUDE.md",
+          "sha256": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49"
+        },
+        {
+          "path": "packages/yakherd_v3/template/NOW.md",
+          "sha256": "06910768bf53df456cc0858592310af1cef056eb78e915e3ea68da23cdbdb3d4"
+        },
+        {
+          "path": "packages/yakherd_v3/template/README.md",
+          "sha256": "9128247734aed0c17d0e630a6369fc15dfe406d319213be34c2006564a6a4e84"
+        },
+        {
+          "path": "packages/yakherd_v3/template/SSOT.md",
+          "sha256": "fe53971f59dc5cfa25666dee7c67111c4329d5e143d69f333e8ab6a2def7f469"
+        },
+        {
+          "path": "packages/yakherd_v3/template/START_HERE.md",
+          "sha256": "34de760b8036188493b5d0b7ddae39712cde73fe3f2d94931824019e06068eec"
+        },
+        {
+          "path": "packages/yakherd_v3/tests/run_acceptance.py",
+          "sha256": "f978605485b2e6f66960570bed30b1135c3a5c8f452f1fd27219618957987177"
+        },
+        {
+          "path": "packages/yakherd_v3/tests/test_bootstrap.py",
+          "sha256": "3a8170308fe15b57d307b9dcba4f8d12d6dcfae06b370fe80c8c290a720fdb29"
+        },
+        {
+          "path": "pyproject.toml",
+          "sha256": "36a0f8c92173f70b77a2b31287c5090fa95ec7449af5d2101f02fec3644ea028"
+        },
+        {
+          "path": "scripts/regenerate_release.py",
+          "sha256": "c0c06808c8f4a8380271fae5698ef5830d4762e441d95c850bd577574c54088a"
+        },
+        {
+          "path": "scripts/smoke_distribution.py",
+          "sha256": "93d8a6f67364a061ab647dfa3285aa587ea60e581d514204c1a39888f7933339"
+        },
+        {
+          "path": "scripts/verify_distribution.py",
+          "sha256": "ebd3db4f79486ea1e1334ac8f70d4df725210f465d8e9943d86f33c0ae536a80"
+        },
+        {
+          "path": "scripts/verify_release.py",
+          "sha256": "b834cad4dc7d6a9236541e7c464a5d13efc5db8bef71eaa3e5a98c6ac9f97c9e"
+        },
+        {
+          "path": "setup.py",
+          "sha256": "8e3ee65276d0ab4a51bff9d8973165abb8f80d73a12d4e807ac7912a522aaaaf"
+        },
+        {
+          "path": "src/yakherd/__init__.py",
+          "sha256": "738a412a2cbd63fe269ade97a9fec61a851864ca0a6186fa40775f0e8b50cf80"
+        },
+        {
+          "path": "src/yakherd/cli.py",
+          "sha256": "18521a232c2b24043f9d8b5385c71678bb8c5dcb29cadf476b9bcd82bf3ec4f6"
+        },
+        {
+          "path": "src/yakherd/diagnostics.py",
+          "sha256": "2e3e8ac2cf8c234c4661a21f84d1386279942ed9a96b363529064c9a642d2156"
+        },
+        {
+          "path": "src/yakherd/migration.py",
+          "sha256": "b440fdc0f99091835db3e1c7b9c83092366ed1dfe8ab2c7f92dbd2c6fbf3c94a"
+        },
+        {
+          "path": "tests/test_distribution.py",
+          "sha256": "88c2e73f56e304d7d2bacae68fca8782bf6751de85f637e72de54dc97b7bf34a"
+        },
+        {
+          "path": "tests/test_v3_migration.py",
+          "sha256": "4845c67f839562b55d5881b6ccc651bd1f00e9dddb37358ff26bbe06446b0835"
+        }
+      ]
+    }
+  ]
+}

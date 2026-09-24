@@ -32,11 +32,26 @@ jobs:
         run: python -m pip install .
       - name: Test installed command
         run: yakherd --help
-      - name: Run package tests
+      - name: Run legacy package regressions
         run: python -B -m unittest discover -s packages/jeff_strict_ssot_v1/tests -v
-      - name: Run clean acceptance
+      - name: Run v3 package tests
+        run: python -B -m unittest discover -s packages/yakherd_v3/tests -v
+      - name: Run legacy clean acceptance
         run: >-
           python packages/jeff_strict_ssot_v1/tests/run_acceptance.py
           --package-root packages/jeff_strict_ssot_v1
           --output-root .tmp/acceptance
           --date 2026-07-20
+      - name: Run v3 clean acceptance
+        run: >-
+          python -B packages/yakherd_v3/tests/run_acceptance.py
+          --package-root packages/yakherd_v3
+          --output-root .tmp/acceptance-v3
+          --date 2026-09-24
+      - name: Build distributions
+        run: |
+          python -m pip install build==1.4.0
+          python -m build
+          python scripts/verify_distribution.py dist
+      - name: Smoke-install exact wheel and source distribution
+        run: python -B scripts/smoke_distribution.py dist --output .tmp/distribution-smoke

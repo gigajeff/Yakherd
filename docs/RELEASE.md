@@ -3,9 +3,11 @@
 ## Candidate Gate
 
 1. Confirm the package source contains no bytecode/cache files.
-2. Regenerate `MANIFEST.json` after any governed template change.
-3. Regenerate `RELEASE.json` after installer or manifest changes.
-4. Run package tests and clean acceptance.
+2. Run `python -B scripts/regenerate_release.py` to regenerate v3 template and
+   engine bindings. The historical V1 package remains unchanged unless an
+   explicit legacy repair is in scope.
+3. Verify every changed package's `MANIFEST.json` and `RELEASE.json` bindings.
+4. Run root tests, both package test suites and both clean acceptance suites.
 5. Run `python scripts/verify_release.py`.
 6. Run CI on Windows and Linux.
 7. Obtain independent Red Team review of the exact candidate bytes.
@@ -26,6 +28,23 @@ Behavioral or schema changes require a changelog entry and explicit migration
 analysis. Security-sensitive changes to containment, overwrite, retrofit,
 validation, decision history, status migration, or evidence handling require
 new adversarial tests.
+
+## Version 3 distribution
+
+The default bundled package is `packages/yakherd_v3/`; the source distribution
+also preserves V1 provenance. Build with `python -m build`, inspect exact bytes
+with `python scripts/verify_distribution.py dist`, then run
+`python -B scripts/smoke_distribution.py dist --output .tmp/distribution-smoke`.
+The smoke command creates separate clean environments and installs the exact
+wheel and sdist. Source building may fetch pinned build dependencies; the
+installed harness itself remains standard-library-only.
+
+V3 adoption is a reviewed instruction migration. Existing V1 receipts, custom
+product owners and process state are not overwritten by setup. Follow
+[SSOT_MIGRATION.md](SSOT_MIGRATION.md) and keep plans/backups private until
+reviewed for publication. GitHub source publication alone does not publish to
+PyPI. Pushing a `v*.*.*` tag triggers the separate Trusted Publisher workflow
+and therefore needs package-publication authorization.
 
 ## V1 Provenance
 

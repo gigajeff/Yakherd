@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = ROOT / "packages" / "jeff_strict_ssot_v1"
+PACKAGE = ROOT / "packages" / "yakherd_v3"
 TEMPLATE = PACKAGE / "template"
 
 

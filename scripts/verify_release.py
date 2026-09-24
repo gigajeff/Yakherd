@@ -1,143 +1,62 @@
 #!/usr/bin/env python3
-"""Verify the Yakherd V1 release hash chain and repository hygiene."""
-
+"""Verify v3 release bytes, historical V1 bindings and distribution identity."""
 from __future__ import annotations
-
 import argparse
 import hashlib
 import json
-import re
 import tomllib
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = ROOT / "packages" / "jeff_strict_ssot_v1"
+PACKAGE = ROOT / 'packages/yakherd_v3'
 
 
-def sha256(path: Path) -> str:
+def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--tag")
-    args = parser.parse_args(argv)
-    errors: list[str] = []
-    release = json.loads((PACKAGE / "RELEASE.json").read_text(encoding="utf-8"))
-    manifest = json.loads((PACKAGE / "MANIFEST.json").read_text(encoding="utf-8"))
-    project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))[
-        "project"
-    ]
+def verify_package(package):
+    errors=[]
+    manifest=json.loads((package/'MANIFEST.json').read_text(encoding='utf-8'))
+    release=json.loads((package/'RELEASE.json').read_text(encoding='utf-8'))
+    for field in ('package_name','package_version'):
+        if manifest.get(field)!=release.get(field): errors.append(f'{package.name}: {field} mismatch')
+    for name, field in (('bootstrap.py','bootstrap_sha256'),('MANIFEST.json','manifest_sha256')):
+        if sha256(package/name)!=release.get(field): errors.append(f'{package.name}: release hash mismatch: {name}')
+    actual=sorted(p.relative_to(package/'template').as_posix() for p in (package/'template').rglob('*') if p.is_file())
+    hashes=manifest.get('template_sha256',{})
+    if actual!=manifest.get('template_files') or set(actual)!=set(hashes): errors.append(f'{package.name}: template inventory mismatch')
+    for name in actual:
+        if sha256(package/'template'/name)!=hashes.get(name): errors.append(f'{package.name}: template hash mismatch: {name}')
+    caches=[str(p.relative_to(package)) for p in package.rglob('*') if p.name=='__pycache__' or p.suffix in {'.pyc','.pyo'}]
+    if caches: errors.append(f'{package.name}: generated caches present: {caches}')
+    return errors,manifest
 
-    root_protocol = ROOT / "docs" / "task_protocol.md"
-    template_protocol = PACKAGE / "template" / "docs" / "task_protocol.md"
-    for label, path in (
-        ("root task protocol", root_protocol),
-        ("installed task protocol", template_protocol),
-    ):
-        if not path.is_file():
-            errors.append(f"{label} missing: {path.relative_to(ROOT)}")
-        elif (
-            "A canonical-equivalence correction is not residual-risk acceptance."
-            not in path.read_text(encoding="utf-8")
-        ):
-            errors.append(
-                f"{label} omits the canonical-equivalence circuit-breaker rule"
-            )
 
-    root_agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    template_agents = (PACKAGE / "template" / "AGENTS.md").read_text(
-        encoding="utf-8"
-    )
-    if "`docs/task_protocol.md` is the canonical SSOT owner" not in root_agents:
-        errors.append("root AGENTS.md does not name docs/task_protocol.md as canonical")
-    if "`docs/task_protocol.md` owns proportional work modes" not in template_agents:
-        errors.append("template AGENTS.md does not name docs/task_protocol.md as owner")
-    if ".yakherd/policies/Y-PROC-1.md" not in template_agents:
-        errors.append("template AGENTS.md does not name the Y-PROC-1 policy owner")
-
-    manifest_in = (ROOT / "MANIFEST.in").read_text(encoding="utf-8").splitlines()
-    if "include docs/task_protocol.md" not in manifest_in:
-        errors.append("source distribution does not include root docs/task_protocol.md")
-
-    for field in ("package_name", "package_version"):
-        if release.get(field) != manifest.get(field):
-            errors.append(
-                f"release/manifest {field} mismatch: "
-                f"{release.get(field)!r} != {manifest.get(field)!r}"
-            )
-
-    if project.get("name") != "yakherd":
-        errors.append(f"PyPI project name mismatch: {project.get('name')!r}")
-    if project.get("version") != release.get("package_version"):
-        errors.append(
-            "PyPI/release version mismatch: "
-            f"{project.get('version')!r} != {release.get('package_version')!r}"
-        )
-    init_text = (ROOT / "src" / "yakherd" / "__init__.py").read_text(
-        encoding="utf-8"
-    )
-    version_match = re.search(r'^__version__ = "([^"]+)"$', init_text, re.MULTILINE)
-    adapter_version = version_match.group(1) if version_match else None
-    if adapter_version != project.get("version"):
-        errors.append(
-            "Python adapter/release version mismatch: "
-            f"{adapter_version!r} != {project.get('version')!r}"
-        )
-    expected_tag = f"v{project.get('version')}"
-    if args.tag is not None and args.tag != expected_tag:
-        errors.append(f"release tag mismatch: {args.tag!r} != {expected_tag!r}")
-
-    bindings = {
-        "bootstrap.py": release["bootstrap_sha256"],
-        "MANIFEST.json": release["manifest_sha256"],
-    }
-    for relative, expected in bindings.items():
-        actual = sha256(PACKAGE / relative)
-        if actual != expected:
-            errors.append(f"release hash mismatch: {relative}: {actual} != {expected}")
-
-    template_hashes = manifest.get("template_sha256", {})
-    if "docs/task_protocol.md" not in manifest.get("template_files", []):
-        errors.append("manifest file list omits installed docs/task_protocol.md")
-    if "docs/task_protocol.md" not in template_hashes:
-        errors.append("manifest hashes omit installed docs/task_protocol.md")
-    process_policy = ".yakherd/policies/Y-PROC-1.md"
-    if process_policy not in manifest.get("template_files", []):
-        errors.append(f"manifest file list omits installed {process_policy}")
-    if process_policy not in template_hashes:
-        errors.append(f"manifest hashes omit installed {process_policy}")
-    for relative, expected in template_hashes.items():
-        source = PACKAGE / "template" / relative
-        if not source.is_file():
-            errors.append(f"manifest source missing: {relative}")
-            continue
-        actual = sha256(source)
-        if actual != expected:
-            errors.append(
-                f"manifest hash mismatch: {relative}: {actual} != {expected}"
-            )
-
-    cache_paths = sorted(
-        str(path.relative_to(ROOT)).replace("\\", "/")
-        for path in PACKAGE.rglob("*")
-        if path.name == "__pycache__" or path.suffix == ".pyc"
-    )
-    if cache_paths:
-        errors.append(f"package cache paths present: {cache_paths}")
-
+def main(argv=None):
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--tag')
+    args=parser.parse_args(argv)
+    errors,manifest=verify_package(PACKAGE)
+    legacy_errors,_=verify_package(ROOT/'packages/jeff_strict_ssot_v1')
+    errors.extend(legacy_errors)
+    project=tomllib.loads((ROOT/'pyproject.toml').read_text(encoding='utf-8'))['project']
+    if project['name']!='yakherd' or project['version']!=manifest['package_version']:
+        errors.append('public package identity/version mismatch')
+    init=(ROOT/'src/yakherd/__init__.py').read_text(encoding='utf-8')
+    if f'__version__ = "{project["version"]}"' not in init: errors.append('Python adapter version mismatch')
+    if args.tag is not None and args.tag!=f'v{project["version"]}': errors.append('release tag mismatch')
+    required={'AGENTS.md','SSOT.md','BASELINE.md','NOW.md','README.md','START_HERE.md','CLAUDE.md','.gitignore','.yakherd/profile.json','.yakherd/policies/Y-PROC-1.md'}
+    if set(manifest['template_files'])!=required: errors.append('v3 payload does not match the compact harness')
+    profile=json.loads((PACKAGE/'template/.yakherd/profile.json').read_text(encoding='utf-8'))
+    if profile.get('schema_version')!=3 or profile.get('profile')!='yakherd-ssot': errors.append('wrong profile')
+    for path in ('docs/SSOT_PROCESS.md','docs/SSOT_MIGRATION.md','docs/task_protocol.md'):
+        if not (ROOT/path).is_file(): errors.append(f'missing canonical documentation: {path}')
     if errors:
-        for error in errors:
-            print(f"ERROR: {error}")
+        for error in errors: print(f'ERROR: {error}')
         return 1
-
-    print(
-        "release_verification status=passed "
-        f"manifest_files={len(template_hashes)} cache_paths=0"
-    )
+    print(f'release_verification status=passed version={project["version"]} manifest_files={len(required)} legacy_bindings=passed cache_paths=0')
     return 0
 
-
-if __name__ == "__main__":
+if __name__=='__main__':
     raise SystemExit(main())

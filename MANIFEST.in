@@ -1,9 +1,21 @@
 include LICENSE
 include README.md
+include START_HERE.md
+include AGENTS.md
+include CONTRIBUTING.md
+include yakherd.py
 include docs/task_protocol.md
+include docs/SSOT_PROCESS.md
+include docs/SSOT_MIGRATION.md
+include docs/ARCHITECTURE.md
+include docs/USAGE.md
+include docs/RELEASE.md
 include pyproject.toml
 include setup.py
 recursive-include src *.py
+recursive-include scripts *.py
+recursive-include packages/yakherd_v3 *
+include packages/yakherd_v3/template/.gitignore
 recursive-include packages/jeff_strict_ssot_v1 *
 include packages/jeff_strict_ssot_v1/template/.gitignore
 global-exclude __pycache__

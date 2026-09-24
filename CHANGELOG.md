@@ -2,6 +2,24 @@
 
 All notable changes to Yakherd are recorded here.
 
+## 3.0.0 - 2026-09-24
+
+- Makes the compact AGENTS/SSOT/BASELINE/NOW/README process the installed
+  default. Start Yakherd resumes one implementation task with no fixed role
+  roster, parked agents, bootstrap approval or product review ledger.
+- Adds read-only structural doctor checks using distributed code; target
+  scripts are never executed and customized owners are expected to evolve.
+- Adds prepared-content migration plans, before/after hashes, exact plan
+  approval, structural preflight, transactional replacement, rollback and
+  retained original bytes. No semantic bulk overwrite of product requirements.
+- Preserves standard-library-only runtime, no-overwrite setup, installer
+  no-network/no-product/no-Git boundaries and the Windows Y-PROC-1 broker.
+- Changes the default payload/profile/receipt to v3. V1 receipts and retrofit
+  plans require explicit migration; old validators do not certify v3. The
+  historical V1 package remains available in source for provenance/tests.
+- Source setup/doctor/migration, wheel/sdist packaging and CI use the same v3
+  templates. GitHub source publication does not imply a PyPI release.
+
 ## 1.4.0 - 2026-07-26
 
 - Adds `yakherd setup` as the normal beginner command. It derives the project

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import hashlib
 import json
 import os
 import shutil
@@ -36,7 +37,7 @@ class DistributionTests(unittest.TestCase):
         )
 
     def test_public_runtime_uses_only_standard_library_imports(self) -> None:
-        for relative in ("cli.py", "process_hygiene.py"):
+        for relative in ("cli.py", "process_hygiene.py", "diagnostics.py", "migration.py"):
             with self.subTest(relative=relative):
                 path = ROOT / "src" / "yakherd" / relative
                 tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
@@ -61,7 +62,7 @@ class DistributionTests(unittest.TestCase):
         project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
         release = json.loads(
             (
-                ROOT / "packages" / "jeff_strict_ssot_v1" / "RELEASE.json"
+                ROOT / "packages" / "yakherd_v3" / "RELEASE.json"
             ).read_text(encoding="utf-8")
         )
         self.assertEqual(project["project"]["name"], "yakherd")
@@ -105,6 +106,45 @@ class DistributionTests(unittest.TestCase):
             self.assertIn("Run: yakherd setup", completed.stdout)
             self.assertIn("More commands: yakherd --help", completed.stdout)
             self.assertEqual([], list(target.iterdir()))
+
+    def test_v3_entry_points_reject_legacy_retrofit_without_target_changes(self) -> None:
+        temporary_root = ROOT / ".tmp"
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as temporary:
+            base = Path(temporary)
+            target = base / "project"
+            target.mkdir()
+            original = b"# Accepted product requirements\nPreserve these exact bytes.\n"
+            (target / "README.md").write_bytes(original)
+            plan = base / "legacy-plan.json"
+            plan.write_text(json.dumps({
+                "schema_version": 1, "reviewed": True, "target": str(target.resolve()),
+                "allowed_files": ["README.md", "YAKHERD_INSTALL.json"],
+                "expected_existing_sha256": {
+                    "README.md": hashlib.sha256(original).hexdigest(),
+                    "YAKHERD_INSTALL.json": "absent",
+                },
+            }), encoding="utf-8")
+            entry_points = [
+                [str(ROOT / "yakherd.py"), "init"],
+                [str(ROOT / "packages/yakherd_v3/bootstrap.py")],
+            ]
+            for entry in entry_points:
+                for flags in (["--mode", "retrofit"], ["--mode", "fresh", "--mode=retrofit"],
+                              ["--mode=retrofit", "--mode", "fresh"], []):
+                    with self.subTest(entry=entry, flags=flags):
+                        result = subprocess.run([
+                            sys.executable, "-B", *entry, "--target", str(target),
+                            "--project-name", "Migration bypass", *flags,
+                            "--retrofit-plan", str(plan),
+                        ], cwd=ROOT, capture_output=True, text=True, check=False)
+                        self.assertEqual(2, result.returncode, result.stdout + result.stderr)
+                        self.assertIn("error:", result.stderr)
+                        self.assertEqual({"README.md": original}, {
+                            p.relative_to(target).as_posix(): p.read_bytes()
+                            for p in target.rglob("*") if p.is_file()
+                        })
+                        self.assertEqual(["README.md"], [p.name for p in target.iterdir()])
 
     def test_setup_derives_name_installs_validates_and_is_idempotent(self) -> None:
         temporary_root = ROOT / ".tmp"
@@ -155,7 +195,7 @@ class DistributionTests(unittest.TestCase):
 
             self.assertEqual(completed.returncode, 0, completed.stderr)
             self.assertEqual(b"product bytes\n", product.read_bytes())
-            self.assertTrue((additive / "JEFF_STRICT_SSOT_INSTALL.json").is_file())
+            self.assertTrue((additive / "YAKHERD_INSTALL.json").is_file())
 
             collision = root / "collision"
             collision.mkdir()
@@ -171,7 +211,7 @@ class DistributionTests(unittest.TestCase):
             self.assertEqual([readme], list(collision.iterdir()))
             self.assertEqual(b"keep me\n", readme.read_bytes())
 
-    def test_doctor_is_read_only_and_rejects_changed_installed_validator(self) -> None:
+    def test_doctor_is_read_only_and_never_executes_target_scripts(self) -> None:
         temporary_root = ROOT / ".tmp"
         temporary_root.mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(dir=temporary_root) as temporary:
@@ -183,6 +223,7 @@ class DistributionTests(unittest.TestCase):
             self.assertEqual(installed.returncode, 0, installed.stderr)
             sentinel = root / "executed.txt"
             validator = target / "scripts" / "ssot" / "validate_protocol.py"
+            validator.parent.mkdir(parents=True)
             validator.write_text(
                 f"from pathlib import Path\nPath({str(sentinel)!r}).write_text('bad')\n",
                 encoding="utf-8",
@@ -191,8 +232,8 @@ class DistributionTests(unittest.TestCase):
 
             checked = self.run_source_cli(["doctor", str(target)])
 
-            self.assertEqual(checked.returncode, 1)
-            self.assertIn("installed validator has changed", checked.stderr)
+            self.assertEqual(checked.returncode, 0, checked.stderr)
+            self.assertIn("structural checks only", checked.stdout)
             self.assertFalse(sentinel.exists())
 
     def test_doctor_reports_uninitialized_directory(self) -> None:
@@ -201,9 +242,9 @@ class DistributionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=temporary_root) as temporary:
             target = Path(temporary)
             completed = self.run_source_cli(["doctor", str(target)])
-            self.assertEqual(completed.returncode, 2)
-            self.assertIn("no Yakherd installation receipt", completed.stderr)
-            self.assertIn("yakherd setup", completed.stderr)
+            self.assertEqual(completed.returncode, 1)
+            self.assertIn("no Yakherd 3 profile", completed.stderr)
+            self.assertIn("setup", completed.stderr)
 
     def test_source_cli_reports_empty_process_state(self) -> None:
         temporary_root = ROOT / ".tmp"
@@ -231,11 +272,11 @@ class DistributionTests(unittest.TestCase):
             root = Path(temporary)
             bundle = root / "_bundle"
             shutil.copytree(
-                ROOT / "packages" / "jeff_strict_ssot_v1",
+                ROOT / "packages" / "yakherd_v3",
                 bundle,
             )
             cache = bundle / "template" / "tests" / "ssot" / "__pycache__"
-            cache.mkdir()
+            cache.mkdir(parents=True)
             (cache / "pip-generated.pyc").write_bytes(b"not reviewed source")
             target = root / "new-project"
 

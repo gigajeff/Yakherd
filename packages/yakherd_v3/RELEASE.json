@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "package_name": "yakherd_ssot",
+  "package_version": "3.0.0",
+  "bootstrap_sha256": "fdb1d2deb211fbca12d74bcf1ce9222d9af867a1283774c1f03761d0f3f24a9f",
+  "manifest_sha256": "c3dd1b885736ce56741f2ab01006a7f938bab21e88c8971483025ba470c2d985",
+  "authentication_boundary": "The reviewed Git commit or release authenticates this file; release hashes bind the installer and all payload templates."
+}

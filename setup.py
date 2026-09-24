@@ -11,7 +11,7 @@ from setuptools.command.build_py import build_py
 
 
 ROOT = Path(__file__).resolve().parent
-AUDITED_PACKAGE = ROOT / "packages" / "jeff_strict_ssot_v1"
+AUDITED_PACKAGE = ROOT / "packages" / "yakherd_v3"
 
 
 def ignore_generated(_directory: str, names: list[str]) -> set[str]:

@@ -1,0 +1,11 @@
+{
+  "schema_version": 3,
+  "profile": "yakherd-ssot",
+  "owners": {
+    "instructions": "AGENTS.md",
+    "mission": "SSOT.md",
+    "baseline": "BASELINE.md",
+    "current": "NOW.md",
+    "usage": "README.md"
+  }
+}

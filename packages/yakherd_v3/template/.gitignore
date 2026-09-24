@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+.tmp/
+.yakherd/process/
+.yakherd-backup-*/
+.yakherd-migrate-txn-*/

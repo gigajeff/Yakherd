@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = ROOT / "packages" / "jeff_strict_ssot_v1"
+PACKAGE = ROOT / "packages" / "yakherd_v3"
 
 
 def reviewed_files() -> dict[str, bytes]:
@@ -49,7 +49,7 @@ def verify_wheel(path: Path, expected: dict[str, bytes]) -> list[str]:
 
 def verify_sdist(path: Path, expected: dict[str, bytes], version: str) -> list[str]:
     errors: list[str] = []
-    prefix = f"yakherd-{version}/packages/jeff_strict_ssot_v1/"
+    prefix = f"yakherd-{version}/packages/yakherd_v3/"
     with tarfile.open(path, "r:gz") as archive:
         members = [member for member in archive.getmembers() if member.isfile()]
         names = [member.name for member in members]

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "package_name": "yakherd_ssot",
+  "package_version": "3.0.0",
+  "bootstrap": "bootstrap.py",
+  "install_manifest": "YAKHERD_INSTALL.json",
+  "template_root": "template",
+  "template_files": [
+    ".gitignore",
+    ".yakherd/policies/Y-PROC-1.md",
+    ".yakherd/profile.json",
+    "AGENTS.md",
+    "BASELINE.md",
+    "CLAUDE.md",
+    "NOW.md",
+    "README.md",
+    "SSOT.md",
+    "START_HERE.md"
+  ],
+  "template_sha256": {
+    ".gitignore": "5d4213b7834c13286c712ce3a2643a418f91186dbc9a249d4412417d70a70d4d",
+    ".yakherd/policies/Y-PROC-1.md": "bab92ec77e8097207b5fb7684e8856fbdae6190948a52b998ba824fa11da573d",
+    ".yakherd/profile.json": "ef7c6aac17f73bd12d028f8b25100f0bd99bae3931860bec52e5b54d7a8c09d0",
+    "AGENTS.md": "459a4298c985313951f2e01b6a719295f6f76cc13d8be66dd2debd6607c2eb1a",
+    "BASELINE.md": "e2e9955b03e3da29d9157481ba85dc878496d16480025d43dc60cd216acf6768",
+    "CLAUDE.md": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+    "NOW.md": "06910768bf53df456cc0858592310af1cef056eb78e915e3ea68da23cdbdb3d4",
+    "README.md": "9128247734aed0c17d0e630a6369fc15dfe406d319213be34c2006564a6a4e84",
+    "SSOT.md": "fe53971f59dc5cfa25666dee7c67111c4329d5e143d69f333e8ab6a2def7f469",
+    "START_HERE.md": "34de760b8036188493b5d0b7ddae39712cde73fe3f2d94931824019e06068eec"
+  },
+  "guarantees": {
+    "network_access": false,
+    "dependency_installation": false,
+    "git_mutation": false,
+    "automation_creation": false,
+    "product_execution": false,
+    "standard_library_only": true
+  }
+}

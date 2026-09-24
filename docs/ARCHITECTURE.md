@@ -1,112 +1,67 @@
-# Yakherd Architecture
+# Yakherd 3 architecture
 
-## Distribution Layer
+## Distribution and ownership
 
-The repository provides branding, public documentation, CI, release tooling,
-and the `yakherd` Python command. The PyPI wheel bundles the reviewed package
-bytes and the source checkout exposes the same command through `yakherd.py`.
-This layer does not alter target repositories directly; it delegates to the
-audited package. On Windows, it also owns the `Y-PROC-1` execution
-broker. The broker is product-neutral and standard-library-only; it does not
-alter the audited installer's behavior or authority.
+The public `yakherd` CLI in `src/yakherd/` dispatches to the trusted v3 package
+at `packages/yakherd_v3/` or its identical bundled copy in an installed wheel.
+The canonical product process is [SSOT_PROCESS.md](SSOT_PROCESS.md). The actual
+installed template is its single starter source; repositories own their adopted
+local rules and do not silently inherit future upstream policy changes.
 
-## Windows Execution-Governance Layer
+The legacy V1 package remains separate for provenance/regression checks. Its
+five-role launcher and validators are not part of the v3 default payload.
+The root [development protocol](task_protocol.md) governs changes to Yakherd
+itself, including independent release review. It is not installed in products.
 
-`yakherd exec` uses `CreateProcessW` with
-`PROC_THREAD_ATTRIBUTE_JOB_LIST`, so a finite command is assigned to its named
-kill-on-close Windows Job Object atomically at creation, before its first
-instruction. There is no uncontained suspended-child interval. Heavy work is
-created at below-normal priority. A user-local lock admits one heavy top-level
-pipeline while leaving the command's internal parallelism unchanged. Per-task
-JSON records bind coherent ownership snapshots to PID, creation time,
-executable/image, command line, parent epoch when available, task/execution,
-and Job Object identity. Status, reconciliation, and cleanup classify each
-observation as verified, exited, reused, unverified, or inconsistent before
-acting. PID reuse and incomplete/contradictory records are warnings, never
-cleanup targets or an unrelated-work embargo. Only failed cleanup of a live
-Job-verified task process with concrete hazard evidence is a blocker; the exact
-unnamed task Job, not ancestry or executable-name matching, is the authority.
+## Deterministic installation
 
-The generated repository's compact `AGENTS.md` pointer delegates details to
-`.yakherd/policies/Y-PROC-1.md`. The installer writes policy bytes but does not
-run commands or create Codex hook automation. When Codex exposes its thread ID,
-the broker binds the record owner to that session. An optional `Stop` or
-`SubagentStop` hook uses the hook's session, turn, and working-directory fields
-to request cancellation only for matching-session tasks, verifies their Jobs
-empty, and leaves same-workspace different-owner activity untouched with a
-warning. Hook continuation stops only on a scoped verified concrete blocker. Hook
-configuration is a separately trusted, human-approved defense in depth; the
-broker's Job Object and `finally` cleanup remain authoritative.
+The reviewed commit authenticates RELEASE.json; that binds bootstrap.py and
+MANIFEST.json, which binds every template. The installer verifies those bytes,
+renders a project name/date, checks paths and collisions, creates files without
+overwrite, verifies output hashes and writes YAKHERD_INSTALL.json. It refuses
+unsafe path aliases/reparse traversal and cleans its created files on failure.
+Unrelated target files remain untouched.
 
-## Audited Package Layer
+No installer path invokes the network, target Git, product code, dependency
+installation or automation. The Python runtime has no third-party dependencies.
+The build system may use pinned development dependencies independently.
 
-`packages/jeff_strict_ssot_v1/` is the reviewed V1 engine. Its installer:
+## Diagnostics
 
-1. validates its release and manifest hash chain;
-2. resolves and validates the target path;
-3. renders the product-neutral template;
-4. performs dry-run or fail-closed installation;
-5. verifies output hashes; and
-6. writes a structured installation receipt.
+`diagnostics.py` uses trusted distributed code and the engine's path checks to
+read a bounded set of target documents as data. It validates the v3 owner map,
+required current-work sections, local links, placeholders and recognized stale
+entry points. It does not execute target validators or require current Markdown
+to match its installation hashes. Results describe structural readiness only.
 
-Fresh mode permits a nonexistent, empty, or nonempty target only when every
-payload destination is absent. It preserves unrelated files and fails before
-mutation on any collision. Retrofit mode requires a reviewed, exact-state plan
-and uses locking, backup, atomic replacement, post-write verification, and a
-durable transaction journal.
+## Migration transaction
 
-## Installed Governance Model
+`migration.py` creates self-contained, unreviewed plans from deliberately
+prepared replacement content. Every plan binds the exact package manifest,
+absolute target, relative allowlist, prior state and proposed UTF-8 bytes.
+Apply needs reviewed=true plus the final plan SHA-256. Core owner/policy bytes
+are pinned even when carried forward unchanged.
 
-The root `docs/task_protocol.md` governs development of Yakherd itself. The
-separate `packages/jeff_strict_ssot_v1/template/docs/task_protocol.md` is
-retained, hash-bound, and installed into generated repositories as their task-
-protocol owner.
+Before mutation, the merged candidate passes structural diagnostics. The v3
+engine then reuses the proven V1 cooperative lock, verified backups, atomic
+replacement, immediate pre-replacement state checks, final output checks and
+rollback. Successful backups and their journal are retained for deliberate
+recovery. Failed transactions keep a journal and block another migration until
+reconciled. Conflicting external edits are preserved rather than overwritten
+by rollback. Non-cooperating writers can still race OS path APIs; migration
+is a coordinated maintenance operation, not a filesystem security sandbox.
 
-The generated repository separates five task responsibilities:
+The default migration writes SSOT owners, known adapters/profile/policy and
+Markdown documentation only. Product code, Git configuration and source data
+are not generic migration targets. Semantic preservation is a reviewer/agent
+responsibility: deterministic checks cannot infer a product's full requirements.
 
-- Architecture turns intake into a bounded brief or records one strict plan.
-- Implementation executes a human-confirmed bounded brief or reviewed strict
-  scope and writes mode-appropriate evidence.
-- Red Team reviews bootstrap and strict targets independently and does not
-  repair while reviewing or create new requirements.
-- Temporary Branch isolates exploratory work from the main implementation.
-- Governor audits state drift using bounded, delta-only reporting.
+## Process containment
 
-`docs/task_protocol.md` is the installed owner for proportional review.
-Reversible local work is bounded and needs no Architecture plan or Red Team
-gate. High-consequence slices are strict. Only P0/P1 findings block, each
-strict work ID receives one initial review and one recheck, and a second
-failure stops autonomous iteration for a human decision. Classification uses
-the actual authorized slice, not hypothetical future deployment or features.
-
-For Codex, `START_HERE.md` and
-`docs/prompts/codex_team_launcher.md` are a client adapter that explicitly
-requests five direct role agents under one non-authoritative coordinator. The
-adapter creates role execution contexts; it does not change authority. Roles
-without an activation gate report waiting, parked, or inactive rather than
-becoming concurrent writers.
-
-`SSOT.md` maps authority. `DECISIONS.md` owns durable decisions. `STATUS.md`
-is a compact current-state index, not an append-only history. Domain owners and
-run records carry detailed evidence.
-
-`AGENTS.md` is the single authoritative repository-instruction file. Codex
-loads it when the generated repository is its active project. The generated
-`CLAUDE.md` contains only `@AGENTS.md`, using Claude Code's import mechanism to
-load the same rules without maintaining a second copy. Claude Code may require
-first-use approval for that local import, and the active context should be
-verified before work. Other agents remain compatible when explicitly directed
-to read `AGENTS.md`; discovery and client-side approval state are outside the
-installer's trust boundary.
-
-GitHub setup and product-prompt intake are also post-install, agent-guided
-workflows. The installer only writes their reviewed instructions. It does not
-authenticate an account, access the network, initialize Git, create a remote,
-push, or ingest prompt content. Those actions remain behind explicit user and
-applicable strict-mode gates in the generated repository.
-
-## Trust Chain
-
-The release tag authenticates `RELEASE.json`. `RELEASE.json` binds the
-installer and manifest. `MANIFEST.json` binds every installed template. The
-installation receipt binds rendered outputs and destination paths.
+The Windows Y-PROC-1 broker remains separate from installation. It atomically
+assigns finite commands to kill-on-close Job Objects, applies below-normal
+priority to heavy work and serializes top-level heavy pipelines while retaining
+internal parallelism. Ownership binds PID, creation time, executable path,
+command identity, task/session and Job membership. Cleanup verifies empty Jobs
+and never relies on a process name or ancestry alone. Inconsistent legacy
+records warn; a verified live hazard is required to block unrelated work.
