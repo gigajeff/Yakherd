@@ -1,0 +1,954 @@
+diff --git a/AGENTS.md b/AGENTS.md
+index 596d889..87c1007 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -6,6 +6,14 @@ Yakherd is a product-neutral SSOT governance harness for agentic software
+ projects. Correctness, fail-closed behavior, auditability, and deterministic
+ installation matter more than patch volume.
+ 
++## Current Product-Repository Instructions
++
++`docs/SSOT_PROCESS.md` specifies the current process for new product repositories
++and explicitly authorized migrations. `START_HERE.md` and `docs/ssot-starter/`
++provide its source instruction pack. The packaged V1 installer still generates
++the legacy five-role shell; do not describe it as implementing this pack.
++Yakherd's own development/release controls below remain in force.
++
+ ## Read First
+ 
+ Before changing package behavior, read:
+@@ -62,12 +70,11 @@ summary; resolve any conflict in those fields in favor of the canonical owner.
+ - Red Team verifies accepted requirements and hazards introduced by the exact
+   diff. It cannot add product requirements or make an out-of-scope enhancement
+   a finding. Only P0/P1 findings block; P2/P3 are advisory.
+-- A strict target gets one initial review and one recheck. After two
+-  consecutive failures, stop for human rescoping, real-risk acceptance, an
+-  eligible proof-backed canonical-equivalence correction, or cancellation.
+-  The correction rules in `docs/task_protocol.md` cannot waive a hazard or
+-  create review cycle 3. Do not create V3/V4 candidates or a new work ID for
+-  the same goal to evade the limit.
++- Strict work follows the finite `R0 -> C1 -> C2 -> PASS |
++  HUMAN_DISPOSITION_REQUIRED` circuit breaker in `docs/task_protocol.md`.
++  Repairs stay within the approved boundary; no renamed work ID, fork, or
++  recheck can reset its budget. The canonical-equivalence rules cannot waive a
++  hazard or expand authority.
+ - Keep one active plan and review path per work ID; revise in place. A review
+   cannot itself create a fresh-review requirement.
+ 
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index ad7458f..092322f 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,33 @@
+ 
+ All notable changes to Yakherd are recorded here.
+ 
++## Source instruction pack - 2026-09-24 (not an installer release)
++
++- Establishes `docs/SSOT_PROCESS.md` as the current product-repository process,
++  with self-contained AGENTS/SSOT/BASELINE/NOW/README starters and a direct
++  new-repository entry point.
++- Defaults to one implementation task, artifact-based independent review and
++  evidence-backed milestone transitions; removes mandatory startup role
++  rosters and review ledgers from the new instruction path.
++- Adds an explicit migration guide and a stopped-TRAVOLTA steering prompt
++  that preserves product requirements, research, provenance and real hazards.
++- Marks the packaged five-role installer as legacy. Package behavior, version,
++  manifest/release bindings and existing installations are unchanged. This
++  source pack does not claim compatibility with the legacy protocol validator;
++  adopting it requires explicit instruction migration, not an installer rerun.
++
++## 1.5.0 - 2026-07-28
++
++- Replaces the global two-failure review stop with a finite strict-work ledger:
++  `R0 -> C1 -> C2 -> PASS | HUMAN_DISPOSITION_REQUIRED`.
++- Keeps repairs bounded to the accepted write set and authority, prevents
++  renamed/forked review-budget resets, and allows a distinct blocker discovered
++  during correction to use only the remaining repair wave.
++- Treats one unchanged-candidate evidence rerun as a bounded verification
++  action, not new authority or review budget.
++- Records a deferred, standard-library-only strict-review ledger validator as
++  hardening work; it is not a prerequisite for the proportional rule.
++
+ ## 1.4.0 - 2026-07-26
+ 
+ - Adds `yakherd setup` as the normal beginner command. It derives the project
+diff --git a/README.md b/README.md
+index e22fdb2..9ad9f69 100644
+--- a/README.md
++++ b/README.md
+@@ -6,17 +6,33 @@
+ 
+ **Yakherd - herds the yaks so your agent stops shaving them.**
+ 
+-Yakherd installs a strict, repository-centered single source of truth (SSOT)
+-harness for agentic software projects. It gives Architecture, Implementation,
+-Red Team, Temporary Branch, and Governor tasks durable ownership rules before
+-the first product prompt arrives.
++Yakherd maintains repository-centered single source of truth (SSOT) instructions
++for agentic software projects. The current process uses one implementation
++task, stable requirements in `SSOT.md`, proven facts in `BASELINE.md`, and one
++executable milestone in `NOW.md`.
++
++## Current instructions for new repositories
++
++Start with [START_HERE.md](START_HERE.md), the
++[canonical process](docs/SSOT_PROCESS.md), and the
++[starter files](docs/ssot-starter/). For an existing project, use the
++[migration guide](docs/SSOT_MIGRATION.md). Ordinary authorized local work does
++not require a five-agent launch, bootstrap Red Team gate or review ledger.
++Independent verification remains tied to real artifacts, requirements and
++consequential claims.
++
++**Distribution status:** this is a source instruction pack, not a new PyPI
++release. The current packaged `yakherd setup` and `Start Yakherd` launcher still
++use the legacy V1 process documented below. Do not use that launcher to adopt
++the current process. Installer integration is separate work; existing package
++hashes, validators and release controls have not been changed by this pack.
+ 
+ [![CI](https://github.com/gigajeff/Yakherd/actions/workflows/ci.yml/badge.svg)](https://github.com/gigajeff/Yakherd/actions/workflows/ci.yml)
+ [![PyPI](https://img.shields.io/pypi/v/yakherd.svg)](https://pypi.org/project/yakherd/)
+ [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/gigajeff/Yakherd/blob/main/LICENSE)
+ [![Python](https://img.shields.io/badge/python-3.11%2B-3776AB.svg)](https://www.python.org/)
+ 
+-## Absolute Beginner? Start Here
++## Legacy V1 Installer: Beginner Guide
+ 
+ You do not need to understand "SSOT," Git, Python, or software architecture to
+ start. Yakherd is the **project-management and reliability half of vibe
+@@ -47,8 +63,8 @@ user a visible team without violating the single-writer rule.
+ After that one-time integrity check, governance is proportional. Reversible
+ bounded work goes directly from a brief you confirm to Implementation. Strict
+ Architecture and Red Team gates are reserved for the concrete high-consequence
+-slice being attempted—not imagined future features—and stop after at most two
+-failed reviews.
++slice being attempted—not imagined future features—and follow the finite
++`R0 -> C1 -> C2 -> PASS | HUMAN_DISPOSITION_REQUIRED` ledger.
+ 
+ The coding environment must be able to read and write project files, run shell
+ commands, use Git, and run Python 3.11 or newer. Codex or Claude Code can do
+@@ -128,7 +144,7 @@ boundaries explicit.
+ It is deliberately product-neutral. It does not choose your language,
+ framework, cloud provider, database, architecture, or deployment system.
+ 
+-## Quick Start
++## Legacy V1 Installer: Quick Start
+ 
+ Install Yakherd, enter the project folder, and set it up:
+ 
+@@ -185,7 +201,7 @@ This recording is rendered from a real isolated fresh-agent run. The
+ are committed beside it so the result is inspectable rather than a staged
+ terminal animation.
+ 
+-## What Gets Installed
++## What the Legacy V1 Installer Creates
+ 
+ - `SSOT.md`: authority map and conflict order.
+ - `DECISIONS.md`: durable decision owner.
+@@ -199,7 +215,9 @@ terminal animation.
+   approval-gated GitHub project setup guide.
+ - `docs/task_protocol.md` as the generated repository's canonical owner for
+   work modes and the independent-review circuit breaker.
+-- Proportional bounded/strict work modes and a two-review circuit breaker.
++- Proportional bounded/strict work modes and a finite two-wave review circuit
++  breaker that prevents both endless review churn and unlimited autonomous
++  repair.
+ - Governance, review, plan, run-record, and status-history directories.
+ - Standard-library validators and focused tests.
+ - A hash-bound installation receipt.
+diff --git a/docs/ARCHITECTURE.md b/docs/ARCHITECTURE.md
+index d4ec686..7220d32 100644
+--- a/docs/ARCHITECTURE.md
++++ b/docs/ARCHITECTURE.md
+@@ -1,5 +1,19 @@
+ # Yakherd Architecture
+ 
++## Current Instruction Pack
++
++[SSOT_PROCESS.md](SSOT_PROCESS.md) is the canonical process for new product
++repositories and explicitly authorized migrations. [START_HERE.md](../START_HERE.md)
++adapts the five [starter files](ssot-starter/) into self-contained repository
++owners. One implementation task is the default, with concrete independent
++review where needed and no mandatory role roster or bootstrap gate.
++
++This source instruction pack is distinct from the legacy V1 distribution
++described below. The package templates and validators still implement that
++older protocol; integrating the current pack requires a separate installer
++change and the existing release checks. The root development protocol remains
++specific to work on Yakherd itself.
++
+ ## Distribution Layer
+ 
+ The repository provides branding, public documentation, CI, release tooling,
+@@ -55,7 +69,7 @@ mutation on any collision. Retrofit mode requires a reviewed, exact-state plan
+ and uses locking, backup, atomic replacement, post-write verification, and a
+ durable transaction journal.
+ 
+-## Installed Governance Model
++## Legacy V1 Installed Governance Model
+ 
+ The root `docs/task_protocol.md` governs development of Yakherd itself. The
+ separate `packages/jeff_strict_ssot_v1/template/docs/task_protocol.md` is
+@@ -74,10 +88,10 @@ The generated repository separates five task responsibilities:
+ 
+ `docs/task_protocol.md` is the installed owner for proportional review.
+ Reversible local work is bounded and needs no Architecture plan or Red Team
+-gate. High-consequence slices are strict. Only P0/P1 findings block, each
+-strict work ID receives one initial review and one recheck, and a second
+-failure stops autonomous iteration for a human decision. Classification uses
+-the actual authorized slice, not hypothetical future deployment or features.
++gate. High-consequence slices are strict. Only P0/P1 findings block; strict
++work follows the finite `R0 -> C1 -> C2 -> PASS |
++HUMAN_DISPOSITION_REQUIRED` ledger. Classification uses the actual authorized
++slice, not hypothetical future deployment or features.
+ 
+ For Codex, `START_HERE.md` and
+ `docs/prompts/codex_team_launcher.md` are a client adapter that explicitly
+diff --git a/docs/USAGE.md b/docs/USAGE.md
+index eb60a90..aef8c16 100644
+--- a/docs/USAGE.md
++++ b/docs/USAGE.md
+@@ -1,5 +1,17 @@
+ # Using Yakherd
+ 
++## Current SSOT instructions
++
++For a new product repository, use [START_HERE.md](../START_HERE.md),
++[SSOT_PROCESS.md](SSOT_PROCESS.md) and [the starter files](ssot-starter/).
++For an existing repository, use [SSOT_MIGRATION.md](SSOT_MIGRATION.md).
++These are source instructions for the current one-task, SSOT/BASELINE/NOW
++process. They have not been integrated into the packaged installer.
++
++The CLI installation and five-role workflows below describe **legacy V1**.
++`yakherd setup`, `yakherd doctor` and `Start Yakherd` do not install or certify
++the current instruction pack. The process broker remains separately useful.
++
+ ## Requirements
+ 
+ - Python 3.11 or newer.
+@@ -23,7 +35,7 @@
+ only an adapter and must not duplicate or override its rules. Do not begin work
+ if the applicable instruction file is absent from the agent's active context.
+ 
+-## Normal Setup
++## Legacy V1 Setup
+ 
+ Enter the project folder and run:
+ 
+@@ -56,7 +68,7 @@ is needed only when a separately reviewed, hash-pinned plan must replace or
+ merge an existing Yakherd-owned path; directory existence alone is not a
+ retrofit trigger.
+ 
+-## First Repository Workflow
++## Legacy V1 First Repository Workflow
+ 
+ 1. Review the generated files and `JEFF_STRICT_SSOT_INSTALL.json` receipt.
+ 2. Open the repository as the Codex project and confirm `AGENTS.md` is loaded.
+@@ -64,8 +76,9 @@ retrofit trigger.
+ 4. Confirm Codex created all five named agent threads. Red Team runs
+    `docs/prompts/bootstrap_cold_resume_review.md`; the other roles begin in
+    their defined waiting, parked, or inactive states.
+-5. If the bootstrap review finds a protocol defect, fix it once and use the
+-   single permitted recheck. A second failure stops for a human decision.
++5. If the bootstrap review finds a protocol defect, use the finite strict-work
++   ledger in `docs/task_protocol.md`: `R0`, then at most `C1` and `C2` repair
++   waves. An unresolved blocker stops for a human decision.
+ 6. If GitHub hosting is wanted, follow `docs/GITHUB_SETUP.md`. Confirm the
+    authenticated account, exact repository, visibility, initial staged paths,
+    commit, remote, and first push before allowing mutation.
+@@ -74,9 +87,9 @@ retrofit trigger.
+    `docs/master_prompts/` and extracts the first bounded brief or strict
+    planning scope for you to confirm.
+ 8. A confirmed bounded brief goes directly to Implementation. A strict slice
+-   uses one Architecture plan and at most two Red Team reviews.
++   uses one Architecture plan and the finite `R0 -> C1 -> C2` review ledger.
+ 
+-## Five Task Roles
++## Legacy V1 Five Task Roles
+ 
+ In Codex, the explicit launcher creates one agent thread for each role:
+ 
+diff --git a/docs/task_protocol.md b/docs/task_protocol.md
+index d9d154d..3c9da3f 100644
+--- a/docs/task_protocol.md
++++ b/docs/task_protocol.md
+@@ -45,20 +45,34 @@ deployment, website, credential, or product scope into a bounded task.
+ 
+ ## Independent-review circuit breaker
+ 
+-- Review only accepted requirements, the exact authorized boundary, and
+-  material hazards introduced by the exact diff.
+-- A reviewer cannot add product requirements, broaden the threat model, or
+-  make an out-of-scope enhancement a finding.
+-- Only P0 and P1 findings block. P2 and P3 findings are advisory.
+-- A strict work ID receives one initial review and one corrective recheck.
+-- After two consecutive failures for the same work ID, stop. The human must
+-  accept a real residual risk, authorize an eligible canonical-equivalence
+-  correction, narrow or materially change the scope, or cancel.
+-- Do not create V3/V4 candidates, rename the work ID, fork an equivalent
+-  objective, or continue reviewing to evade the two-cycle limit.
+-- Keep one active plan and one active review path per work ID; revise in place.
+-- A review may record findings but cannot create a new requirement, reset the
+-  review budget, or require another review.
++Strict work uses a persisted, hash-bound ledger. Review stays within R0-frozen
++accepted requirements and the approved boundary. Only P0/P1 block; P2/P3 are
++advisory.
++
++`R0 -> PASS | C1 | HUMAN_DISPOSITION_REQUIRED.`
++`C1 -> PASS | C2 | HUMAN_DISPOSITION_REQUIRED.`
++`C2 -> PASS | HUMAN_DISPOSITION_REQUIRED.`
++Each `C` stage permits one repair-and-recheck wave; a crash resumes that stage.
++
++Only a concrete, safely evidenced violation of an R0-frozen accepted
++requirement or non-waivable safety invariant blocks. Findings sharing a root
++cause or substantially the same repair keep one ID; renaming, changing
++reviewer/work ID, or forking cannot reset budgets.
++
++Repairs must be minimal, reversible, local, inside the approved write set, and
++cannot weaken acceptance or expand authority. Rechecks cover open findings and
++direct repair regressions. A newly discovered blocker prevents `PASS`, creates
++no budget, and may use only a remaining `C` wave.
++
++One unchanged-candidate evidence rerun per ledger is allowed only within
++existing execution/effects authority; it adds neither authority nor budget.
++Before acting, record the candidate hash, stage, findings, scopes, and
++transition. Keep one active plan and review path per work ID; revise in place.
++
++After `C2`, an unresolved blocker requires human disposition: accept a real
++residual risk, authorize an eligible canonical-equivalence correction, narrow
++or materially change the scope, or cancel. A review cannot create a requirement
++or reset a review budget.
+ 
+ ### Canonical-equivalence correction
+ 
+@@ -83,7 +97,7 @@ same fixed root. Absolute, drive-qualified, UNC, empty, `.`, `..`, additional
+ dot-prefixed, percent-decoded, reparse/symlink, and root-escaping paths remain
+ rejected. No other case, Unicode, separator, or textual rewriting is implied.
+ 
+-The human authorization must name the work ID, cycle-2 review and finding, the
++The human authorization must name the work ID, exact `C2` review and finding, the
+ exact transform, the frozen inventory identity, and the required proof checks.
+ Architecture may record that authorization as an in-place disposition addendum
+ and Implementation may execute only that correction. The `FAIL` remains part
+diff --git a/packages/jeff_strict_ssot_v1/MANIFEST.json b/packages/jeff_strict_ssot_v1/MANIFEST.json
+index aa3abed..9d47315 100644
+--- a/packages/jeff_strict_ssot_v1/MANIFEST.json
++++ b/packages/jeff_strict_ssot_v1/MANIFEST.json
+@@ -1,7 +1,7 @@
+ {
+   "schema_version": 1,
+   "package_name": "jeff_strict_ssot",
+-  "package_version": "1.4.0",
++  "package_version": "1.5.0",
+   "bootstrap": "bootstrap.py",
+   "install_manifest": "JEFF_STRICT_SSOT_INSTALL.json",
+   "template_root": "template",
+@@ -58,17 +58,17 @@
+   "template_sha256": {
+     ".gitignore": "ff6e70ff189dd124eac43115b415ccf41c2b4618e513591a69028422bf92be84",
+     ".yakherd/policies/Y-PROC-1.md": "7f1ec91801fa908020f17f03d65c1fefa03b8fcceec6be3b3aedee741a80610f",
+-    "AGENTS.md": "69bc39dcc1c72b63d63f40470210e6531e5f162de9488a463da09bbcb2cbc03e",
++    "AGENTS.md": "829874c168b84d4e10a67c3999df2e2d0178e103f47a60593de2d43a0a86c09c",
+     "ARCHITECTURE.md": "766d49ed155327828e5d97cb0639e6a3090436a2aa5beed73a783a84af399f1f",
+     "CLAUDE.md": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49",
+     "DECISIONS.md": "1265a266a2d33f1e6712d84213c910b9c4fcf1f33474879cb4290819e8b47c3c",
+     "GIT_SYNC.md": "c9028119b299f2f0da918fdcf85366d3242bd3ef9bb9a6503631a517ec458337",
+-    "README.md": "5838f67d949590013cc1d2009c510ff45698f95945efe664c61ee1b092593014",
++    "README.md": "0cbec5a7d20edfeec1907439e5320e30fcfb08872e4fc058ef2d1b60868d4632",
+     "SSOT.md": "562580255112d4ec371d6eb2ca14c93dc785233057f73eae96cc9b9d150d1609",
+-    "START_HERE.md": "3e632dace58aa9ffadb51b01bf950aec8288108d9ad2937478001ce7491b5878",
++    "START_HERE.md": "d8ac64a55058f3a587f026f789d53719b6b967cd824613550c8be8573e7ef996",
+     "STATUS.md": "78a33f2537797874cf89350376c5efd31f6ea8de0ced4ed511cdb445a9be3928",
+     "TESTING.md": "5e64074c02beb8f510cfe5b821f448302d92c3a9d67bf48b912ec7eb655cf843",
+-    "code_review.md": "9d5b1af446dfcd573b8d00c3cc96825d280a78afec70acd7fe91dfe65f54e358",
++    "code_review.md": "00654ddb61f26a1f1b9da6358e8b7377d03d26baee2bf2a015eb8268f9e8f8e7",
+     "docs/GITHUB_SETUP.md": "c79a6f54909cc34544277be91df0a44298d4984f4da6e305d6b925489adfd1c3",
+     "docs/domain_invariants.md": "fb9c58315f2e2da03cee629a5cc4c602795a75b628d07edab798788e239ed4f3",
+     "docs/governance/AUDIT_STATE.json": "e9bc1e980afbf32a7ca82e93c6a973d2805ff20b7034f97ecc45b9898dd3fe32",
+@@ -76,34 +76,34 @@
+     "docs/governance/GOVERNOR_DELTA_POLICY.md": "2cc2c2cadd36cc754d053d8554c6481d51b872c26a0304efc26eefb4a0400da0",
+     "docs/governance/OPEN_FINDINGS.md": "99b4957d1166bf64ed324e0bbe98ca054acc2e107bc166aedf3143d40438a05e",
+     "docs/governance/README.md": "ad4b7af924bf7e61c0d5522790138e332ff9a8fe60bea4fd128df07e1552f265",
+-    "docs/governance/RISK_REGISTER.md": "20e9ab7e7e9f8a5f49b628fd81d844731c5fa9aff233e7ac7d54edd3b3b1ca9a",
++    "docs/governance/RISK_REGISTER.md": "8a44fb6bcf9b0facf74bc65b34ef23ef37d939e67a527c63647c9f984a6f507d",
+     "docs/governance/STATUS_MAINTENANCE.md": "744798d49b165ae467b765efdd630d818286997e5cf427a104fdb7663b873bb9",
+     "docs/governance/TRANSCRIPT_REVIEW_POLICY.md": "36786cc84cc95ce3126b6fc75f7204e33f6ec1b4c3ac9ce68c1b2ca200195ad9",
+     "docs/master_prompts/000_PRODUCT_PROMPT_NOT_RECEIVED.md": "4c1dbc651ffa70d65f6ecd95ecb98b8c58e1225f5b8f99495d676cfce0b2981b",
+     "docs/master_prompts/README.md": "9b5835efaf7283c0cfe2cc8e9cee1e23cccb8c44975d839da409e3f04c360a78",
+-    "docs/plans/README.md": "42b5173634035c02e479fef60f6556dded3831d6fde551f31bacfd38e93467a5",
+-    "docs/prompts/architecture_task.md": "aede1822fcf10f92b5242a1ef9b68d8eebfd1b9bf36a5ad2bd89627b8f27c029",
+-    "docs/prompts/bootstrap_cold_resume_review.md": "8e6457201291c88a658c6e9550ac38aa2060c8b183a1addee4339655d4c15fea",
+-    "docs/prompts/codex_team_launcher.md": "6a4caf97cb98c9424ddb14de83165c9b9e20d45a06fe8ccccf1325a858bb401c",
++    "docs/plans/README.md": "509944f3956f5e72eec6cec7558b362d78cf8f3e85e44cac2c6bc647eb987016",
++    "docs/prompts/architecture_task.md": "0bd54edc5f5bfbf292b0d0a3de6f2bdc5517029873f120a4a359f1f377dbc5b1",
++    "docs/prompts/bootstrap_cold_resume_review.md": "c9dbdbc4ba4c502666f4c7653c7f564df312205c5ab60fcc30f7d2a056b1365f",
++    "docs/prompts/codex_team_launcher.md": "3d74b44d94e09c346e46673e8d71dc482e4b32220da10bd9f3962a1dd8a39bf1",
+     "docs/prompts/governor_task.md": "e6f2c600d8b0bce3c6562c80238c9293e1afb6f2f4e191ffa251414f6b2c75bc",
+-    "docs/prompts/implementation_task.md": "a942b51e21e9b1685453ca9b699baad515cfe8263fab6dc2ab03e206e32e0104",
++    "docs/prompts/implementation_task.md": "c107f6fb56d778d22a7d3583e4b21a9e570e35dc49d912bf8bfd444966c6dbbc",
+     "docs/prompts/product_intake.md": "6ba0e12b2e624c0600e724c06f3c1699c9ca721d7e28486057ee4914973e2583",
+-    "docs/prompts/red_team_task.md": "19d228e48ca321debb90d76bdb4fe5f267e22b811f2122d9697212fe2ac69933",
++    "docs/prompts/red_team_task.md": "3c7fa5ff91d6eacfbc28e56f54a92c49b789ea45861e3deb1fd4189af46312ff",
+     "docs/prompts/temp_branch_task.md": "2935b2c4342b4bc4fdd41fdc787129dcabc9c7014dbc34104f1e6849885bd1f9",
+-    "docs/reviews/README.md": "b4ae286fcb85cd7cbce3f2b26b7efd41e263f82eded872ddfa74dac87aca6e0a",
++    "docs/reviews/README.md": "fc833f02e6a4cc54bf16b01769b655b358f6ba962c683d3d27450f7a044710a9",
+     "docs/run_records/README.md": "e0761ae135b9d5eda960b954df318c4d77f187c3cc21269f15e927c9bffd9b94",
+     "docs/status_history/README.md": "7d487b6affc62217cd4571ae4ff6d4b1d51731132261a0350711a168bdf68c72",
+-    "docs/task_protocol.md": "8909019ffcce070aede90b6298e75f0274680db496b5ab8fbc88fd5319bce77f",
+-    "docs/templates/architecture_plan.md": "9c6c853555b13a60c9c4f7d48dae2eba5a90631ba3a12bf03927fb34153b174c",
+-    "docs/templates/red_team_review.md": "cab0dec213bf25233e7428bbbbdbbae7a14944f64ce7c79d84042cdc7d2ab367",
++    "docs/task_protocol.md": "45cc71d385b8025d24ab7c296b965432237f620e7b326d4658a8225db9de0e95",
++    "docs/templates/architecture_plan.md": "f78e68b4705da943f3985225a1eb86957a72449882ccb0d2f751d59ea354b60c",
++    "docs/templates/red_team_review.md": "f1f6f3a6521cbb7be241e72d54fdb5f40c4635b701953f1781e8b8fa5cf1b946",
+     "docs/templates/run_record.json": "98c9bc66b1fd21b36f58dfb04158689aa4615676122cce5c37d5ec712a8122ae",
+     "docs/validation_protocol.md": "b1d37ae4550d937c0a829b95ca93d97fdeec2e087bac0687748a7e6d53402e5b",
+     "scripts/ssot/migrate_status_archive.py": "a2b030a46ba39f478ac5834fe43aebe5833392b3fa76c6a0e1c1a0d8741035c2",
+     "scripts/ssot/validate_governor_delta_policy.py": "dbbc1cba87e3f98bf3e816d2906e981b018f7fbe1643dbbaaf3bd23da11a66ba",
+-    "scripts/ssot/validate_protocol.py": "b0710c521ff02005e6ac02623d8b79e201940a942de646b6daca44a4ca2c1d00",
++    "scripts/ssot/validate_protocol.py": "ad140f99177e93207db1cd7c2be1728355a703dcc39166117fbaeddb04ad0309",
+     "tests/ssot/test_governor_delta_policy.py": "6419a81326950b078e0512b5b94352c0d3c610c0d990452ddd0afaf20f0061a7",
+     "tests/ssot/test_status_archive_migration.py": "5add6bdcd56e8c266256d5e66e82232f34a7eb364c36936cd0c75c2dd85abdd6",
+-    "tests/ssot/test_validate_protocol.py": "ebdf21378059aa1a50159bcc0f30f974f5d5798390c7fb9b04a6f12baf91abd4"
++    "tests/ssot/test_validate_protocol.py": "d862de4c6a5518e96378c690e9ae9b1a3b08831123f3f9e2b26673cbeb5bf7bc"
+   },
+   "guarantees": {
+     "network_access": false,
+diff --git a/packages/jeff_strict_ssot_v1/README.md b/packages/jeff_strict_ssot_v1/README.md
+index cb08809..d561960 100644
+--- a/packages/jeff_strict_ssot_v1/README.md
++++ b/packages/jeff_strict_ssot_v1/README.md
+@@ -19,7 +19,7 @@ The installed repository has:
+   role-agent threads under one non-authoritative coordinator;
+ - a byte-preserving, hash-recorded product master-prompt intake protocol;
+ - proportional bounded/strict work modes, scope-contained Red Team findings,
+-  and a two-review human circuit breaker;
++  and a finite two-wave human circuit breaker;
+ - a GitHub account/repository setup guide with an explicit human checkpoint;
+ - standard-library, read-only protocol validators;
+ - structured run-record templates and validator fixtures;
+@@ -49,8 +49,8 @@ as such.
+ 
+ After bootstrap, reversible bounded work can move directly from a
+ human-confirmed brief to Implementation. Strict planning and Red Team review
+-apply only to the concrete high-consequence slice, and autonomous review stops
+-after one initial review plus one recheck.
++apply only to the concrete high-consequence slice and use the finite
++`R0 -> C1 -> C2 -> PASS | HUMAN_DISPOSITION_REQUIRED` ledger.
+ 
+ The adapter is behavioral guidance, not a security sandbox. Its bytes can be
+ validated, but client approval and loaded-context state cannot. The installer
+diff --git a/packages/jeff_strict_ssot_v1/RELEASE.json b/packages/jeff_strict_ssot_v1/RELEASE.json
+index bb54772..16c63e5 100644
+--- a/packages/jeff_strict_ssot_v1/RELEASE.json
++++ b/packages/jeff_strict_ssot_v1/RELEASE.json
+@@ -1,8 +1,8 @@
+ {
+   "schema_version": 1,
+   "package_name": "jeff_strict_ssot",
+-  "package_version": "1.4.0",
++  "package_version": "1.5.0",
+   "bootstrap_sha256": "8f912e2cfb98af799b308537b4f046888799bb40407a07a781115f6cd41cd197",
+-  "manifest_sha256": "fdc6b4eebda497768902a6c5ae41b938c8770d2432d81831c9fc6545dfee063c",
++  "manifest_sha256": "346f288ff77ff47966f932723fdf5df0e9ca0a3b6b6c16214637b67e6046782f",
+   "authentication_boundary": "The reviewed Git commit or release authenticates this file; RELEASE.json binds bootstrap.py and MANIFEST.json, and MANIFEST.json binds every installed source template."
+ }
+diff --git a/packages/jeff_strict_ssot_v1/template/AGENTS.md b/packages/jeff_strict_ssot_v1/template/AGENTS.md
+index df77262..cfe3a7a 100644
+--- a/packages/jeff_strict_ssot_v1/template/AGENTS.md
++++ b/packages/jeff_strict_ssot_v1/template/AGENTS.md
+@@ -29,7 +29,7 @@ Before material work, read:
+ - One durable fact has one owner. Summaries link; they do not mirror mutable
+   detail.
+ - `docs/task_protocol.md` owns proportional work modes, Red Team scope, and the
+-  two-review circuit breaker, including the narrow human-authorized
++  finite strict-review ledger, including the narrow human-authorized
+   canonical-equivalence disposition. Architecture owns strict-mode plans and
+   gates.
+   Implementation is the sole product writer for one authorized slice. Red
+@@ -46,7 +46,7 @@ Before material work, read:
+   Team gate.
+ - Classify only the authorized slice, never imagined future scope. Bounded
+   work may proceed from a user-approved brief without an Architecture plan or
+-  Red Team gate. Strict work follows the plan and review circuit breaker in
++  Red Team gate. Strict work follows the finite review ledger in
+   `docs/task_protocol.md`.
+ - Network access, dependency installation, automation, release, deployment,
+   destructive actions, Git publication, and scope escalation require explicit
+diff --git a/packages/jeff_strict_ssot_v1/template/README.md b/packages/jeff_strict_ssot_v1/template/README.md
+index 6e0e0bb..e1cc8bc 100644
+--- a/packages/jeff_strict_ssot_v1/template/README.md
++++ b/packages/jeff_strict_ssot_v1/template/README.md
+@@ -22,7 +22,8 @@ Branch, and Governor as separately inspectable role agents. It does not make
+ all five concurrent writers: Red Team runs the one-time bootstrap gate, while
+ roles without authorization visibly park or remain inactive. After bootstrap,
+ bounded reversible work can go directly from a human-confirmed brief to
+-Implementation; strict work uses one plan and at most two Red Team reviews.
++Implementation; strict work uses one plan and the finite `R0 -> C1 -> C2`
++review ledger.
+ 
+ For manual recovery or another coding agent, start with:
+ 
+diff --git a/packages/jeff_strict_ssot_v1/template/START_HERE.md b/packages/jeff_strict_ssot_v1/template/START_HERE.md
+index fc87cc6..5328a56 100644
+--- a/packages/jeff_strict_ssot_v1/template/START_HERE.md
++++ b/packages/jeff_strict_ssot_v1/template/START_HERE.md
+@@ -64,7 +64,8 @@ separate bounded paths.
+ After the one-time bootstrap integrity review, Red Team is not a universal
+ gate. Reversible bounded work goes directly to Implementation from the brief
+ you confirm. Strict review is reserved for the concrete high-consequence
+-triggers in `docs/task_protocol.md` and stops after at most two failed reviews.
++triggers in `docs/task_protocol.md` and follows its finite `R0 -> C1 -> C2`
++ledger.
+ 
+ ## GitHub
+ 
+diff --git a/packages/jeff_strict_ssot_v1/template/code_review.md b/packages/jeff_strict_ssot_v1/template/code_review.md
+index 4868d0f..29b86ca 100644
+--- a/packages/jeff_strict_ssot_v1/template/code_review.md
++++ b/packages/jeff_strict_ssot_v1/template/code_review.md
+@@ -4,8 +4,8 @@ Lead with correctness findings ordered by severity.
+ 
+ - Is the slice correctly classified under `docs/task_protocol.md`, based on
+   actual authorized scope rather than hypothetical future work?
+-- Is this bounded work, or strict work with review cycle 1 or 2? A missing
+-  enhancement outside accepted scope is not a finding.
++- Is this bounded work, or strict work at ledger stage `R0`, `C1`, or `C2`?
++  A missing enhancement outside accepted scope is not a finding.
+ - Does the change stay inside its authorized slice?
+ - Does each durable fact have exactly one owner?
+ - Are owner changes and supersession explicit in `DECISIONS.md`?
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/governance/RISK_REGISTER.md b/packages/jeff_strict_ssot_v1/template/docs/governance/RISK_REGISTER.md
+index 42dde7f..67504f7 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/governance/RISK_REGISTER.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/governance/RISK_REGISTER.md
+@@ -4,6 +4,6 @@
+ | --- | --- | --- | --- |
+ | GOV-R001 | Product implementation begins before human-confirmed product intake | open | `STATUS.md` and `docs/master_prompts/000_PRODUCT_PROMPT_NOT_RECEIVED.md` |
+ | GOV-R002 | Local uncommitted governance state is mistaken for remote-visible state | open | `GIT_SYNC.md` |
+-| GOV-R003 | Review expands scope or loops past the two-review circuit breaker | open | `docs/task_protocol.md` |
++| GOV-R003 | Review expands scope or loops past the finite strict-review ledger | open | `docs/task_protocol.md` |
+ 
+ Risks guide review but do not authorize implementation.
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/plans/README.md b/packages/jeff_strict_ssot_v1/template/docs/plans/README.md
+index c259253..159f8db 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/plans/README.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/plans/README.md
+@@ -5,5 +5,5 @@ gates and authority effect are explicitly accepted in `DECISIONS.md` or the
+ appropriate domain owner.
+ 
+ Plans are required only for strict mode or explicit human request. Use one
+-active plan path per work ID and revise it in place for the single permitted
+-recheck. Bounded work uses a concise human-confirmed brief instead.
++active plan path per work ID and revise it in place only for a remaining `C1`
++or `C2` ledger wave. Bounded work uses a concise human-confirmed brief instead.
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/prompts/architecture_task.md b/packages/jeff_strict_ssot_v1/template/docs/prompts/architecture_task.md
+index 338543c..7633c5c 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/prompts/architecture_task.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/prompts/architecture_task.md
+@@ -15,10 +15,10 @@ human may approve that brief for direct Implementation.
+ 
+ For strict mode, maintain one active plan path using
+ `docs/templates/architecture_plan.md`. Keep it within the governance budget.
+-After a failed initial review, make at most one in-place revision addressing
+-only cited P0/P1 blockers. After a second `FAIL`, stop for the human choices in
+-the circuit breaker. Do not create version-suffixed candidate files or broaden
+-requirements to satisfy review.
++Use the persisted `R0 -> C1 -> C2` ledger in `docs/task_protocol.md`; each
++correction wave addresses only cited P0/P1 blockers within existing authority.
++After `C2`, stop for the human choices in the circuit breaker. Do not create
++version-suffixed candidate files or broaden requirements to satisfy review.
+ 
+ If the human selects the canonical-equivalence disposition defined in
+ `docs/task_protocol.md`, record only the exact authorization and proof contract
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/prompts/bootstrap_cold_resume_review.md b/packages/jeff_strict_ssot_v1/template/docs/prompts/bootstrap_cold_resume_review.md
+index 117f19e..495f83d 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/prompts/bootstrap_cold_resume_review.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/prompts/bootstrap_cold_resume_review.md
+@@ -24,11 +24,11 @@ Verify that a fresh reader can recover:
+ - raw master-prompt delimiters and hash/byte-length provenance;
+ - human confirmation of the extracted bounded brief or strict planning scope;
+ - direct Implementation authorization for a confirmed bounded brief; and
+-- strict-mode planning/review plus the two-review circuit breaker.
++- strict-mode planning/review plus the finite strict-review ledger.
+ 
+ Bounded mode has no product-intake Red Team gate. This bootstrap integrity
+-review is itself limited to one initial review and one recheck; a second
+-`FAIL` returns the decision to the human instead of creating another candidate.
++review uses the finite `R0 -> C1 -> C2 -> PASS |
++HUMAN_DISPOSITION_REQUIRED` ledger in `docs/task_protocol.md`.
+ 
+ Run the protocol/governor validators and tests exactly as listed in
+ `TESTING.md`, including Python's `-B` flag. Use `python -B` for every other
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/prompts/codex_team_launcher.md b/packages/jeff_strict_ssot_v1/template/docs/prompts/codex_team_launcher.md
+index 674a2f0..e2b6d6c 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/prompts/codex_team_launcher.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/prompts/codex_team_launcher.md
+@@ -73,7 +73,7 @@ and name the missing role; never silently fall back to a pretend team.
+ 4. For `bounded` mode, resume `implementation` directly from the confirmed
+    brief. Do not create an Architecture plan or Red Team gate automatically.
+ 5. For `strict` mode, Architecture writes one active plan and `red_team`
+-   reviews it under the two-review circuit breaker before Implementation.
++   reviews it under the finite `R0 -> C1 -> C2` ledger before Implementation.
+ 
+ Do not automatically activate Governor, start a temporary experiment, or
+ publish subsequent commits merely because bootstrap or product intake passed.
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/prompts/implementation_task.md b/packages/jeff_strict_ssot_v1/template/docs/prompts/implementation_task.md
+index 77d9f17..3c2891b 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/prompts/implementation_task.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/prompts/implementation_task.md
+@@ -16,11 +16,11 @@ mode has no automatic Architecture or Red Team handback. Stop on conflicting
+ evidence or a gate failure. Do not expand scope, create automation, publish,
+ release, or mutate Git without approval.
+ 
+-After a cycle-2 strict `FAIL`, proceed only if the human issued an exact
+-canonical-equivalence disposition permitted by `docs/task_protocol.md` and
+-no other P0/P1 remains. Apply only its mechanical transform, record the frozen
+-pre/post inventory proof first, and stop if any eligibility or equivalence
+-check fails. That disposition is not general risk acceptance or authority to
+-repair anything else.
++After a strict `HUMAN_DISPOSITION_REQUIRED` state, proceed only if the human
++issued an exact canonical-equivalence disposition permitted by
++`docs/task_protocol.md` and no other P0/P1 remains. Apply only its mechanical
++transform, record the frozen pre/post inventory proof first, and stop if any
++eligibility or equivalence check fails. That disposition is not general risk
++acceptance or authority to repair anything else.
+ 
+ End with one required repository marker.
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/prompts/red_team_task.md b/packages/jeff_strict_ssot_v1/template/docs/prompts/red_team_task.md
+index 244acb5..bd52365 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/prompts/red_team_task.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/prompts/red_team_task.md
+@@ -21,13 +21,12 @@ harm, data loss, secret exposure, or unauthorized external action.
+ Only P0/P1 block. P2/P3 are advisories and coexist with `PASS`. Verdicts are exactly
+ `PASS` or `FAIL`; never use `pass_with_fixes`.
+ 
+-Record review cycle 1 or 2. The initial review consolidates all known blockers.
+-On cycle 2, add a blocker only for a fix regression or a previously missed
+-P0/P1 with a requirement citation and explanation of the miss.
+-After a second `FAIL`, require human rescoping, real-risk acceptance, an
+-eligible canonical-equivalence correction, or cancellation and stop. A review
+-cannot require a third review, a new candidate version, or a new work ID for
+-the same goal.
++Record the persisted `R0`, `C1`, or `C2` stage. The initial review consolidates
++all known blockers. A recheck covers open blockers and direct repair regressions
++only. A newly discovered blocker may use only a remaining correction wave.
++After `C2`, require human rescoping, real-risk acceptance, an eligible
++canonical-equivalence correction, or cancellation and stop. A review cannot
++reset the ledger through a new candidate version, work ID, or equivalent fork.
+ 
+ When the sole remaining blocker is a representation mismatch that satisfies
+ the canonical-equivalence criteria in `docs/task_protocol.md`, identify the
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/reviews/README.md b/packages/jeff_strict_ssot_v1/template/docs/reviews/README.md
+index 33bcbb4..518afd0 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/reviews/README.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/reviews/README.md
+@@ -4,6 +4,7 @@ Store dated Red Team reports here. Reviews lead with findings and identify the
+ exact evidence/diff reviewed. Reviewers do not repair their targets. A review
+ may authorize a bounded promotion but does not become the product owner.
+ 
+-Use one active review path per strict-mode work ID. The initial review and one
+-recheck are the entire autonomous budget. Revise the record in place; do not
+-create version-suffixed candidates to evade the circuit breaker.
++Use one active review path per strict-mode work ID. The finite budget is
++`R0 -> C1 -> C2 -> PASS | HUMAN_DISPOSITION_REQUIRED`; each `C` stage permits
++one repair-and-recheck wave. Revise the record in place; do not create
++version-suffixed candidates to evade the ledger.
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/task_protocol.md b/packages/jeff_strict_ssot_v1/template/docs/task_protocol.md
+index 698e6a9..fca38a4 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/task_protocol.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/task_protocol.md
+@@ -54,30 +54,41 @@ exposure, or unauthorized external action. P1 means the accepted Definition of
+ Done is materially false. P2 and P3 are advisory. Only P0 and P1 block; a
+ review with only advisories is `PASS`. Verdicts are exactly `PASS` or `FAIL`.
+ 
+-For one work ID, Red Team gets one initial review and at most one recheck. The
+-initial review must consolidate all known blockers. The recheck verifies the
+-fixes and may add a blocker only for a regression introduced by those fixes or
+-a previously missed P0/P1; the latter must cite an accepted requirement and
+-explain why it was missed initially. Architecture may make one bounded
+-revision addressing only blocking findings.
+-
+-After a second consecutive `FAIL`, all autonomous Architecture/Red Team
+-iteration stops. Ask the human to accept a real residual risk, authorize an
+-eligible canonical-equivalence correction, narrow or change the requirements,
+-or cancel the work. Do not create a third review, mint a new work ID for the
+-same goal, or continue by calling the same candidate V3. A human decision that
+-materially resets scope starts a new work ID and review budget.
+-
+-One work ID has one active plan path and one active review path. Revise those
+-files in place; Git history or explicitly authorized archival records preserve
+-history. Do not create `_v2`, `_v3`, or parallel candidate files merely to
+-continue a review cycle. A review report records findings.
+-It cannot itself create a new requirement or a fresh-review obligation.
++Strict work uses a persisted, hash-bound ledger. Review stays within R0-frozen
++accepted requirements and the approved boundary. Only P0/P1 block; P2/P3 are
++advisory.
++
++`R0 -> PASS | C1 | HUMAN_DISPOSITION_REQUIRED.`
++`C1 -> PASS | C2 | HUMAN_DISPOSITION_REQUIRED.`
++`C2 -> PASS | HUMAN_DISPOSITION_REQUIRED.`
++Each `C` stage permits one repair-and-recheck wave; a crash resumes that stage.
++
++Only a concrete, safely evidenced violation of an R0-frozen accepted
++requirement or non-waivable safety invariant blocks. Findings sharing a root
++cause or substantially the same repair keep one ID; renaming, changing
++reviewer/work ID, or forking cannot reset budgets.
++
++Repairs must be minimal, reversible, local, inside the approved write set, and
++cannot weaken acceptance or expand authority. Rechecks cover open findings and
++direct repair regressions. A newly discovered blocker prevents `PASS`, creates
++no budget, and may use only a remaining `C` wave.
++
++One unchanged-candidate evidence rerun per ledger is allowed only within
++existing execution/effects authority; it adds neither authority nor budget.
++Before acting, record the candidate hash, stage, findings, scopes, and
++transition. One work ID has one active plan path and one active review path;
++revise those files in place. A review cannot create a requirement or reset a
++review budget.
++
++After `C2`, an unresolved blocker requires human disposition: accept a real
++residual risk, authorize an eligible canonical-equivalence correction, narrow
++or materially change the scope, or cancel. A human decision that materially
++resets scope starts a new work ID and ledger.
+ 
+ ### Canonical-Equivalence Disposition
+ 
+ A canonical-equivalence correction is not residual-risk acceptance. It is a
+-human disposition for a cycle-2 `FAIL` whose only remaining P1 finding is that
++human disposition after `C2` whose only remaining P1 finding is that
+ the accepted contract rejects one representation of already accepted, frozen
+ input or output even though an exact mechanical transform can prove the same
+ meaning. All of these conditions are mandatory:
+@@ -102,7 +113,7 @@ rewriting, reparse/symlink traversal, and any root escape. Do not change case,
+ Unicode normalization, separator semantics beyond an already accepted rule,
+ or any other path text.
+ 
+-The human authorization names the work ID, exact cycle-2 review and finding,
++The human authorization names the work ID, exact `C2` review and finding,
+ exact transform, frozen inventory identity, and proof checks. Architecture may
+ append that disposition to the one active plan path; it is not a new candidate.
+ Implementation may execute only the authorized transform and must record the
+@@ -131,7 +142,7 @@ makes no edits.
+ 
+ Independently reviews the bootstrap gate and strict-mode targets. It does not
+ repair the work it reviews, add requirements, or gate bounded work. Findings
+-lead the report and obey the scope, severity, and two-review limits above.
++lead the report and obey the scope, severity, and finite-ledger limits above.
+ 
+ ## Temporary Branch
+ 
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/templates/architecture_plan.md b/packages/jeff_strict_ssot_v1/template/docs/templates/architecture_plan.md
+index c89be12..bf46eb6 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/templates/architecture_plan.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/templates/architecture_plan.md
+@@ -3,7 +3,7 @@
+ - Date: YYYY-MM-DD
+ - Work ID: <stable ID>
+ - Mode: strict
+-- Review cycle: 1 | 2
++- Review stage: R0 | C1 | C2
+ - Status: proposed
+ - Owner: <owner path>
+ - Supersedes: none
+@@ -35,7 +35,8 @@ Use stable IDs that every blocking review finding can cite.
+ 
+ ## Forbidden Scope
+ 
+-This is the sole active plan path for the work ID. Revise it in place for the
+-single permitted recheck; do not create version-suffixed candidates.
++This is the sole active plan path for the work ID. Revise it in place only for
++the remaining `C1` or `C2` ledger wave; do not create version-suffixed
++candidates.
+ 
+ human action required: review this strict-mode plan before implementation authorization.
+diff --git a/packages/jeff_strict_ssot_v1/template/docs/templates/red_team_review.md b/packages/jeff_strict_ssot_v1/template/docs/templates/red_team_review.md
+index 62612a7..e9e4c08 100644
+--- a/packages/jeff_strict_ssot_v1/template/docs/templates/red_team_review.md
++++ b/packages/jeff_strict_ssot_v1/template/docs/templates/red_team_review.md
+@@ -2,7 +2,7 @@
+ 
+ - Date: YYYY-MM-DD
+ - Work ID: <stable ID>
+-- Review cycle: 1 | 2
++- Review stage: R0 | C1 | C2
+ - Evidence scope: <files, diff, records>
+ - Verdict: PASS | FAIL
+ - Authority effect: <none or exact bounded authorization>
+@@ -22,10 +22,10 @@ P2/P3 only. Advisories do not block `PASS` and cannot become requirements.
+ 
+ ## Residual Risk
+ 
+-On cycle 2, identify each prior blocker as fixed or still open. Any new blocker
+-must be a fix regression or a previously missed P0/P1 with an accepted
+-requirement citation and explanation. A second `FAIL` stops autonomous review
+-and returns the decision to the human; this review cannot require cycle 3.
++On C1/C2, identify each prior blocker as fixed or still open. Any new blocker
++must be a direct repair regression or consume only a remaining correction wave.
++After C2, an unresolved blocker stops autonomous review and returns the
++decision to the human; this review cannot reset the ledger.
+ If the sole blocker is an eligible representation mismatch, name the exact
+ transform and proof boundary for human disposition without calling it residual
+ risk or granting authority.
+diff --git a/packages/jeff_strict_ssot_v1/template/scripts/ssot/validate_protocol.py b/packages/jeff_strict_ssot_v1/template/scripts/ssot/validate_protocol.py
+index ea3bbf6..76451c6 100644
+--- a/packages/jeff_strict_ssot_v1/template/scripts/ssot/validate_protocol.py
++++ b/packages/jeff_strict_ssot_v1/template/scripts/ssot/validate_protocol.py
+@@ -500,17 +500,32 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
+         "Bounded mode needs no Architecture plan and no Red Team gate.",
+         "A missing enhancement outside accepted scope is not a finding.",
+         "Only P0 and P1 block",
+-        "one initial review and at most one recheck",
+-        "After a second consecutive `FAIL`",
++        "`R0 -> PASS | C1 | HUMAN_DISPOSITION_REQUIRED.`",
++        "`C1 -> PASS | C2 | HUMAN_DISPOSITION_REQUIRED.`",
++        "`C2 -> PASS | HUMAN_DISPOSITION_REQUIRED.`",
++        "A newly discovered blocker prevents `PASS`, creates",
++        "One unchanged-candidate evidence rerun per ledger",
++        "After `C2`, an unresolved blocker requires human disposition",
+         "A canonical-equivalence correction is not residual-risk acceptance.",
+         "authorize review cycle 3",
+-        "Do not create `_v2`, `_v3`",
+-        "cannot itself create a new requirement or a fresh-review obligation",
++        "cannot create a requirement or reset a",
+     }
+     for requirement in sorted(review_control_requirements):
+         if requirement not in task_protocol:
+             errors.append(f"task protocol missing review control: {requirement}")
+ 
++    code_review = readable.get("code_review.md", "")
++    if "ledger stage `R0`, `C1`, or `C2`" not in code_review:
++        errors.append("code review checklist missing finite ledger stages")
++
++    reviews_readme = readable.get("docs/reviews/README.md", "")
++    for requirement in (
++        "`R0 -> C1 -> C2 -> PASS | HUMAN_DISPOSITION_REQUIRED`",
++        "one repair-and-recheck wave",
++    ):
++        if requirement not in reviews_readme:
++            errors.append("reviews owner missing finite ledger rule")
++
+     implementation_prompt = readable.get(
+         "docs/prompts/implementation_task.md", ""
+     )
+@@ -540,9 +555,9 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
+         "Bounded work has no Red Team gate.",
+         "outside accepted scope is not a finding",
+         "Only P0/P1 block",
+-        "After a second `FAIL`",
++        "After `C2`",
+         "canonical-equivalence criteria",
+-        "cannot require a third review",
++        "reset the ledger",
+     }
+     for requirement in sorted(red_team_requirements):
+         if requirement not in red_team_prompt:
+@@ -555,7 +570,7 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
+         "human confirmation of the extracted bounded brief or strict planning scope",
+         "Bounded mode has no product-intake Red Team gate.",
+         "direct Implementation authorization for a confirmed bounded brief",
+-        "two-review circuit breaker",
++        "finite strict-review ledger",
+     }
+     for requirement in sorted(bootstrap_review_requirements):
+         if requirement not in bootstrap_review:
+@@ -566,7 +581,7 @@ def validate(root: Path, evidence: list[Path], *, evidence_only: bool = False) -
+     review_template = readable.get("docs/templates/red_team_review.md", "")
+     if "pass_with_fixes" in review_template.lower():
+         errors.append("Red Team review template permits pass_with_fixes")
+-    for requirement in ("- Review cycle: 1 | 2", "- Verdict: PASS | FAIL"):
++    for requirement in ("- Review stage: R0 | C1 | C2", "- Verdict: PASS | FAIL"):
+         if requirement not in review_template:
+             errors.append(f"Red Team review template missing circuit breaker: {requirement}")
+ 
+diff --git a/packages/jeff_strict_ssot_v1/template/tests/ssot/test_validate_protocol.py b/packages/jeff_strict_ssot_v1/template/tests/ssot/test_validate_protocol.py
+index b5598a9..765b60e 100644
+--- a/packages/jeff_strict_ssot_v1/template/tests/ssot/test_validate_protocol.py
++++ b/packages/jeff_strict_ssot_v1/template/tests/ssot/test_validate_protocol.py
+@@ -257,7 +257,7 @@ class ProtocolValidatorTests(unittest.TestCase):
+             ),
+             (
+                 "docs/task_protocol.md",
+-                "After a second consecutive `FAIL`",
++                "`C2 -> PASS | HUMAN_DISPOSITION_REQUIRED.`",
+                 "task protocol missing review control",
+             ),
+             (
+@@ -267,9 +267,19 @@ class ProtocolValidatorTests(unittest.TestCase):
+             ),
+             (
+                 "docs/task_protocol.md",
+-                "Do not create `_v2`, `_v3`",
++                "A newly discovered blocker prevents `PASS`, creates",
+                 "task protocol missing review control",
+             ),
++            (
++                "code_review.md",
++                "ledger stage `R0`, `C1`, or `C2`",
++                "code review checklist missing finite ledger stages",
++            ),
++            (
++                "docs/reviews/README.md",
++                "`R0 -> C1 -> C2 -> PASS | HUMAN_DISPOSITION_REQUIRED`",
++                "reviews owner missing finite ledger rule",
++            ),
+             (
+                 "docs/prompts/implementation_task.md",
+                 "user-approved bounded brief",
+@@ -323,9 +333,9 @@ class ProtocolValidatorTests(unittest.TestCase):
+             encoding="utf-8"
+         )
+         self.assertNotIn("pass_with_fixes", template.lower())
+-        self.assertIn("- Review cycle: 1 | 2", template)
++        self.assertIn("- Review stage: R0 | C1 | C2", template)
+         self.assertIn("- Verdict: PASS | FAIL", template)
+-        self.assertIn("cannot require cycle 3", template)
++        self.assertIn("cannot reset the ledger", template)
+ 
+     def test_bootstrap_review_does_not_restore_universal_intake_gate(self) -> None:
+         prompt = (
+@@ -335,7 +345,7 @@ class ProtocolValidatorTests(unittest.TestCase):
+         self.assertNotIn("before reviewed intake", prompt)
+         self.assertIn("Bounded mode has no product-intake Red Team gate.", prompt)
+         self.assertIn("direct Implementation authorization", prompt)
+-        self.assertIn("two-review circuit breaker", prompt)
++        self.assertIn("finite strict-review ledger", prompt)
+ 
+     def test_status_caps_are_hard_failures(self) -> None:
+         for suffix, expected in [("\n" + "\n".join("extra" for _ in range(130)), "exceeds 120 lines"), ("x" * 33000, "exceeds 32768")]:
+diff --git a/pyproject.toml b/pyproject.toml
+index 30f4505..15e8c24 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
+ 
+ [project]
+ name = "yakherd"
+-version = "1.4.0"
++version = "1.5.0"
+ description = "A product-neutral SSOT governance harness for agentic software projects"
+ readme = "README.md"
+ requires-python = ">=3.11"
+diff --git a/scripts/verify_release.py b/scripts/verify_release.py
+index 7658cde..b1f3a57 100644
+--- a/scripts/verify_release.py
++++ b/scripts/verify_release.py
+@@ -45,6 +45,10 @@ def main(argv: list[str] | None = None) -> int:
+             errors.append(
+                 f"{label} omits the canonical-equivalence circuit-breaker rule"
+             )
++        elif "`C2 -> PASS | HUMAN_DISPOSITION_REQUIRED.`" not in path.read_text(
++            encoding="utf-8"
++        ):
++            errors.append(f"{label} omits the finite strict-review ledger")
+ 
+     root_agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+     template_agents = (PACKAGE / "template" / "AGENTS.md").read_text(
+diff --git a/src/yakherd/__init__.py b/src/yakherd/__init__.py
+index 3a236a1..163d4f0 100644
+--- a/src/yakherd/__init__.py
++++ b/src/yakherd/__init__.py
+@@ -1,3 +1,3 @@
+ """Yakherd's public Python package."""
+ 
+-__version__ = "1.4.0"
++__version__ = "1.5.0"

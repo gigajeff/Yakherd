@@ -29,6 +29,9 @@ with the exact reviewed commit. PyPI availability is separate from a source
 push; do not assume an older PyPI installation has these commands.
 
 Open the project in your coding environment and give it your product request.
+If you have no product brief yet, say `Read START_HERE.md and follow it.`
+The agent will help establish the missing goal; a formal master prompt is
+optional. See [the first-message examples](START_HERE.md).
 `Start Yakherd` means read the current owners and execute the authorized next
 action in that task. A clear request does not need another approval after it
 is recorded in NOW.md.
@@ -121,6 +124,7 @@ The installer does not run builds, product code, network requests or Git.
 - [Command usage](docs/USAGE.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Release verification](docs/RELEASE.md)
+- [Historical planning and pre-3.0 source records](docs/history/README.md)
 
 The v3 payload is in `packages/yakherd_v3/`. The historical V1 package remains
 under `packages/jeff_strict_ssot_v1/` for provenance and regression checks; it is

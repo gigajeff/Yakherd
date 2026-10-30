@@ -5,3 +5,6 @@
 *.gif binary
 *.ico binary
 *.zip binary
+# Preserve frozen Markdown hard breaks and unified-diff context verbatim.
+"docs/Yakherd Audit for Absolute Beginners.md" whitespace=-blank-at-eol
+docs/history/pre-3.0/tracked-working-tree.patch whitespace=-blank-at-eol

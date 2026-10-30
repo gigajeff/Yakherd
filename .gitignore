@@ -9,5 +9,7 @@ venv/
 dist/
 build/
 *.egg-info/
+# TemporaryDirectory artifacts created beside the installer packages.
+/packages/tmp*/
 .DS_Store
 Thumbs.db

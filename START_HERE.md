@@ -7,6 +7,25 @@ yakherd setup YOUR_PROJECT
 yakherd doctor YOUR_PROJECT
 ```
 
+Open that folder as the project in your coding environment. The shortest
+startup message is:
+
+> Read START_HERE.md and follow it.
+
+You do not need a master prompt before starting. If you have no product brief
+yet, use this more explicit first message:
+
+> Read START_HERE.md, then AGENTS.md, SSOT.md, BASELINE.md and NOW.md. Use this
+> repository's SSOT process. No product brief exists yet: help me define the
+> project goal, then record the agreed requirements and first milestone in
+> the appropriate files. Do not invent product requirements.
+
+The installed handoff and initial NOW.md already tell the agent to obtain a
+missing product objective. A conversation or short request is enough; a
+formal master prompt is optional. Record accepted requirements in SSOT.md,
+proven facts in BASELINE.md, and one executable milestone in NOW.md as they
+become available.
+
 Open that folder in your coding environment and provide the actual product
 request. `Start Yakherd` tells the agent to read AGENTS, SSOT, BASELINE and NOW,
 inspect the checkout and continue the authorized next action in one task.

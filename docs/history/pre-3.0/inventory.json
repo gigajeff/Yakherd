@@ -1,0 +1,584 @@
+{
+  "base_commit": "735bd78d2790070470308d3af881a6b565d9efa3",
+  "published_v3_commit": "243bd15393f42f2e90412f42961f864575822def",
+  "status": "historical source snapshot; not the active package or instructions",
+  "patch_sha256": "9f86eec78cf8de8b5aa5fa287e1154a73dea8362cb70e23ff7dd17071522c771",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "5bf1f9d94b871c2d8976221bf2f8086f33ef1ec2c59d1497934a5993f46f6455",
+      "bytes": 4747,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "54547ea87aa70e5b5b04e547294ea4ae49b255e76532226afbe24b3d0ba7bfcc",
+      "bytes": 9469,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "README.md",
+      "sha256": "12b69d55b3a58ba95804cd0cf95fd850ae8e1409ba34461808bdf25ee11b5f41",
+      "bytes": 15078,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "START_HERE.md",
+      "sha256": "324beb0dc7cb497061ae62a9c751ed72b6fb5a4df39d16c91d0faaf9dbd117c6",
+      "bytes": 2544,
+      "preserved_as": "docs/history/pre-3.0/START_HERE.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan.md",
+      "sha256": "216cea3bd5f262e487329f0fcc757666e52397e6d8e119882862b88739afa029",
+      "bytes": 68774,
+      "preserved_as": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan_v2.md",
+      "sha256": "68f444c46992b0dd31c8b84f328d85b86cc6851e1c3693ca22bc8b44aca2809a",
+      "bytes": 103293,
+      "preserved_as": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan_v2.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan_v3.md",
+      "sha256": "d687860db50cb816d899043cee9f3e7825195602a0884fead242b6a92bc28b51",
+      "bytes": 142347,
+      "preserved_as": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan_v3.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan_v4.md",
+      "sha256": "240d775e380d281e8e43e39c24bf66161144d35c55e28cffbbeed3537432eb81",
+      "bytes": 103529,
+      "preserved_as": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan_v4.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan_v5.md",
+      "sha256": "dfd75d0c219d2315739b16297f3c67ca26adb21a1eefbb15de1c3db1ac76f47d",
+      "bytes": 116765,
+      "preserved_as": "docs/2026-07-21_yakherd_concierge_v1_bounded_implementation_plan_v5.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_concierge_v1_build_directive_static_only.md",
+      "sha256": "15946d3266e38f4e579c9b35ce3bda7e621006f32cda35ceb5eb03cf53acf12d",
+      "bytes": 17487,
+      "preserved_as": "docs/2026-07-21_yakherd_concierge_v1_build_directive_static_only.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan.md",
+      "sha256": "7fd244bd2c073f06f39962080b59890341c11712728c6f78e1c34fdd1bcee6f8",
+      "bytes": 17840,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v10.md",
+      "sha256": "57d336416c4c823761470f3b6957bd8114150374b91cb1d48d7108ef1899b34b",
+      "bytes": 10773,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v10.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v11.md",
+      "sha256": "08736a3855137296bc89bdecc4039859b414b2800f3ec8b593503c8ecec755dc",
+      "bytes": 8779,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v11.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v12.md",
+      "sha256": "c2daaa03baf52390f40d07f9f640e074463f8025acfaf7b73258c2d4d2e1cdc2",
+      "bytes": 6616,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v12.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v13.md",
+      "sha256": "d9f2f008f0155e1e16b908c1939817363a2f94ec8aac587e34374f193158625f",
+      "bytes": 11500,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v13.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v14.md",
+      "sha256": "cf7604e35d0a36b9c32d283e466d49ad9f6e4e9cfbc69fc63d36cb68c830637a",
+      "bytes": 13013,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v14.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v15.md",
+      "sha256": "c459cc7d41e8ca3ee8964bbf4e82fd782d87c4c4920b946c84abb24bf6141a0e",
+      "bytes": 16926,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v15.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v2.md",
+      "sha256": "ed116213b9de08dd450776a9c3fb6e4b2b51a73999269d5b120208bcb016d12f",
+      "bytes": 34878,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v2.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v3.md",
+      "sha256": "e34aa007270ad6ea62789305e319c9d0a2e8b2455ec00bc9c4c2c10b858c37b7",
+      "bytes": 55027,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v3.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v4.md",
+      "sha256": "7d654f6aaf02c603c3b0f2136a887064b7a8b08e92b022545dfcf20e85183379",
+      "bytes": 10350,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v4.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v5.md",
+      "sha256": "56bf787b927fd565789281c2fa9dac75a4e7cfa5b725100f19d98ed83838ea38",
+      "bytes": 27694,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v5.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v6.md",
+      "sha256": "b20af29ccb82a0910a99630bfed91f241648e14986847488b5b86681a7b64334",
+      "bytes": 23035,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v6.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v7.md",
+      "sha256": "5bd429444d569178e0bad02177ae82e39dd2bea30ae7498b2ec4d494c5a89893",
+      "bytes": 17715,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v7.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v8.md",
+      "sha256": "67a3346a601e9d98cac297432fe69fd4c89cf152c881c129f9fa6dcae35a3cd6",
+      "bytes": 18573,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v8.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v9.md",
+      "sha256": "5f95a7765d9bd3cf7941c449a7f6550ea80d0268ac8238b530cf4b3351e0f35d",
+      "bytes": 12067,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_concierge_website_plan_v9.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_static_concierge_plan.md",
+      "sha256": "c00f32e8f50d174e9cf1c149dfc13849705fc5bd41fad0ef5262304315b7cc67",
+      "bytes": 22120,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_static_concierge_plan.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_dev_static_concierge_plan_v2.md",
+      "sha256": "9355aa673fbc7c5e80427d4f7cdba67d54f1bd3a14fcab99c7cafaf89667efed",
+      "bytes": 39363,
+      "preserved_as": "docs/2026-07-21_yakherd_dev_static_concierge_plan_v2.md"
+    },
+    {
+      "path": "docs/2026-07-21_yakherd_v1.2.0_release_preparation_plan.md",
+      "sha256": "30be883d45ab9f23757eaf564d57ff933ae0c308900ddb6cb2e82425d0a9175e",
+      "bytes": 292734,
+      "preserved_as": "docs/2026-07-21_yakherd_v1.2.0_release_preparation_plan.md"
+    },
+    {
+      "path": "docs/2026-07-22_yakherd_concierge_v1_bounded_build_directive.md",
+      "sha256": "46e460922f538ef4c5dc03a3a2dd45c9a928133ba709895d68c9db7ca119f59e",
+      "bytes": 14621,
+      "preserved_as": "docs/2026-07-22_yakherd_concierge_v1_bounded_build_directive.md"
+    },
+    {
+      "path": "docs/2026-09-24_ssot_instruction_work.md",
+      "sha256": "a5d907be2c72657b77499cc4cfda4c81210426cfe6db7b8d4e714ec8166219a4",
+      "bytes": 4764,
+      "preserved_as": "docs/2026-09-24_ssot_instruction_work.md"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "0108eb13e372115e57e607723b83ac7fdab99aa1deb937baf8a7b1c58c374431",
+      "bytes": 6801,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "docs/SSOT_MIGRATION.md",
+      "sha256": "14582272b28d467337ccc594e14d3744a961c5a1b93d174eb5f9f2c148d01079",
+      "bytes": 4436,
+      "preserved_as": "docs/history/pre-3.0/docs/SSOT_MIGRATION.md"
+    },
+    {
+      "path": "docs/SSOT_PROCESS.md",
+      "sha256": "7bb7444204e631440755c5dc1713c475501b6725f4f26b48e20db077b2264343",
+      "bytes": 9827,
+      "preserved_as": "docs/history/pre-3.0/docs/SSOT_PROCESS.md"
+    },
+    {
+      "path": "docs/TODO.md",
+      "sha256": "da16981ed7f8f21e59e7c8eb072432094938097686a92574d37d2ac67c8ddcf9",
+      "bytes": 504,
+      "preserved_as": "docs/TODO.md"
+    },
+    {
+      "path": "docs/USAGE.md",
+      "sha256": "4c6f8fbd0a3f77c6ea2317611965738eaf0acec609aecf48c0ef2e6391c357fd",
+      "bytes": 7600,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "docs/Yakherd Audit for Absolute Beginners.md",
+      "sha256": "659780f757cd01cc243d5c49718f60a58a8c2a642d3c2f0683dad305ee5e4b5e",
+      "bytes": 45522,
+      "preserved_as": "docs/Yakherd Audit for Absolute Beginners.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team.md",
+      "sha256": "34b19607510fdd696904974e2cb56aced148ef2b46838dec72ce6fd5a62a6fda",
+      "bytes": 16166,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team_v2.md",
+      "sha256": "32b1274e4350ea732b14565d9925fb8c4d9bd61728a60c6f63f039e41676b1ec",
+      "bytes": 15149,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team_v2.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team_v3.md",
+      "sha256": "2ecd834ef7a852d7daf4a55510241f5a60b33a72603b5cb08b62ceebb9d2df12",
+      "bytes": 17272,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team_v3.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team_v4.md",
+      "sha256": "5ca7148f6cbff8340cde9d8f3af2872caba850efb16ef11efe88bcaad4b91150",
+      "bytes": 13734,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team_v4.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team_v5.md",
+      "sha256": "713addd77d5fb8d39a042fd965f298cc0164e6572f881df4fd685178aa70bbeb",
+      "bytes": 13726,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_bounded_plan_red_team_v5.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_build_directive_red_team.md",
+      "sha256": "274b6db4bc92fe40bfceee3efe70331814c52235db28d5ba4032ca88e98ca64a",
+      "bytes": 19030,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_concierge_v1_build_directive_red_team.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_capability.md",
+      "sha256": "01042dd7125ae8edccdc21fb8e4abb48c22f6228413bbc70a134fd28f3f5cecd",
+      "bytes": 9229,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_capability.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_capability_red_team.md",
+      "sha256": "e0fc6bda5cad82f06c87feaf895eb6718482b9cc19694848d5bcc0ad0c7ffddb",
+      "bytes": 11827,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_capability_red_team.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team.md",
+      "sha256": "20b01088b0fea8ad47ac235a72f49b1197f4a0c78830e5fc9ed522808ecb656d",
+      "bytes": 21080,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_recheck.md",
+      "sha256": "4d44c22d6b2416352012e202e23fcfdbe2efb2ada11d9eaca2bff2ba6a8eaa09",
+      "bytes": 19795,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_recheck.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v10.md",
+      "sha256": "10fe29cac12625b09e19c609ecde0e08fa9b3dda69f07732547e70c22fee9ec8",
+      "bytes": 15028,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v10.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v11.md",
+      "sha256": "2e9ec79771fd01eb9419c3dba5ac3aba20ded7017900ac95d7e25fd0368fc18d",
+      "bytes": 12415,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v11.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v12.md",
+      "sha256": "374172237157a0964227c002e1c9dbb39cecbb7ed9d959462391ca32f25f1bd4",
+      "bytes": 14020,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v12.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v13.md",
+      "sha256": "1e8813b0be1c238da50047e7387289ffa57842b6ee7d97392712359e17e6c6ea",
+      "bytes": 14219,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v13.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v14.md",
+      "sha256": "aac3c53a625ec9d20cf8917366b27ed2776eb7325bc8c5dcac7891d9e28e7377",
+      "bytes": 16901,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v14.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v3.md",
+      "sha256": "559c07266a1744d824951572af94b9e26396fb5686486eb4e5a5a03081cca37a",
+      "bytes": 14223,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v3.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v4.md",
+      "sha256": "e2abae3cf21dd1754d4f93afdd84051389ed53d3aca757ea697d318a3c3a42b5",
+      "bytes": 14641,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v4.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v5.md",
+      "sha256": "53e4e3b8cab1c75877450020124ab06833d7ec7d892d30ea406b395ce5dc0a48",
+      "bytes": 19200,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v5.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v6.md",
+      "sha256": "fcd340de3a67298d2dff0b36926225993941c0a6f863ab32e56b0d773f3f9b25",
+      "bytes": 18215,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v6.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v7.md",
+      "sha256": "635f87c89b541200c1bdfd6de29854815ffcc516540ca7e7a760899011c2062c",
+      "bytes": 17321,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v7.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v8.md",
+      "sha256": "d895ce12b8c648a56a9e91da2a9aa388dcde8988511280ca4d17a2d0c00f6f3b",
+      "bytes": 16445,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v8.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v9.md",
+      "sha256": "89da8a1a9f446bf85c762d9ea513d6efd07d3ed1e914b984d18850eda9d4a3fa",
+      "bytes": 15449,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_concierge_plan_red_team_v9.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_dreamhost_evidence.md",
+      "sha256": "791ea693b00963c0a4fb8034b733d3da15d8bb5e36fc4c1b4ea6d8a320246fe4",
+      "bytes": 5031,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_dreamhost_evidence.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_openai_api_evidence.md",
+      "sha256": "ec3a2737972cda8b184675712b7bf403a92c250a2576584f4fb43ddd759da768",
+      "bytes": 4146,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_openai_api_evidence.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_static_concierge_plan_red_team.md",
+      "sha256": "c4ec34394032c6ef4fd7bc881e30da3ead426226f10a119ce561b67e6d794457",
+      "bytes": 14266,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_static_concierge_plan_red_team.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_dev_static_concierge_plan_red_team_v2.md",
+      "sha256": "7e4253742879771608215d1bab67ebf7135ab80c17c7aab64e44c4bb6278b523",
+      "bytes": 16269,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_dev_static_concierge_plan_red_team_v2.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-21_yakherd_v1.2.0_release_preparation_plan_red_team.md",
+      "sha256": "5b86287760b185e7582bc2d7cd98d31ef54be33cb521631bf473879eafa724b3",
+      "bytes": 12570,
+      "preserved_as": "docs/audits/yakherd/2026-07-21_yakherd_v1.2.0_release_preparation_plan_red_team.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-07-28_yakherd_1.5.0_finite_review_ledger_red_team.md",
+      "sha256": "9490f86e18dd5eacad210d09450f07bc80e7b387f522cff2b5a7748d09d6b84f",
+      "bytes": 5775,
+      "preserved_as": "docs/audits/yakherd/2026-07-28_yakherd_1.5.0_finite_review_ledger_red_team.md"
+    },
+    {
+      "path": "docs/audits/yakherd/2026-09-24_ssot_instructions_red_team.md",
+      "sha256": "74ff5b1afa81f49e4ce5897e1e23621dbae6479a723bc94a75cac23660dd8a53",
+      "bytes": 1505,
+      "preserved_as": "docs/audits/yakherd/2026-09-24_ssot_instructions_red_team.md"
+    },
+    {
+      "path": "docs/handoffs/TRAVOLTA_SSOT_RESUME.md",
+      "sha256": "62da72388be7d4369d21128da2a5d744cee10169f25da402347f278a6a8ed308",
+      "bytes": 8161,
+      "preserved_as": "docs/handoffs/TRAVOLTA_SSOT_RESUME.md"
+    },
+    {
+      "path": "docs/ssot-starter/AGENTS.md",
+      "sha256": "0783ad652b463694b9e6093ec49aebd8612fa42311231bc01e2e033deb6ed267",
+      "bytes": 1000,
+      "preserved_as": "docs/ssot-starter/AGENTS.md"
+    },
+    {
+      "path": "docs/ssot-starter/BASELINE.md",
+      "sha256": "9e05e2cb635a42e7bfd4a69656e58a683607c15266b5f8c519c92aa7855442fd",
+      "bytes": 641,
+      "preserved_as": "docs/ssot-starter/BASELINE.md"
+    },
+    {
+      "path": "docs/ssot-starter/NOW.md",
+      "sha256": "c81e7797d4b95499735383ae31983416712822894415dacb2aff6e54af966bed",
+      "bytes": 909,
+      "preserved_as": "docs/ssot-starter/NOW.md"
+    },
+    {
+      "path": "docs/ssot-starter/README.md",
+      "sha256": "767ded325c02dd09118af17e6cecb1e87cc04d60ea085ab52c72308e9abfb85c",
+      "bytes": 638,
+      "preserved_as": "docs/ssot-starter/README.md"
+    },
+    {
+      "path": "docs/ssot-starter/SSOT.md",
+      "sha256": "9d7a7bde2da508b5d07dab911d2d796ecc831d398d050b35c3e00af2fd2993ea",
+      "bytes": 5884,
+      "preserved_as": "docs/ssot-starter/SSOT.md"
+    },
+    {
+      "path": "docs/task_protocol.md",
+      "sha256": "6a8a9c891df51406b2ccc8fff8689ac63687a1ee317949a18b91180c36b57da7",
+      "bytes": 5832,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/MANIFEST.json",
+      "sha256": "346f288ff77ff47966f932723fdf5df0e9ca0a3b6b6c16214637b67e6046782f",
+      "bytes": 7148,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/README.md",
+      "sha256": "e182c8f5d7447849507f86f3b6fcbc7a654f228b4d2f430c6e3ce8b4e5039be1",
+      "bytes": 5640,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/RELEASE.json",
+      "sha256": "e6df956c543f6f80ee2f06c463d751fb735f339310224a9dfc832458d14fc87e",
+      "bytes": 473,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/AGENTS.md",
+      "sha256": "829874c168b84d4e10a67c3999df2e2d0178e103f47a60593de2d43a0a86c09c",
+      "bytes": 4570,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/README.md",
+      "sha256": "0cbec5a7d20edfeec1907439e5320e30fcfb08872e4fc058ef2d1b60868d4632",
+      "bytes": 2948,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/START_HERE.md",
+      "sha256": "d8ac64a55058f3a587f026f789d53719b6b967cd824613550c8be8573e7ef996",
+      "bytes": 3757,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/code_review.md",
+      "sha256": "00654ddb61f26a1f1b9da6358e8b7377d03d26baee2bf2a015eb8268f9e8f8e7",
+      "bytes": 1824,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/governance/RISK_REGISTER.md",
+      "sha256": "8a44fb6bcf9b0facf74bc65b34ef23ef37d939e67a527c63647c9f984a6f507d",
+      "bytes": 540,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/plans/README.md",
+      "sha256": "509944f3956f5e72eec6cec7558b362d78cf8f3e85e44cac2c6bc647eb987016",
+      "bytes": 436,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/prompts/architecture_task.md",
+      "sha256": "0bd54edc5f5bfbf292b0d0a3de6f2bdc5517029873f120a4a359f1f377dbc5b1",
+      "bytes": 1776,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/prompts/bootstrap_cold_resume_review.md",
+      "sha256": "c9dbdbc4ba4c502666f4c7653c7f564df312205c5ab60fcc30f7d2a056b1365f",
+      "bytes": 2938,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/prompts/codex_team_launcher.md",
+      "sha256": "3d74b44d94e09c346e46673e8d71dc482e4b32220da10bd9f3962a1dd8a39bf1",
+      "bytes": 4022,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/prompts/implementation_task.md",
+      "sha256": "c107f6fb56d778d22a7d3583e4b21a9e570e35dc49d912bf8bfd444966c6dbbc",
+      "bytes": 1417,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/prompts/red_team_task.md",
+      "sha256": "3c7fa5ff91d6eacfbc28e56f54a92c49b789ea45861e3deb1fd4189af46312ff",
+      "bytes": 2306,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/reviews/README.md",
+      "sha256": "fc833f02e6a4cc54bf16b01769b655b358f6ba962c683d3d27450f7a044710a9",
+      "bytes": 525,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/task_protocol.md",
+      "sha256": "45cc71d385b8025d24ab7c296b965432237f620e7b326d4658a8225db9de0e95",
+      "bytes": 8636,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/templates/architecture_plan.md",
+      "sha256": "f78e68b4705da943f3985225a1eb86957a72449882ccb0d2f751d59ea354b60c",
+      "bytes": 907,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/docs/templates/red_team_review.md",
+      "sha256": "f1f6f3a6521cbb7be241e72d54fdb5f40c4635b701953f1781e8b8fa5cf1b946",
+      "bytes": 1219,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/scripts/ssot/validate_protocol.py",
+      "sha256": "ad140f99177e93207db1cd7c2be1728355a703dcc39166117fbaeddb04ad0309",
+      "bytes": 30565,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "packages/jeff_strict_ssot_v1/template/tests/ssot/test_validate_protocol.py",
+      "sha256": "d862de4c6a5518e96378c690e9ae9b1a3b08831123f3f9e2b26673cbeb5bf7bc",
+      "bytes": 27111,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "2808501e2fa3916dd17e6d4abb20edbb19d1f608e4024ebb27bc6344fe5ab238",
+      "bytes": 1162,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "scripts/verify_release.py",
+      "sha256": "1b4b99dbab5271649eaa766ebf76c1229a75e36ad6b66a4790684c54427ef9ad",
+      "bytes": 5879,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "src/yakherd/__init__.py",
+      "sha256": "bea130ce955fbf725b32fcbb17626fec75c16cf2639106515fef7cb81615f2d6",
+      "bytes": 62,
+      "preserved_as": "tracked-working-tree.patch"
+    },
+    {
+      "path": "yakherd.mp4",
+      "sha256": "3bda5af035e0e796bf688dcb7fcdf08ca574b521aac9ea42d36b640448de8d3c",
+      "bytes": 2699886,
+      "preserved_as": "yakherd.mp4"
+    }
+  ]
+}
